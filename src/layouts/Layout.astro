@@ -1,0 +1,163 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+import Arrow from "../components/Arrow.astro";
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+  image?: string;
+}
+const {
+  title,
+  description = site.description,
+  active = "",
+  image = "/images/between-forms.webp",
+} = Astro.props;
+const pageTitle = title
+  ? `${title} — Xiyu Wang`
+  : "Xiyu Wang — Sculptor, Tokyo";
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
+const socialImage = Astro.site ? new URL(image, Astro.site).href : image;
+const nav = [
+  { label: "Works", href: "/works/" },
+  { label: "About", href: "/about/" },
+  { label: "CV", href: "/cv/" },
+  { label: "Contact", href: "/contact/" },
+];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.role,
+  description: site.description,
+  sameAs: [`https://www.instagram.com/${site.instagram}/`],
+  workLocation: { "@type": "Place", name: "Tokyo, Japan" },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={socialImage} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{pageTitle}</title>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">
+      Skip to content
+    </a>
+    <header class="site-header page-gutter">
+      <a href="/" class="wordmark" aria-label="Xiyu Wang home">
+        XIYU WANG
+      </a>
+      <span class="header-location">Sculpture & objects · Tokyo, JP</span>
+      <button
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+      >
+        <span class="menu-label">Menu</span>
+        <span class="menu-icon" aria-hidden="true">
+          <i></i>
+          <i></i>
+        </span>
+      </button>
+      <nav
+        id="main-navigation"
+        class="main-navigation"
+        aria-label="Main navigation"
+      >
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={active === item.label ? "page" : undefined}
+          >
+            {item.label}
+            <span class="nav-dot" aria-hidden="true"></span>
+          </a>
+        ))}
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer page-gutter">
+      <a class="footer-name" href="/">
+        XIYU WANG<span>Sculptor, Tokyo</span>
+      </a>
+      <span class="copyright">© {new Date().getFullYear()} Xiyu Wang</span>
+      <a
+        class="footer-instagram"
+        href={`https://www.instagram.com/${site.instagram}/`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram <Arrow direction="diagonal" />
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <a class="back-top" href="#top" aria-label="Back to top">
+        <Arrow direction="down" />
+      </a>
+    </footer>
+    <script>
+      const menuButton =
+        document.querySelector<HTMLButtonElement>(".menu-toggle");
+      const navigation =
+        document.querySelector<HTMLElement>(".main-navigation");
+      function closeMenu() {
+        menuButton?.setAttribute("aria-expanded", "false");
+        navigation?.classList.remove("is-open");
+        const label = menuButton?.querySelector(".menu-label");
+        if (label) label.textContent = "Menu";
+      }
+      menuButton?.addEventListener("click", () => {
+        const open = menuButton.getAttribute("aria-expanded") !== "true";
+        menuButton.setAttribute("aria-expanded", String(open));
+        navigation?.classList.toggle("is-open", open);
+        const label = menuButton.querySelector(".menu-label");
+        if (label) label.textContent = open ? "Close" : "Menu";
+      });
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          menuButton?.getAttribute("aria-expanded") === "true"
+        ) {
+          closeMenu();
+          menuButton.focus();
+        }
+      });
+      window
+        .matchMedia("(min-width: 701px)")
+        .addEventListener("change", closeMenu);
+      document
+        .querySelector(".back-top")
+        ?.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "instant"
+              : "smooth",
+          });
+        });
+    </script>
+  </body>
+</html>

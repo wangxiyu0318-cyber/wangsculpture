@@ -1,0 +1,28 @@
+---
+import type { ArtworkImage } from "../data/projects";
+interface Props {
+  image: ArtworkImage;
+  eager?: boolean;
+  sizes?: string;
+  class?: string;
+}
+const {
+  image,
+  eager = false,
+  sizes = "(max-width: 700px) 100vw, 75vw",
+  class: className,
+} = Astro.props;
+---
+
+<img
+  class={className}
+  src={`/images/${image.src}.webp`}
+  srcset={`/images/${image.src}-640.webp 640w, /images/${image.src}-1024.webp 1024w, /images/${image.src}.webp ${image.width}w`}
+  sizes={sizes}
+  width={image.width}
+  height={image.height}
+  alt={image.alt}
+  loading={eager ? "eager" : "lazy"}
+  fetchpriority={eager ? "high" : "auto"}
+  decoding="async"
+/>

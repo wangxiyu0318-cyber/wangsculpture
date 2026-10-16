@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import WorkItem from "../../components/WorkItem.astro";
+import { projects, projectPeriod } from "../../data/projects";
+const filters = [
+  "All works",
+  ...new Set(projects.map((project) => project.category)),
+];
+const total = String(projects.length).padStart(2, "0");
+---
+
+<Layout
+  title="Works"
+  active="Works"
+  description="A visual archive of sculpture in wood, metal, enamel, paper and mixed materials by Xiyu Wang, Tokyo."
+>
+  <section class="archive page-gutter" id="top" aria-labelledby="works-heading">
+    <div class="page-heading">
+      <span class="eyebrow">Sculpture / Archive</span>
+      <h1 id="works-heading">
+        Works<span class="heading-count">({total})</span>
+      </h1>
+      <p>An ongoing conversation with material, form and space.</p>
+    </div>
+    <div class="archive-toolbar">
+      <div class="filters" role="group" aria-label="Filter works by material">
+        {filters.map((filter, i) => (
+          <button data-filter={i === 0 ? "all" : filter} aria-pressed={i === 0}>
+            {filter}
+            {i === 0 && <span>{total}</span>}
+          </button>
+        ))}
+      </div>
+      <span class="section-years">{projectPeriod}</span>
+    </div>
+    <p class="sr-only" id="filter-status" role="status" aria-live="polite">
+      Showing all {projects.length} works
+    </p>
+    <div class="archive-grid">
+      {projects.map((project, i) => (
+        <WorkItem
+          project={project}
+          number={String(i + 1).padStart(2, "0")}
+          class={`archive-work-${(i % 4) + 1}`}
+        />
+      ))}
+    </div>
+    <p class="sample-note">
+      A study in presentation. The works and images shown here are placeholders.
+    </p>
+  </section>
+  <script>
+    const filters =
+      document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const works = document.querySelectorAll<HTMLElement>(
+      ".archive-grid .work-item",
+    );
+    filters.forEach((button) =>
+      button.addEventListener("click", () => {
+        const selected = button.dataset.filter;
+        filters.forEach((filter) =>
+          filter.setAttribute("aria-pressed", String(filter === button)),
+        );
+        let count = 0;
+        works.forEach((work) => {
+          work.hidden =
+            selected !== "all" && work.dataset.material !== selected;
+          if (!work.hidden) count++;
+        });
+        document
+          .querySelector(".archive-grid")
+          ?.classList.toggle("is-filtered", selected !== "all");
+        const status = document.querySelector("#filter-status");
+        if (status)
+          status.textContent = `Showing ${count} ${count === 1 ? "work" : "works"}${selected === "all" ? "" : ` in ${selected}`}`;
+      }),
+    );
+  </script>
+</Layout>

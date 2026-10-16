@@ -1,0 +1,37 @@
+---
+import Artwork from "./Artwork.astro";
+import Arrow from "./Arrow.astro";
+import type { Project } from "../data/projects";
+interface Props {
+  project: Project;
+  number?: string;
+  class?: string;
+}
+const { project, number, class: className } = Astro.props;
+---
+
+<article class:list={["work-item", className]} data-material={project.category}>
+  <a class="work-link" href={`/works/${project.slug}/`}>
+    <div class="work-image">
+      <Artwork
+        image={project.images[0]}
+        sizes="(max-width: 700px) calc(100vw - 40px), 55vw"
+      />
+      <span class="work-open">
+        <Arrow direction="diagonal" />
+      </span>
+    </div>
+    <div class="work-caption">
+      <div class="work-title-row">
+        <h3>{project.title}</h3>
+        <span class="work-year">{project.year}</span>
+      </div>
+      <p>{project.materials}</p>
+    </div>
+  </a>
+  {number && (
+    <span class="work-number" aria-hidden="true">
+      {number}
+    </span>
+  )}
+</article>
