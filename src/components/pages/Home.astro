@@ -3,7 +3,6 @@ import { getLanguage, translator, localizedHref } from "../../i18n";
 import Layout from "../../layouts/Layout.astro";
 import Artwork from "../Artwork.astro";
 import Arrow from "../Arrow.astro";
-import ArtistLogo from "../ArtistLogo.astro";
 import { getProjects } from "../../data/projects";
 import { materials } from "../../data/materials";
 
@@ -31,22 +30,19 @@ const representativeWorks = representativeSlugs.map((slug) => {
         <span>Tokyo, Japan <span class="location-point" aria-hidden="true"></span></span>
       </div>
     </div>
-    <div class="home-signature">
-      <ArtistLogo class="signature-logo" />
-    </div>
     <div class="curated-sequence" role="group" aria-label={t("Selected works")}>
       {representativeWorks.map((project, index) => (
         <>
         <article
-          class:list={["curated-work", `curated-work-${positions[index]}`]}
-          style={`--work-width: ${project.images[0].width / project.images[0].height < 0.9 ? 38 : project.images[0].width / project.images[0].height > 1.2 ? 48 : 43}vw`}
+          class:list={["curated-work", `curated-work-${positions[index]}`, { "curated-work-portrait": project.images[0].width < project.images[0].height }]}
+          style={`grid-row: ${index + Math.floor(index / 2) + 1}`}
         >
           <a href={href(`works/${project.slug}/`)}>
             <figure>
               <Artwork
                 image={project.images[0]}
                 eager={index === 0}
-                sizes="(max-width: 700px) 86vw, (max-width: 1500px) 48vw, 720px"
+                sizes="(max-width: 700px) 86vw, (max-width: 1500px) 46vw, 680px"
               />
               <figcaption>
                 <div class="curated-title">
@@ -58,7 +54,10 @@ const representativeWorks = representativeSlugs.map((slug) => {
           </a>
         </article>
         {index % 2 === 1 && (
-          <div class:list={["material-entrance", `material-entrance-${materials[Math.floor(index / 2)].id}`]}>
+          <div
+            class:list={["material-entrance", `material-entrance-${materials[Math.floor(index / 2)].id}`]}
+            style={`grid-row: ${index + Math.floor(index / 2) + 2}`}
+          >
             <a href={`${href("works/")}?material=${materials[Math.floor(index / 2)].id}`}>
               {t(materials[Math.floor(index / 2)].entrance)} <Arrow />
             </a>
@@ -79,46 +78,44 @@ const representativeWorks = representativeSlugs.map((slug) => {
     padding-bottom: 80px;
   }
   .home-heading {
-    margin-bottom: 32px;
+    margin-bottom: 80px;
     align-items: flex-end;
   }
   .home-heading h1 {
-    font-size: clamp(58px, 9vw, 136px);
-    line-height: 1.04;
-    letter-spacing: -0.025em;
+    font-size: clamp(48px, 7.4vw, 112px);
+    font-weight: 325;
+    line-height: 1.08;
+    letter-spacing: 0.005em;
     margin-left: 0;
   }
-  .home-signature {
-    display: flex;
-    justify-content: flex-end;
-    padding-inline: 4%;
-    margin-block: 16px 40px;
-  }
   .curated-sequence {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(100px, 9vw, 160px);
-    padding-block: 16px 80px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: clamp(88px, 8vw, 120px);
+    padding-block: 8px 80px;
   }
   .curated-work {
-    width: min(var(--work-width), 720px);
-    max-width: 92%;
+    width: 100%;
+    max-width: 680px;
     min-width: 0;
   }
   .curated-work-left {
-    align-self: flex-start;
-    margin-left: 4%;
+    grid-column: 1 / 7;
+    justify-self: start;
   }
   .curated-work-right {
-    align-self: flex-end;
-    margin-right: 4%;
+    grid-column: 7 / 13;
+    justify-self: end;
   }
-  .curated-work-inset {
-    align-self: flex-start;
-    margin-left: 12%;
-  }
+  .curated-work-inset,
   .curated-work-center {
-    align-self: center;
+    grid-column: 4 / 10;
+    justify-self: center;
+  }
+  .curated-work-portrait {
+    width: 92%;
+    max-width: 640px;
   }
   .curated-work a {
     display: block;
@@ -133,8 +130,8 @@ const representativeWorks = representativeSlugs.map((slug) => {
   .curated-title h2 {
     overflow-wrap: anywhere;
     font-size: 15px;
-    font-weight: 450;
-    letter-spacing: -0.01em;
+    font-weight: 400;
+    letter-spacing: normal;
   }
   .curated-work figcaption p {
     margin-top: 4px;
@@ -143,27 +140,28 @@ const representativeWorks = representativeSlugs.map((slug) => {
     line-height: 1.7;
   }
   .material-entrance {
-    align-self: center;
-    margin-block: -36px;
+    grid-column: 4 / 10;
+    justify-self: start;
+    margin-block: -24px;
   }
   .material-entrance-wood {
-    margin-left: 24%;
+    grid-column: 7 / 13;
   }
   .material-entrance-metal {
-    margin-right: 24%;
+    grid-column: 1 / 7;
   }
   .material-entrance a {
     display: inline-flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     min-height: 44px;
-    font-size: clamp(24px, 2.4vw, 36px);
+    font-size: clamp(22px, 2vw, 28px);
     font-weight: 400;
     letter-spacing: 0.025em;
   }
   .material-entrance :global(.arrow) {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
   .archive-entrance {
     display: flex;
@@ -179,40 +177,31 @@ const representativeWorks = representativeSlugs.map((slug) => {
       padding-bottom: 48px;
     }
     .home-heading {
-      margin-bottom: 24px;
+      margin-bottom: 40px;
     }
     .home-heading h1 {
-      font-size: clamp(38px, 11.8vw, 76px);
-    }
-    .home-signature {
-      margin-block: 8px 28px;
-      padding-inline: 0;
+      font-size: clamp(32px, 9.7vw, 62px);
     }
     .curated-sequence {
-      gap: 48px;
-      padding-block: 8px 48px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 44px;
+      padding-block: 0 48px;
     }
     .curated-work {
+      grid-column: 1;
       width: 86vw;
       max-width: 100%;
-      margin-inline: 0;
-    }
-    .curated-title h2 {
-      font-size: 15px;
     }
     .curated-work figcaption p {
       font-size: 13px;
     }
     .material-entrance {
+      grid-column: 1;
       margin: -8px 0;
     }
     .material-entrance a {
-      font-size: 24px;
+      font-size: 22px;
       gap: 12px;
-    }
-    .material-entrance :global(.arrow) {
-      width: 18px;
-      height: 18px;
     }
   }
 </style>
