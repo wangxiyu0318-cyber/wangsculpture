@@ -33,7 +33,7 @@ export const projects: Project[] = [
       {
         src: "somira-01",
         alt: "Somira, a large carved wooden sculpture with two guardian faces, displayed in an atrium",
-        caption: "Somira, installation view",
+        caption: "",
         width: 2400,
         height: 3600,
       },
