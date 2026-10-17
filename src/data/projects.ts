@@ -17,17 +17,18 @@ export type Project = {
   images: ArtworkImage[];
 };
 
-// Only the titles have been supplied by the artist so far.
+// Somira’s information is verified; the other projects currently have titles only.
 // Keep unknown information empty; add verified details and images project by project.
 export const projects: Project[] = [
   {
     slug: "somira",
     title: "Somira",
-    year: "",
-    materials: "",
-    category: "",
-    dimensions: "",
-    description: "",
+    year: "2025",
+    materials: "Camphor wood",
+    category: "Wood",
+    dimensions: "H 230 × W 170 × D 200 cm",
+    description:
+      "Somira is a large-scale wooden sculpture inspired in part by the image of a dual-bodied Bishamonten.\n\nFor me, this figure is connected to the boundary between life and death. I was especially interested in working with scale. I made the sculpture much larger than the human body so that the viewer has to physically confront its presence.\n\nDeath is something enormous and always present, even when we try not to think about it. I wanted Somira to feel like a guardian standing somewhere between life and death, creating a moment in which the viewer becomes aware of that constant presence.",
     images: [],
   },
   {

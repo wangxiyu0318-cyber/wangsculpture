@@ -89,7 +89,14 @@ const cover = project.images[0];
           </div>
         </dl>
         <div class="project-description">
-          <p class:list={{ muted: !project.description }}>
+          <p
+            class:list={{ muted: !project.description }}
+            style={
+              project.description.includes("\n")
+                ? "white-space: pre-line;"
+                : undefined
+            }
+          >
             {project.description || "Project information to be added."}
           </p>
         </div>

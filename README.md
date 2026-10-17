@@ -27,7 +27,7 @@ In the restricted cloud environment, use `npm ci --cache /tmp/xiyu-npm-cache`. T
 - **`src/pages/`** — Home, Works, project template, About, CV, Contact and 404.
 - **`public/images/`** — location for real optimized WebP photographs, in three sizes; created by the image helper when needed.
 
-The four current projects are Somira, Four-Gates Pagoda, NIOU and Nezha’s Bike. Only their titles have been supplied. Years, materials, categories, dimensions and descriptions remain empty strings; image arrays are empty. Neutral image areas preserve the layout until real photographs are supplied. The biography, artist statement and CV records are also empty. Add only information supplied or verified by the artist; do not generate artwork details or artist writing.
+The four current projects are Somira, Four-Gates Pagoda, NIOU and Nezha’s Bike. Somira has artist-verified year, materials, dimensions and description; its photographs are awaiting upload. The other three projects have titles only, with all other details empty. Neutral image areas preserve the layout until real photographs are supplied. The biography, artist statement and CV records are also empty. Add only information supplied or verified by the artist; do not generate artwork details or artist writing.
 
 The public email is intentionally empty. Set `site.email` to activate the email link. Instagram is already linked to `@wxy_wonka`.
 
