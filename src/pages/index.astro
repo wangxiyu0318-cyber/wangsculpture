@@ -32,6 +32,7 @@ const total = String(projects.length).padStart(2, "0");
       {hero.images[0] ? (
         <Artwork
           image={hero.images[0]}
+          class={hero.slug === "somira" ? "somira-cover" : undefined}
           eager
           sizes="(max-width: 700px) 100vw, calc(100vw - 96px)"
         />

@@ -1800,3 +1800,9 @@ img {
     transform: none;
   }
 }
+
+/* Keep the complete Somira photograph inside the existing hero frame. */
+.hero-artwork > img.somira-cover {
+  object-fit: contain;
+  transform: none;
+}
