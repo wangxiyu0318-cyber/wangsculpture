@@ -73,7 +73,15 @@ export const projects: Project[] = [
     category: "",
     dimensions: "",
     description: "",
-    images: [],
+    images: [
+      {
+        src: "niou-01",
+        alt: "NIOU, two standing guardian figures on plinths at a gallery entrance",
+        caption: "",
+        width: 2400,
+        height: 1800,
+      },
+    ],
   },
   {
     slug: "nezhas-bike",
@@ -83,7 +91,15 @@ export const projects: Project[] = [
     category: "",
     dimensions: "",
     description: "",
-    images: [],
+    images: [
+      {
+        src: "nezhas-bike-01",
+        alt: "Nezha’s Bike, a sculpture with a dark skeletal framework and two large carved heads",
+        caption: "",
+        width: 2400,
+        height: 1600,
+      },
+    ],
   },
 ];
 
