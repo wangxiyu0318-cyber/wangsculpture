@@ -6,6 +6,12 @@ const filters = [
   "All works",
   ...new Set(projects.map((project) => project.category).filter(Boolean)),
 ];
+const years = [...new Set(projects.map((project) => project.year))]
+  .sort((a, b) => Number(b) - Number(a));
+const projectsByYear = years.map((year) => ({
+  year,
+  projects: projects.filter((project) => project.year === year),
+}));
 const total = String(projects.length).padStart(2, "0");
 ---
 
@@ -35,16 +41,21 @@ const total = String(projects.length).padStart(2, "0");
     <p class="sr-only" id="filter-status" role="status" aria-live="polite">
       Showing all {projects.length} works
     </p>
-    <div class="archive-grid">
-      {projects.map((project, i) => (
-        <WorkItem
-          project={project}
-          number={String(i + 1).padStart(2, "0")}
-          class={`archive-work-${(i % 4) + 1}`}
-          format={i % 4 === 1 ? "portrait" : "landscape"}
-        />
-      ))}
-    </div>
+    {projectsByYear.map((group) => (
+      <section class="archive-year" data-year={group.year} aria-labelledby={`year-${group.year}`}>
+        <h2 class="archive-year-heading eyebrow" id={`year-${group.year}`}>{group.year}</h2>
+        <div class="archive-grid">
+          {group.projects.map((project, i) => (
+            <WorkItem
+              project={project}
+              number={String(projects.indexOf(project) + 1).padStart(2, "0")}
+              class={`archive-work-${(i % 4) + 1}`}
+              format={i % 4 === 1 ? "portrait" : "landscape"}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
   </section>
   <script>
     const filters =
@@ -64,9 +75,12 @@ const total = String(projects.length).padStart(2, "0");
             selected !== "all" && work.dataset.material !== selected;
           if (!work.hidden) count++;
         });
-        document
-          .querySelector(".archive-grid")
-          ?.classList.toggle("is-filtered", selected !== "all");
+        document.querySelectorAll<HTMLElement>(".archive-year").forEach((group) => {
+          group.hidden = !Array.from(group.querySelectorAll<HTMLElement>(".work-item"))
+            .some((work) => !work.hidden);
+          group.querySelector(".archive-grid")
+            ?.classList.toggle("is-filtered", selected !== "all");
+        });
         const status = document.querySelector("#filter-status");
         if (status)
           status.textContent = `Showing ${count} ${count === 1 ? "work" : "works"}${selected === "all" ? "" : ` in ${selected}`}`;
@@ -74,3 +88,24 @@ const total = String(projects.length).padStart(2, "0");
     );
   </script>
 </Layout>
+
+<style>
+  .archive-year + .archive-year {
+    margin-top: 90px;
+  }
+  .archive-year-heading {
+    color: var(--muted);
+    margin-bottom: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 700px) {
+    .archive-year + .archive-year {
+      margin-top: 60px;
+    }
+    .archive-year-heading {
+      margin-bottom: 24px;
+      font-size: 12px;
+    }
+  }
+</style>

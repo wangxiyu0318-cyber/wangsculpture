@@ -5,7 +5,16 @@ import ArtworkPlaceholder from "../components/ArtworkPlaceholder.astro";
 import WorkItem from "../components/WorkItem.astro";
 import Arrow from "../components/Arrow.astro";
 import { projects, projectPeriod } from "../data/projects";
-const hero = projects[0];
+const featured = {
+  hero: "somira",
+  selected: ["four-gates-pagoda", "cave", "minira"],
+};
+function getFeaturedProject(slug: string) {
+  const project = projects.find((project) => project.slug === slug);
+  if (!project) throw new Error(`Unknown featured project: ${slug}`);
+  return project;
+}
+const hero = getFeaturedProject(featured.hero);
 const total = String(projects.length).padStart(2, "0");
 ---
 
@@ -73,13 +82,13 @@ const total = String(projects.length).padStart(2, "0");
     </div>
     <div class="selected-grid">
       <WorkItem
-        project={projects[1]}
+        project={getFeaturedProject(featured.selected[0])}
         number="02"
         class="selected-one"
         format="portrait"
       />
-      <WorkItem project={projects[2]} number="03" class="selected-two" />
-      <WorkItem project={projects[3]} number="04" class="selected-three" />
+      <WorkItem project={getFeaturedProject(featured.selected[1])} number="03" class="selected-two" />
+      <WorkItem project={getFeaturedProject(featured.selected[2])} number="04" class="selected-three" />
     </div>
   </section>
   <section class="home-about page-gutter">

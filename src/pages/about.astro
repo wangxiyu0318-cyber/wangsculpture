@@ -32,6 +32,7 @@ import { biography, statement } from "../data/site";
       />
       </figure>
     </div>
+    {statement.trim() && (
     <div class="statement-row">
       <h2 class="eyebrow">Artist statement</h2>
       <div>
@@ -43,6 +44,7 @@ import { biography, statement } from "../data/site";
         </a>
       </div>
     </div>
+    )}
   </section>
 </Layout>
 
