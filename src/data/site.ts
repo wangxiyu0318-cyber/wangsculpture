@@ -19,32 +19,22 @@ export const cv: {
   entries: { year: string; title: string; place: string; upcoming?: boolean }[];
 }[] = [
   {
-    "heading": "EDUCATION",
+    "heading": "SOLO EXHIBITIONS",
     "entries": [
       {
-        "year": "2024",
-        "title": "MA in Metalwork",
-        "place": "Musashino Art University, Tokyo, Japan"
+        "year": "2026",
+        "title": "The Constant Flow",
+        "place": "Montsalvat – Wood Workshop, Melbourne, Australia"
       },
       {
-        "year": "2022",
-        "title": "MA in Sculpture",
-        "place": "Musashino Art University, Tokyo, Japan"
+        "year": "2025",
+        "title": "UNNATURAL NATURALNESS",
+        "place": "Koganecho Area Management Center, Yokohama"
       }
     ]
   },
   {
-    "heading": "PROFESSIONAL EXPERIENCE",
-    "entries": [
-      {
-        "year": "2025–Present",
-        "title": "Research Associate, Metalwork Course",
-        "place": "Musashino Art University, Tokyo"
-      }
-    ]
-  },
-  {
-    "heading": "SELECTED EXHIBITIONS",
+    "heading": "SELECTED GROUP EXHIBITIONS",
     "entries": [
       {
         "year": "2026",
@@ -52,19 +42,9 @@ export const cv: {
         "place": "BrainBrunn Art Gallery, Tokyo"
       },
       {
-        "year": "2026",
-        "title": "Solo Exhibition “The Constant Flow”",
-        "place": "Montsalvat – Wood Workshop, Melbourne, Australia"
-      },
-      {
         "year": "2025",
         "title": "SICF26 Exhibition-B",
         "place": "Spiral Garden, Tokyo"
-      },
-      {
-        "year": "2025",
-        "title": "Solo Exhibition “UNNATURAL NATURALNESS”",
-        "place": "Koganecho Area Management Center, Yokohama"
       },
       {
         "year": "2025",
@@ -136,6 +116,31 @@ export const cv: {
         "title": "Sculpture Space Residency",
         "place": "Utica, New York, USA — Summer 2027",
         "upcoming": true
+      }
+    ]
+  },
+  {
+    "heading": "EDUCATION",
+    "entries": [
+      {
+        "year": "2024",
+        "title": "MA in Metalwork",
+        "place": "Musashino Art University, Tokyo, Japan"
+      },
+      {
+        "year": "2022",
+        "title": "MA in Sculpture",
+        "place": "Musashino Art University, Tokyo, Japan"
+      }
+    ]
+  },
+  {
+    "heading": "PROFESSIONAL EXPERIENCE",
+    "entries": [
+      {
+        "year": "2025–Present",
+        "title": "Research Associate, Metalwork Course",
+        "place": "Musashino Art University, Tokyo"
       }
     ]
   }
