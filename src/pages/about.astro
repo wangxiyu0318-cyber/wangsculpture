@@ -12,15 +12,14 @@ import { biography, statement } from "../data/site";
       <h1>About</h1>
     </div>
     <div class="about-lead">
-      <h2>Xiyu Wang</h2>
-      <div>
+      <div class="about-biography">
+        <h2>Xiyu Wang</h2>
         {(biography || "Biography to be added.").split("\n\n").map((paragraph) => (
           <p class:list={{ muted: !biography }}>{paragraph}</p>
         ))}
         <span class="eyebrow">Based in Tokyo, Japan</span>
       </div>
-    </div>
-    <figure class="about-image">
+      <figure class="about-image">
       <Artwork
         image={{
           src: "about-xiyu-wang",
@@ -29,9 +28,10 @@ import { biography, statement } from "../data/site";
           width: 2400,
           height: 3200,
         }}
-        sizes="(max-width: 700px) 100vw, calc(100vw - 96px)"
+        sizes="(max-width: 700px) min(320px, calc(100vw - 48px)), 360px"
       />
-    </figure>
+      </figure>
+    </div>
     <div class="statement-row">
       <h2 class="eyebrow">Artist statement</h2>
       <div>
@@ -47,7 +47,39 @@ import { biography, statement } from "../data/site";
 </Layout>
 
 <style>
+  .about-lead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+    gap: clamp(40px, 7vw, 100px);
+    max-width: 1100px;
+    padding-bottom: 0;
+    align-items: start;
+  }
+  .about-biography h2 {
+    margin-bottom: 32px;
+  }
+  .about-biography p + p {
+    margin-top: 20px;
+  }
+  .about-image {
+    width: 100%;
+    max-width: 360px;
+    margin: 0;
+  }
   .about-image :global(img) {
-    object-position: center 25%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+  @media (max-width: 700px) {
+    .about-lead {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+    .about-image {
+      max-width: 320px;
+    }
   }
 </style>
