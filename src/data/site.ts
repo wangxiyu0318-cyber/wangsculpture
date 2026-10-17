@@ -19,6 +19,17 @@ export const cv: {
   entries: { year: string; title: string; place: string; upcoming?: boolean }[];
 }[] = [
   {
+    "heading": "RESIDENCIES",
+    "entries": [
+      {
+        "year": "2027",
+        "title": "Sculpture Space Residency",
+        "place": "Utica, New York, USA — Summer 2027",
+        "upcoming": true
+      }
+    ]
+  },
+  {
     "heading": "SOLO EXHIBITIONS",
     "entries": [
       {
@@ -105,17 +116,6 @@ export const cv: {
         "year": "2018",
         "title": "Stage play Tsanglong",
         "place": "Musashino Art University, Tokyo"
-      }
-    ]
-  },
-  {
-    "heading": "RESIDENCIES",
-    "entries": [
-      {
-        "year": "2027",
-        "title": "Sculpture Space Residency",
-        "place": "Utica, New York, USA — Summer 2027",
-        "upcoming": true
       }
     ]
   },
