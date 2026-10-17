@@ -26,7 +26,7 @@ const total = String(projects.length).padStart(2, "0");
     </div>
     <a
       class="hero-artwork"
-      href={`/works/${hero.slug}/`}
+      href={`${import.meta.env.BASE_URL}works/${hero.slug}/`}
       aria-label={`View ${hero.title}`}
     >
       {hero.images[0] ? (
@@ -67,7 +67,7 @@ const total = String(projects.length).padStart(2, "0");
         Selected works <span class="count">(03)</span>
       </h2>
       <span class="section-years">{projectPeriod}</span>
-      <a class="text-link" href="/works/">
+      <a class="text-link" href={import.meta.env.BASE_URL + "works/"}>
         View all works <Arrow />
       </a>
     </div>
@@ -87,7 +87,7 @@ const total = String(projects.length).padStart(2, "0");
     <div>
       <h2>Xiyu Wang</h2>
       <p>Sculptor based in Tokyo, Japan.</p>
-      <a href="/about/" class="text-link">
+      <a href={import.meta.env.BASE_URL + "about/"} class="text-link">
         About the artist <Arrow />
       </a>
     </div>

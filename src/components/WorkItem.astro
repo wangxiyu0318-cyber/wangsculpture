@@ -13,7 +13,7 @@ const { project, number, class: className, format = "landscape" } = Astro.props;
 ---
 
 <article class:list={["work-item", className]} data-material={project.category}>
-  <a class="work-link" href={`/works/${project.slug}/`}>
+  <a class="work-link" href={`${import.meta.env.BASE_URL}works/${project.slug}/`}>
     <div class="work-image">
       {project.images[0] ? (
         <Artwork

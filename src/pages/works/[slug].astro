@@ -29,10 +29,10 @@ const cover = project.images[0];
   ]
     .filter(Boolean)
     .join(". ")}
-  image={cover ? `/images/${cover.src}.webp` : undefined}
+  image={cover ? `${import.meta.env.BASE_URL}images/${cover.src}.webp` : undefined}
 >
   <article class="project page-gutter" id="top">
-    <a class="back-link" href="/works/">
+    <a class="back-link" href={import.meta.env.BASE_URL + "works/"}>
       <Arrow /> All works
     </a>
     <header class="project-heading">
@@ -122,7 +122,7 @@ const cover = project.images[0];
         </figure>
       ))}
     </div>
-    <a class="next-project" href={`/works/${next.slug}/`}>
+    <a class="next-project" href={`${import.meta.env.BASE_URL}works/${next.slug}/`}>
       <span class="eyebrow">Next work</span>
       <span class="next-title">{next.title}</span>
       <Arrow />
@@ -142,7 +142,7 @@ const cover = project.images[0];
         </button>
         <img
           class="lightbox-image"
-          src={`/images/${cover.src}.webp`}
+          src={`${import.meta.env.BASE_URL}images/${cover.src}.webp`}
           alt={cover.alt}
           loading="lazy"
         />
@@ -156,7 +156,7 @@ const cover = project.images[0];
       </div>
     </dialog>
   )}
-  <script define:vars={{ images: project.images }}>
+  <script define:vars={{ images: project.images, base: import.meta.env.BASE_URL }}>
     const viewer = document.querySelector(".lightbox");
     if (viewer) {
       const photo = viewer.querySelector(".lightbox-image");
@@ -164,7 +164,7 @@ const cover = project.images[0];
       let trigger;
       function showImage(index) {
         current = (index + images.length) % images.length;
-        photo.src = `/images/${images[current].src}.webp`;
+        photo.src = `${base}images/${images[current].src}.webp`;
         photo.alt = images[current].alt;
         viewer.querySelector(".lightbox-caption").textContent =
           images[current].caption;

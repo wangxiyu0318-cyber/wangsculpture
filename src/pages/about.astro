@@ -29,7 +29,7 @@ import { biography, statement } from "../data/site";
         <p class:list={["statement", { muted: !statement }]}>
           {statement || "Artist statement to be added."}
         </p>
-        <a href="/cv/" class="text-link">
+        <a href={import.meta.env.BASE_URL + "cv/"} class="text-link">
           CV & exhibitions <Arrow />
         </a>
       </div>
