@@ -1806,3 +1806,179 @@ img {
   object-fit: contain;
   transform: none;
 }
+
+/* Narrow phones: retain the desktop layout while giving content room to wrap. */
+@media (max-width: 430px) {
+  .page-heading h1,
+  .project-heading h1,
+  .next-title,
+  .work-title-row h3,
+  .cv-entry,
+  .contact-row > a {
+    overflow-wrap: anywhere;
+  }
+  .home-heading h1 {
+    font-size: clamp(42px, 13.5vw, 58px);
+  }
+  .page-heading h1,
+  .cv-page .page-heading h1,
+  .contact-page .page-heading h1 {
+    font-size: clamp(40px, 12vw, 51px);
+  }
+  .project-heading {
+    gap: 12px;
+    margin-block: 24px;
+  }
+  .project-heading > div,
+  .work-title-row h3,
+  .project-details > *,
+  .cv-entry > *,
+  .contact-row > a {
+    min-width: 0;
+  }
+  .project-heading h1 {
+    font-size: clamp(34px, 10vw, 43px);
+  }
+  .project-index,
+  .work-year {
+    flex-shrink: 0;
+  }
+  .work-title-row {
+    gap: 12px;
+  }
+  .next-project {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 16px;
+  }
+  .hero-caption {
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 8px 16px;
+  }
+  .hero-material {
+    white-space: normal;
+  }
+  .caption-index,
+  .hero-material,
+  .count,
+  .work-number,
+  .page-heading > .eyebrow,
+  .project-heading .eyebrow,
+  .project-index,
+  .project-figure figcaption,
+  .next-project > .eyebrow,
+  .copyright,
+  .footer-name > span,
+  .contact-signoff {
+    font-size: 12px;
+  }
+  .home-location,
+  .work-year,
+  .work-caption p,
+  .footer-name,
+  .footer-instagram,
+  .menu-toggle,
+  .text-link,
+  .section-heading > .text-link,
+  .back-link,
+  .lightbox-top,
+  .lightbox-bottom,
+  .lightbox-close,
+  .cv-intro p,
+  .contact-location {
+    font-size: 14px;
+  }
+  .section-heading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-heading h2,
+  .home-about > .eyebrow,
+  .statement-row > h2,
+  .cv-intro > .eyebrow,
+  .contact-row > .eyebrow {
+    font-size: 12px;
+  }
+  .selected-section {
+    padding-block: 48px;
+  }
+  .selected-grid,
+  .archive-grid {
+    gap: 48px;
+  }
+  .home-about p {
+    font-size: 15px;
+  }
+  .filters {
+    flex-wrap: wrap;
+    gap: 4px 20px;
+    overflow: visible;
+  }
+  .filters > button {
+    font-size: 14px;
+  }
+  .filters button span {
+    font-size: 12px;
+  }
+  .project-details {
+    gap: 24px;
+    padding-block: 28px;
+    margin-bottom: 28px;
+  }
+  .project-details dl > div {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    font-size: 14px;
+  }
+  .project-description > p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .cv-entry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding-bottom: 28px;
+    font-size: 14px;
+  }
+  .cv-entry h3 {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .cv-entry p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .contact-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding-block: 16px 20px;
+  }
+  .contact-row > a {
+    font-size: clamp(18px, 5.2vw, 22px);
+    min-height: 44px;
+  }
+  .contact-content {
+    padding-bottom: 36px;
+  }
+  .contact-location {
+    margin-bottom: 28px;
+  }
+  .text-link,
+  .back-link,
+  .footer-name,
+  .footer-instagram,
+  .back-top {
+    min-height: 44px;
+  }
+  .back-top {
+    width: 44px;
+  }
+  .lightbox-stage {
+    min-width: 0;
+  }
+  .lightbox-image {
+    min-height: 0;
+    max-height: 100%;
+  }
+}
