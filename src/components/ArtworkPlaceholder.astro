@@ -1,0 +1,15 @@
+---
+interface Props {
+  title?: string;
+  format?: "landscape" | "portrait" | "hero";
+}
+const { title, format = "landscape" } = Astro.props;
+---
+
+<div
+  class:list={["artwork-placeholder", `placeholder-${format}`]}
+  role="img"
+  aria-label={title ? `${title}: image to be added` : "Image to be added"}
+>
+  <span>Image to be added</span>
+</div>

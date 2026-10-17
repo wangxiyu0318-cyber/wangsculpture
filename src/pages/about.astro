@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Arrow from "../components/Arrow.astro";
-import Artwork from "../components/Artwork.astro";
-import { projects } from "../data/projects";
+import ArtworkPlaceholder from "../components/ArtworkPlaceholder.astro";
 import { biography, statement } from "../data/site";
 ---
 
@@ -13,30 +12,22 @@ import { biography, statement } from "../data/site";
       <h1>About</h1>
     </div>
     <div class="about-lead">
-      <h2>
-        A dialogue between
-        <br />
-        material and form.
-      </h2>
+      <h2>Xiyu Wang</h2>
       <div>
-        <p>{biography}</p>
+        <p class:list={{ muted: !biography }}>
+          {biography || "Biography to be added."}
+        </p>
         <span class="eyebrow">Based in Tokyo, Japan</span>
       </div>
     </div>
     <figure class="about-image">
-      <Artwork
-        image={projects[2].images[0]}
-        eager
-        sizes="(max-width: 700px) 100vw, 90vw"
-      />
-      <figcaption>Material study · Placeholder artwork</figcaption>
+      <ArtworkPlaceholder />
     </figure>
     <div class="statement-row">
       <h2 class="eyebrow">Artist statement</h2>
       <div>
-        <p class="statement">{statement}</p>
-        <p class="sample-note">
-          Working statement · To be reviewed by the artist
+        <p class:list={["statement", { muted: !statement }]}>
+          {statement || "Artist statement to be added."}
         </p>
         <a href="/cv/" class="text-link">
           CV & exhibitions <Arrow />

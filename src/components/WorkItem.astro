@@ -1,22 +1,28 @@
 ---
 import Artwork from "./Artwork.astro";
+import ArtworkPlaceholder from "./ArtworkPlaceholder.astro";
 import Arrow from "./Arrow.astro";
 import type { Project } from "../data/projects";
 interface Props {
   project: Project;
   number?: string;
   class?: string;
+  format?: "landscape" | "portrait";
 }
-const { project, number, class: className } = Astro.props;
+const { project, number, class: className, format = "landscape" } = Astro.props;
 ---
 
 <article class:list={["work-item", className]} data-material={project.category}>
   <a class="work-link" href={`/works/${project.slug}/`}>
     <div class="work-image">
-      <Artwork
-        image={project.images[0]}
-        sizes="(max-width: 700px) calc(100vw - 40px), 55vw"
-      />
+      {project.images[0] ? (
+        <Artwork
+          image={project.images[0]}
+          sizes="(max-width: 700px) calc(100vw - 40px), 55vw"
+        />
+      ) : (
+        <ArtworkPlaceholder title={project.title} format={format} />
+      )}
       <span class="work-open">
         <Arrow direction="diagonal" />
       </span>
@@ -24,9 +30,9 @@ const { project, number, class: className } = Astro.props;
     <div class="work-caption">
       <div class="work-title-row">
         <h3>{project.title}</h3>
-        <span class="work-year">{project.year}</span>
+        {project.year && <span class="work-year">{project.year}</span>}
       </div>
-      <p>{project.materials}</p>
+      {project.materials && <p>{project.materials}</p>}
     </div>
   </a>
   {number && (

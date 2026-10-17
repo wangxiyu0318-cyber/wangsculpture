@@ -25,9 +25,9 @@ In the restricted cloud environment, use `npm ci --cache /tmp/xiyu-npm-cache`. T
 - **`src/data/site.ts`** — biography, working artist statement, Instagram, public email and CV records.
 - **`src/styles/global.css`** — typography, spacing and responsive layouts.
 - **`src/pages/`** — Home, Works, project template, About, CV, Contact and 404.
-- **`public/images/`** — local optimized WebP photographs, in three sizes.
+- **`public/images/`** — location for real optimized WebP photographs, in three sizes; created by the image helper when needed.
 
-All four current projects, their dates, dimensions, descriptions and generated images are illustrative placeholders. The artist statement is draft copy. Replace these with the artist’s verified content before publishing. No exhibition or residency history has been invented. The CV sections currently display “Details to be added.”
+The four current projects are Somira, Four-Gates Pagoda, NIOU and Nezha’s Bike. Only their titles have been supplied. Years, materials, categories, dimensions and descriptions remain empty strings; image arrays are empty. Neutral image areas preserve the layout until real photographs are supplied. The biography, artist statement and CV records are also empty. Add only information supplied or verified by the artist; do not generate artwork details or artist writing.
 
 The public email is intentionally empty. Set `site.email` to activate the email link. Instagram is already linked to `@wxy_wonka`.
 
@@ -65,4 +65,4 @@ This activates canonical URLs and absolute social-sharing image URLs. The site i
 
 Keyboard users can skip to the main content, use material filters, open images, move between images with arrow keys, and close the viewer with Escape. The native modal dialog manages focus and restores it to the originating image. Mobile navigation supports Escape. Motion respects `prefers-reduced-motion`.
 
-Images have explicit dimensions and responsive sources. Below-the-fold artwork is lazy-loaded; the first main image loads eagerly. Fonts are served locally, with the license in `public/fonts/LICENSE.txt`.
+Once added, images have explicit dimensions and responsive sources. Below-the-fold artwork is lazy-loaded; the first main image loads eagerly. Fonts are served locally, with the license in `public/fonts/LICENSE.txt`.

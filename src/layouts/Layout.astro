@@ -12,7 +12,7 @@ const {
   title,
   description = site.description,
   active = "",
-  image = "/images/between-forms.webp",
+  image,
 } = Astro.props;
 const pageTitle = title
   ? `${title} — Xiyu Wang`
@@ -20,7 +20,8 @@ const pageTitle = title
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : undefined;
-const socialImage = Astro.site ? new URL(image, Astro.site).href : image;
+const socialImage =
+  image && Astro.site ? new URL(image, Astro.site).href : image;
 const nav = [
   { label: "Works", href: "/works/" },
   { label: "About", href: "/about/" },
@@ -48,10 +49,13 @@ const structuredData = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={socialImage} />
+    {socialImage && <meta property="og:image" content={socialImage} />}
     {canonical && <link rel="canonical" href={canonical} />}
     {canonical && <meta property="og:url" content={canonical} />}
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:card"
+      content={socialImage ? "summary_large_image" : "summary"}
+    />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{pageTitle}</title>
     <script
@@ -67,7 +71,7 @@ const structuredData = {
       <a href="/" class="wordmark" aria-label="Xiyu Wang home">
         XIYU WANG
       </a>
-      <span class="header-location">Sculpture & objects · Tokyo, JP</span>
+      <span class="header-location">Sculptor · Tokyo, JP</span>
       <button
         class="menu-toggle"
         aria-expanded="false"

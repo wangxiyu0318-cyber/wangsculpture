@@ -309,12 +309,30 @@ img {
   display: flex;
   gap: 26px;
   align-items: center;
-  margin-left: 10%;
+  margin-left: auto;
   color: #686b63;
 }
 .explore-link .arrow {
   width: 16px;
   height: 16px;
+}
+.artwork-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #efeeea;
+  color: var(--muted);
+  font-size: 11px;
+}
+.placeholder-portrait {
+  aspect-ratio: 1122 / 1402;
+}
+.placeholder-hero {
+  aspect-ratio: 2.09;
+}
+.about-image > .artwork-placeholder {
+  aspect-ratio: 1.9;
 }
 .selected-section {
   padding-top: 125px;
@@ -1241,6 +1259,12 @@ img {
   }
   .hero-view {
     display: none;
+  }
+  .placeholder-hero {
+    aspect-ratio: 1672 / 941;
+  }
+  .about-image > .artwork-placeholder {
+    aspect-ratio: 4 / 3;
   }
   .hero-caption {
     padding-top: 13px;

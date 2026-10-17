@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Artwork from "../../components/Artwork.astro";
+import ArtworkPlaceholder from "../../components/ArtworkPlaceholder.astro";
 import Arrow from "../../components/Arrow.astro";
 import { projects } from "../../data/projects";
 export function getStaticPaths() {
@@ -13,13 +14,22 @@ const { project, index } = Astro.props;
 const next = projects[(index + 1) % projects.length];
 const number = (value: number) => String(value).padStart(2, "0");
 const imageCount = number(project.images.length);
+const cover = project.images[0];
 ---
 
 <Layout
   title={project.title}
   active="Works"
-  description={`${project.title} (${project.year}). ${project.materials}. ${project.description}`}
-  image={`/images/${project.images[0].src}.webp`}
+  description={[
+    project.title,
+    "Xiyu Wang",
+    project.year,
+    project.materials,
+    project.description,
+  ]
+    .filter(Boolean)
+    .join(". ")}
+  image={cover ? `/images/${cover.src}.webp` : undefined}
 >
   <article class="project page-gutter" id="top">
     <a class="back-link" href="/works/">
@@ -27,7 +37,9 @@ const imageCount = number(project.images.length);
     </a>
     <header class="project-heading">
       <div>
-        <span class="eyebrow">Sculpture · {project.year}</span>
+        <span class="eyebrow">
+          Project{project.year && ` · ${project.year}`}
+        </span>
         <h1>{project.title}</h1>
       </div>
       <span class="project-index">
@@ -35,46 +47,51 @@ const imageCount = number(project.images.length);
       </span>
     </header>
     <div class="project-gallery">
-      <figure class="project-figure primary-figure">
-        <button
-          class="image-button"
-          data-gallery-index="0"
-          aria-label={`Enlarge ${project.images[0].caption}`}
-        >
-          <Artwork
-            image={project.images[0]}
-            eager
-            sizes="(max-width: 700px) 100vw, 90vw"
-          />
-          <span class="enlarge-icon" aria-hidden="true">
-            ↗
-          </span>
-        </button>
-        <figcaption>
-          <span>{project.images[0].caption}</span>
-          <span>01 / {imageCount}</span>
-        </figcaption>
-      </figure>
+      {cover ? (
+        <figure class="project-figure primary-figure">
+          <button
+            class="image-button"
+            data-gallery-index="0"
+            aria-label={`Enlarge ${cover.caption}`}
+          >
+            <Artwork
+              image={cover}
+              eager
+              sizes="(max-width: 700px) 100vw, 90vw"
+            />
+            <span class="enlarge-icon" aria-hidden="true">
+              ↗
+            </span>
+          </button>
+          <figcaption>
+            <span>{cover.caption}</span>
+            <span>01 / {imageCount}</span>
+          </figcaption>
+        </figure>
+      ) : (
+        <div class="primary-figure">
+          <ArtworkPlaceholder title={project.title} />
+        </div>
+      )}
       <div class="project-details">
         <dl>
           <div>
             <dt>Year</dt>
-            <dd>{project.year}</dd>
+            <dd>{project.year || "To be added"}</dd>
           </div>
           <div>
             <dt>Materials</dt>
-            <dd>{project.materials}</dd>
+            <dd>{project.materials || "To be added"}</dd>
           </div>
           <div>
             <dt>Dimensions</dt>
-            <dd>{project.dimensions}</dd>
+            <dd>{project.dimensions || "To be added"}</dd>
           </div>
         </dl>
         <div class="project-description">
-          <p>{project.description}</p>
-          <span class="sample-note">
-            Illustrative project · Placeholder artwork and details
-          </span>
+          <p class:list={{ muted: !project.description }}>
+            {project.description || "Project information to be added."}
+          </p>
         </div>
       </div>
       {project.images.slice(1).map((image, i) => (
@@ -104,79 +121,83 @@ const imageCount = number(project.images.length);
       <Arrow />
     </a>
   </article>
-  <dialog class="lightbox" aria-label={`${project.title} image viewer`}>
-    <div class="lightbox-top">
-      <span>{project.title}</span>
-      <button class="lightbox-close" aria-label="Close image viewer">
-        Close <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    <div class="lightbox-stage">
-      <button class="lightbox-prev" aria-label="Previous image">
-        <Arrow />
-      </button>
-      <img
-        class="lightbox-image"
-        src={`/images/${project.images[0].src}.webp`}
-        alt={project.images[0].alt}
-        loading="lazy"
-      />
-      <button class="lightbox-next" aria-label="Next image">
-        <Arrow />
-      </button>
-    </div>
-    <div class="lightbox-bottom">
-      <span class="lightbox-caption"></span>
-      <span class="lightbox-count"></span>
-    </div>
-  </dialog>
+  {cover && (
+    <dialog class="lightbox" aria-label={`${project.title} image viewer`}>
+      <div class="lightbox-top">
+        <span>{project.title}</span>
+        <button class="lightbox-close" aria-label="Close image viewer">
+          Close <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="lightbox-stage">
+        <button class="lightbox-prev" aria-label="Previous image">
+          <Arrow />
+        </button>
+        <img
+          class="lightbox-image"
+          src={`/images/${cover.src}.webp`}
+          alt={cover.alt}
+          loading="lazy"
+        />
+        <button class="lightbox-next" aria-label="Next image">
+          <Arrow />
+        </button>
+      </div>
+      <div class="lightbox-bottom">
+        <span class="lightbox-caption"></span>
+        <span class="lightbox-count"></span>
+      </div>
+    </dialog>
+  )}
   <script define:vars={{ images: project.images }}>
     const viewer = document.querySelector(".lightbox");
-    const photo = viewer.querySelector(".lightbox-image");
-    let current = 0;
-    let trigger;
-    function showImage(index) {
-      current = (index + images.length) % images.length;
-      photo.src = `/images/${images[current].src}.webp`;
-      photo.alt = images[current].alt;
-      viewer.querySelector(".lightbox-caption").textContent =
-        images[current].caption;
-      viewer.querySelector(".lightbox-count").textContent =
-        `${String(current + 1).padStart(2, "0")} / ${String(images.length).padStart(2, "0")}`;
+    if (viewer) {
+      const photo = viewer.querySelector(".lightbox-image");
+      let current = 0;
+      let trigger;
+      function showImage(index) {
+        current = (index + images.length) % images.length;
+        photo.src = `/images/${images[current].src}.webp`;
+        photo.alt = images[current].alt;
+        viewer.querySelector(".lightbox-caption").textContent =
+          images[current].caption;
+        viewer.querySelector(".lightbox-count").textContent =
+          `${String(current + 1).padStart(2, "0")} / ${String(images.length).padStart(2, "0")}`;
+      }
+      document.querySelectorAll("[data-gallery-index]").forEach((button) =>
+        button.addEventListener("click", () => {
+          trigger = button;
+          showImage(Number(button.dataset.galleryIndex));
+          viewer.showModal();
+          document.body.classList.add("viewer-open");
+        }),
+      );
+      viewer
+        .querySelector(".lightbox-close")
+        .addEventListener("click", () => viewer.close());
+      viewer
+        .querySelector(".lightbox-prev")
+        .addEventListener("click", () => showImage(current - 1));
+      viewer
+        .querySelector(".lightbox-next")
+        .addEventListener("click", () => showImage(current + 1));
+      viewer.addEventListener("click", (event) => {
+        if (event.target === viewer) viewer.close();
+      });
+      viewer.addEventListener("close", () => {
+        document.body.classList.remove("viewer-open");
+        trigger?.focus();
+      });
+      viewer.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showImage(current - 1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showImage(current + 1);
+        }
+      });
     }
-    document.querySelectorAll("[data-gallery-index]").forEach((button) =>
-      button.addEventListener("click", () => {
-        trigger = button;
-        showImage(Number(button.dataset.galleryIndex));
-        viewer.showModal();
-        document.body.classList.add("viewer-open");
-      }),
-    );
-    viewer
-      .querySelector(".lightbox-close")
-      .addEventListener("click", () => viewer.close());
-    viewer
-      .querySelector(".lightbox-prev")
-      .addEventListener("click", () => showImage(current - 1));
-    viewer
-      .querySelector(".lightbox-next")
-      .addEventListener("click", () => showImage(current + 1));
-    viewer.addEventListener("click", (event) => {
-      if (event.target === viewer) viewer.close();
-    });
-    viewer.addEventListener("close", () => {
-      document.body.classList.remove("viewer-open");
-      trigger?.focus();
-    });
-    viewer.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        showImage(current - 1);
-      }
-      if (event.key === "ArrowRight") {
-        event.preventDefault();
-        showImage(current + 1);
-      }
-    });
   </script>
 </Layout>

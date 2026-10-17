@@ -4,7 +4,7 @@ import WorkItem from "../../components/WorkItem.astro";
 import { projects, projectPeriod } from "../../data/projects";
 const filters = [
   "All works",
-  ...new Set(projects.map((project) => project.category)),
+  ...new Set(projects.map((project) => project.category).filter(Boolean)),
 ];
 const total = String(projects.length).padStart(2, "0");
 ---
@@ -20,7 +20,6 @@ const total = String(projects.length).padStart(2, "0");
       <h1 id="works-heading">
         Works<span class="heading-count">({total})</span>
       </h1>
-      <p>An ongoing conversation with material, form and space.</p>
     </div>
     <div class="archive-toolbar">
       <div class="filters" role="group" aria-label="Filter works by material">
@@ -42,12 +41,10 @@ const total = String(projects.length).padStart(2, "0");
           project={project}
           number={String(i + 1).padStart(2, "0")}
           class={`archive-work-${(i % 4) + 1}`}
+          format={i % 4 === 1 ? "portrait" : "landscape"}
         />
       ))}
     </div>
-    <p class="sample-note">
-      A study in presentation. The works and images shown here are placeholders.
-    </p>
   </section>
   <script>
     const filters =
