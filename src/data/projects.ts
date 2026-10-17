@@ -42,10 +42,10 @@ export const projects: Project[] = [
   {
     slug: "four-gates-pagoda",
     title: "Four-Gates Pagoda",
-    year: "",
+    year: "2026",
     materials: "Xuan paper, handmade paper, bamboo supports",
-    category: "H45cm W45cm D45cm",
-    dimensions: "",
+    category: "Paper",
+    dimensions: "H 45 × W 45 × D 45 cm",
     description:
       "This work is based on the Four-Gates Pagoda in Jinan, China. My hometown is near a Buddhist temple, and the Four-Gates Pagoda, with its long history, is also part of my memory of home.\n\nI made this pagoda by taking impressions from a previous sculpture of hands and assembling them into the shape of a tower. In Buddhism, hands carry many meanings, and to me they also represent power and authority. Religion is deeply patriarchal, and I have never felt that I could fully find my own place within it. At the same time, I still feel a strong longing for my hometown.\n\nThe original pagoda is made of stone and feels heavy, while this version is made of paper and feels light and fragile. This contrast reflects my understanding of longing: something deeply rooted, but also delicate and difficult to hold onto.",
     images: [
