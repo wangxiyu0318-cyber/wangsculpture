@@ -22,19 +22,20 @@ import { cv } from "../data/site";
       <section class="cv-section">
         <h2>{section.heading}</h2>
         <div>
-          {section.entries.length ? (
-            section.entries.map((entry) => (
-              <div class="cv-entry">
-                <span>{entry.year}</span>
-                <div>
-                  <h3>{entry.title}</h3>
-                  <p>{entry.place}</p>
-                </div>
+          {[...new Set(section.entries.map((entry) => entry.year))].map((year) => (
+            <div class="cv-entry">
+              <span>{year}</span>
+              <div class="cv-year-entries">
+                {section.entries.filter((entry) => entry.year === year).map((entry) => (
+                  <div>
+                    {entry.upcoming && <span class="eyebrow cv-upcoming">Upcoming</span>}
+                    <h3>{entry.title}</h3>
+                    <p>{entry.place}</p>
+                  </div>
+                ))}
               </div>
-            ))
-          ) : (
-            <p class="cv-empty">Details to be added.</p>
-          )}
+            </div>
+          ))}
         </div>
       </section>
     ))}
@@ -45,3 +46,14 @@ import { cv } from "../data/site";
     </div>
   </section>
 </Layout>
+
+<style>
+  .cv-year-entries {
+    display: grid;
+    gap: 24px;
+  }
+  .cv-upcoming {
+    display: block;
+    margin-bottom: 6px;
+  }
+</style>
