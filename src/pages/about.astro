@@ -14,9 +14,9 @@ import { biography, statement } from "../data/site";
     <div class="about-lead">
       <h2>Xiyu Wang</h2>
       <div>
-        <p class:list={{ muted: !biography }}>
-          {biography || "Biography to be added."}
-        </p>
+        {(biography || "Biography to be added.").split("\n\n").map((paragraph) => (
+          <p class:list={{ muted: !biography }}>{paragraph}</p>
+        ))}
         <span class="eyebrow">Based in Tokyo, Japan</span>
       </div>
     </div>

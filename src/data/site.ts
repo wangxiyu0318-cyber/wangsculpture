@@ -9,8 +9,10 @@ export const site = {
     "Xiyu Wang is a sculptor based in Tokyo, working with wood, metal, enamel, paper and mixed materials.",
 };
 
-// Awaiting the artist’s biography and statement. Do not generate this copy.
-export const biography = "";
+// Biography supplied and verified by the artist.
+export const biography =
+  "Xiyu Wang is a sculptor based in Tokyo, Japan. Working primarily with wood, metal, enamel and paper, their practice draws from East Asian religious imagery, mythology and cultural memory.\n\nXiyu Wang received an MA in Sculpture and an MA in Metalwork from Musashino Art University, where they currently work as a Research Associate in the Metalwork Course.";
+// Awaiting the artist’s statement. Do not generate this copy.
 export const statement = "";
 
 // Verified CV records, grouped by the calendar year of each event.
