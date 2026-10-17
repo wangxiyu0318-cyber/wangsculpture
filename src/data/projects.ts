@@ -47,7 +47,22 @@ export const projects: Project[] = [
     category: "",
     dimensions: "",
     description: "",
-    images: [],
+    images: [
+      {
+        src: "four-gates-pagoda-01",
+        alt: "Four-Gates Pagoda, angled view showing two sides and the peaked roof against a white background",
+        caption: "",
+        width: 2400,
+        height: 1600,
+      },
+      {
+        src: "four-gates-pagoda-02",
+        alt: "Four-Gates Pagoda, alternate view showing an arched opening beneath the peaked roof against a white background",
+        caption: "",
+        width: 2400,
+        height: 1600,
+      },
+    ],
   },
   {
     slug: "niou",
