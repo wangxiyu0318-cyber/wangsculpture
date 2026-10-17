@@ -2,109 +2,192 @@
 import { getLanguage, translator, localizedHref } from "../../i18n";
 import Layout from "../../layouts/Layout.astro";
 import Artwork from "../Artwork.astro";
-import ArtworkPlaceholder from "../ArtworkPlaceholder.astro";
-import WorkItem from "../WorkItem.astro";
 import Arrow from "../Arrow.astro";
-import { getProjects, projectPeriod } from "../../data/projects";
+import { getProjects } from "../../data/projects";
+import { materials } from "../../data/materials";
 
 const language = getLanguage(Astro.url);
 const t = translator(language);
 const href = (path: string = "") => localizedHref(language, path);
 const projects = getProjects(language);
-const featured = {
-  hero: "somira",
-  selected: ["four-gates-pagoda", "cave", "minira"],
-};
-function getFeaturedProject(slug: string) {
+const representativeSlugs = [
+  "somira", "four-gates-pagoda", "nezhas-bike", "cave", "minira", "stonesomira",
+];
+const representativeWorks = representativeSlugs.map((slug) => {
   const project = projects.find((project) => project.slug === slug);
-  if (!project) throw new Error(`Unknown featured project: ${slug}`);
+  if (!project?.images[0]) throw new Error(`Missing representative work or cover: ${slug}`);
   return project;
-}
-const hero = getFeaturedProject(featured.hero);
-const total = String(projects.length).padStart(2, "0");
+});
 ---
 
 <Layout>
-  <section
-    class="home-intro page-gutter"
-    id="top"
-    aria-labelledby="artist-name"
-  >
+  <section class="home-intro page-gutter curated-home" id="top" aria-labelledby="artist-name">
     <div class="home-heading">
       <h1 id="artist-name">XIYU WANG</h1>
       <div class="home-location">
         <span>{t("Sculptor")}</span>
-        <span>
-          Tokyo, Japan <span class="location-point" aria-hidden="true"></span>
-        </span>
+        <span>Tokyo, Japan <span class="location-point" aria-hidden="true"></span></span>
       </div>
     </div>
-    <a
-      class="hero-artwork"
-      href={href(`works/${hero.slug}/`)}
-      aria-label={`View ${hero.title}`}
-    >
-      {hero.images[0] ? (
-        <Artwork
-          image={hero.images[0]}
-          class={hero.slug === "somira" ? "somira-cover" : undefined}
-          eager
-          sizes="(max-width: 700px) 100vw, calc(100vw - 96px)"
-        />
-      ) : (
-        <ArtworkPlaceholder title={hero.title} format="hero" />
-      )}
-      <span class="hero-view">
-        {t("Explore the work")} <Arrow direction="diagonal" />
-      </span>
-    </a>
-    <div class="hero-caption">
-      <div>
-        <span class="caption-index">01 / {total}</span>
-        <span>
-          {hero.title}
-          {hero.year && `, ${hero.year}`}
-        </span>
-      </div>
-      {hero.materials && <span class="hero-material">{hero.materials}</span>}
-      <a href="#selected-works" class="explore-link">
-        {t("Scroll to explore")} <Arrow direction="down" />
-      </a>
+    <nav class="material-entrances" aria-label={t("Browse by material")}>
+      {materials.map((material) => (
+        <a href={`${href("works/")}?material=${material.id}`}>
+          {t(material.entrance)} <Arrow />
+        </a>
+      ))}
+    </nav>
+    <div class="curated-sequence">
+      {representativeWorks.map((project, index) => (
+        <article
+          class="curated-work"
+          style={`--work-width: ${Math.round(420 * Math.sqrt(project.images[0].width / project.images[0].height))}px`}
+        >
+          <a href={href(`works/${project.slug}/`)}>
+            <figure>
+              <Artwork
+                image={project.images[0]}
+                eager={index === 0}
+                sizes="(max-width: 700px) calc(100vw - 64px), (max-width: 1200px) 42vw, 515px"
+              />
+              <figcaption>
+                <div class="curated-title">
+                  <h2>{project.title}</h2>
+                  <span>{project.year}</span>
+                </div>
+                <p>{project.materials}</p>
+              </figcaption>
+            </figure>
+          </a>
+        </article>
+      ))}
     </div>
-  </section>
-  <section
-    class="selected-section page-gutter"
-    id="selected-works"
-    aria-labelledby="selected-heading"
-  >
-    <div class="section-heading">
-      <h2 id="selected-heading">
-        {t("Selected works")} <span class="count">(03)</span>
-      </h2>
-      <span class="section-years">{projectPeriod}</span>
-      <a class="text-link" href={href("works/")}>
-        {t("View all works")} <Arrow />
-      </a>
-    </div>
-    <div class="selected-grid">
-      <WorkItem
-        project={getFeaturedProject(featured.selected[0])}
-        number="02"
-        class="selected-one"
-        format="portrait"
-      />
-      <WorkItem project={getFeaturedProject(featured.selected[1])} number="03" class="selected-two" />
-      <WorkItem project={getFeaturedProject(featured.selected[2])} number="04" class="selected-three" />
-    </div>
-  </section>
-  <section class="home-about page-gutter">
-    <span class="eyebrow">{t("The artist")}</span>
-    <div>
-      <h2>Xiyu Wang</h2>
-      <p>Sculptor based in Tokyo, Japan.</p>
-      <a href={href("about/")} class="text-link">
-        {t("About the artist")} <Arrow />
-      </a>
+    <div class="archive-entrance">
+      <a class="text-link" href={href("works/")}>{t("View all works")} <Arrow /></a>
     </div>
   </section>
 </Layout>
+
+<style>
+  .curated-home {
+    padding-bottom: 80px;
+  }
+  .home-heading {
+    margin-bottom: 48px;
+  }
+  .material-entrances {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+    max-width: 650px;
+    margin: 0 auto 56px;
+  }
+  .material-entrances a {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 44px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .curated-sequence {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding-block: 16px 72px;
+  }
+  .curated-work {
+    width: min(var(--work-width), 45%);
+    min-width: 0;
+    margin-left: 4%;
+  }
+  .curated-work:nth-of-type(even) {
+    align-self: flex-end;
+    margin-left: 0;
+    margin-right: 4%;
+    margin-top: -104px;
+  }
+  .curated-work a {
+    display: block;
+  }
+  .curated-work img {
+    width: 100%;
+    height: auto;
+  }
+  .curated-work figcaption {
+    padding-top: 15px;
+  }
+  .curated-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .curated-title h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    font-weight: 450;
+  }
+  .curated-title span {
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .curated-work figcaption p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .archive-entrance {
+    display: flex;
+    justify-content: center;
+  }
+  .archive-entrance .text-link {
+    min-height: 44px;
+  }
+  @media (max-width: 700px) {
+    .curated-home {
+      padding-bottom: 48px;
+    }
+    .home-heading {
+      margin-bottom: 28px;
+    }
+    .material-entrances {
+      gap: 8px 16px;
+      margin-bottom: 28px;
+    }
+    .material-entrances a {
+      font-size: 12px;
+      gap: 8px;
+    }
+    .material-entrances :global(.arrow) {
+      width: 16px;
+      height: 16px;
+    }
+    .curated-sequence {
+      gap: 40px;
+      padding-block: 8px 40px;
+    }
+    .curated-work {
+      width: min(var(--work-width), 94%);
+      margin-left: 0;
+    }
+    .curated-work:nth-of-type(even) {
+      margin-right: 0;
+      margin-top: 0;
+    }
+    .curated-title {
+      gap: 12px;
+    }
+    .curated-title h2 {
+      font-size: 16px;
+    }
+    .curated-title span,
+    .curated-work figcaption p {
+      font-size: 14px;
+    }
+  }
+</style>

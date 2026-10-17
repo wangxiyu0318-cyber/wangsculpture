@@ -14,7 +14,7 @@ interface Props {
 const { project, number, class: className, format = "landscape" } = Astro.props;
 ---
 
-<article class:list={["work-item", className]} data-material={project.category}>
+<article class:list={["work-item", className]} data-material={project.category} data-material-tags={project.materialTags.join(" ")}>
   <a class="work-link" href={localizedHref(language, `works/${project.slug}/`)}>
     <div class="work-image">
       {project.images[0] ? (

@@ -2,15 +2,13 @@
 import { getLanguage, translator } from "../../i18n";
 import Layout from "../../layouts/Layout.astro";
 import WorkItem from "../WorkItem.astro";
+import { materials } from "../../data/materials";
 import { getProjects, projectPeriod } from "../../data/projects";
 
 const language = getLanguage(Astro.url);
 const t = translator(language);
 const projects = getProjects(language);
-const filters = [
-  "All works",
-  ...new Set(projects.map((project) => project.category).filter(Boolean)),
-];
+const filters = [{ id: "all", label: "All works" }, ...materials];
 const years = [...new Set(projects.map((project) => project.year))]
   .sort((a, b) => Number(b) - Number(a));
 const projectsByYear = years.map((year) => ({
@@ -35,8 +33,8 @@ const total = String(projects.length).padStart(2, "0");
     <div class="archive-toolbar">
       <div class="filters" role="group" aria-label={t("Filter works by material")}>
         {filters.map((filter, i) => (
-          <button data-filter={i === 0 ? "all" : filter} aria-pressed={i === 0} data-label={t(filter)}>
-            {t(filter)}
+          <button data-filter={filter.id} aria-pressed={i === 0} data-label={t(filter.label)}>
+            {t(filter.label)}
             {i === 0 && <span>{total}</span>}
           </button>
         ))}
@@ -63,36 +61,8 @@ const total = String(projects.length).padStart(2, "0");
     ))}
   </section>
   <script>
-    const filters =
-      document.querySelectorAll<HTMLButtonElement>("[data-filter]");
-    const works = document.querySelectorAll<HTMLElement>(
-      ".archive-grid .work-item",
-    );
-    filters.forEach((button) =>
-      button.addEventListener("click", () => {
-        const selected = button.dataset.filter;
-        filters.forEach((filter) =>
-          filter.setAttribute("aria-pressed", String(filter === button)),
-        );
-        let count = 0;
-        works.forEach((work) => {
-          work.hidden =
-            selected !== "all" && work.dataset.material !== selected;
-          if (!work.hidden) count++;
-        });
-        document.querySelectorAll<HTMLElement>(".archive-year").forEach((group) => {
-          group.hidden = !Array.from(group.querySelectorAll<HTMLElement>(".work-item"))
-            .some((work) => !work.hidden);
-          group.querySelector(".archive-grid")
-            ?.classList.toggle("is-filtered", selected !== "all");
-        });
-        const status = document.querySelector<HTMLElement>("#filter-status");
-        if (status)
-          status.textContent = status.dataset.language === "zh"
-            ? `显示 ${count} 件作品${selected === "all" ? "" : `（${button.dataset.label}）`}`
-            : `Showing ${count} ${count === 1 ? "work" : "works"}${selected === "all" ? "" : ` in ${selected}`}`;
-      }),
-    );
+    import { initializeMaterialFilters } from "../../scripts/material-filters";
+    initializeMaterialFilters();
   </script>
 </Layout>
 

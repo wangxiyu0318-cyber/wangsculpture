@@ -1,3 +1,4 @@
+import type { MaterialTag } from "./materials";
 import { projectText as englishText } from "./text/projects.en";
 import { projectText as chineseText } from "./text/projects.zh";
 import type { Language } from "../i18n";
@@ -16,6 +17,7 @@ export type Project = {
   year: string;
   materials: string;
   category: string;
+  materialTags: MaterialTag[];
   dimensions: string;
   description: string;
   images: ArtworkImage[];
@@ -36,6 +38,7 @@ type SharedProject = Omit<Project, "title" | "materials" | "description" | "imag
 export const sharedProjects: SharedProject[] = [
   {
     "slug": "somira",
+    "materialTags": ["wood"],
     "year": "2025",
     "category": "Wood",
     "dimensions": "H 230 × W 170 × D 200 cm",
@@ -50,6 +53,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "four-gates-pagoda",
+    "materialTags": ["paper"],
     "year": "2026",
     "category": "Paper",
     "dimensions": "H 45 × W 45 × D 45 cm",
@@ -70,6 +74,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "niou",
+    "materialTags": ["wood"],
     "year": "2022",
     "category": "Wood",
     "dimensions": "Each figure: H 260 × W 150 × D 120 cm",
@@ -84,6 +89,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "nezhas-bike",
+    "materialTags": ["wood", "metal"],
     "year": "2024",
     "category": "Mixed materials",
     "dimensions": "H 120 × W 150 × D 300 cm",
@@ -98,6 +104,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "stonesomira",
+    "materialTags": ["metal"],
     "year": "2025",
     "category": "Mixed materials",
     "dimensions": "H 270 × W 170 × D 140 mm",
@@ -112,6 +119,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "minira",
+    "materialTags": ["wood"],
     "year": "2025",
     "category": "Wood",
     "dimensions": "H 1100 × W 650 × D 680 mm",
@@ -132,6 +140,7 @@ export const sharedProjects: SharedProject[] = [
   },
   {
     "slug": "cave",
+    "materialTags": ["wood"],
     "year": "2025",
     "category": "Wood",
     "dimensions": "H 2450 × W 600 × D 150 mm",

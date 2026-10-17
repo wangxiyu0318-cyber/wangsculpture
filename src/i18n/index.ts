@@ -16,6 +16,8 @@ const chinese: Record<string, string> = {
   "Language": "语言", "Xiyu Wang home": "Xiyu Wang 首页",
   "(opens in a new tab)": "（在新标签页中打开）", "Get in touch": "联系",
   "Filter works by material": "按材料筛选作品", "Wood": "木", "Paper": "纸",
+  "WOOD": "木雕", "METAL": "金属", "PAPER": "纸", "Metal": "金属",
+  "Browse by material": "按材料浏览",
   "Mixed materials": "综合材料", "Upcoming": "即将到来",
   "RESIDENCIES": "驻留", "SOLO EXHIBITIONS": "个展",
   "SELECTED GROUP EXHIBITIONS": "群展精选", "EDUCATION": "教育经历",
