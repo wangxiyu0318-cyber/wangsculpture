@@ -152,13 +152,13 @@ img {
 .wordmark {
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   white-space: nowrap;
   line-height: 1;
 }
 .wordmark-dot {
   display: inline-block;
-  font-size: 8px;
+  font-size: 12px;
   vertical-align: top;
   margin-left: 3px;
   margin-top: -2px;
@@ -224,9 +224,9 @@ img {
 .home-heading h1 {
   font-size: clamp(74px, 11.9vw, 190px);
   line-height: 0.9;
-  letter-spacing: -0.074em;
+  letter-spacing: -0.025em;
   font-weight: 450;
-  margin-left: -0.065em;
+  margin-left: -0.03em;
   white-space: nowrap;
 }
 .home-location {
@@ -298,7 +298,7 @@ img {
 }
 .caption-index {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.03em;
 }
 .hero-material {
@@ -351,7 +351,7 @@ img {
   font-size: 12px;
 }
 .count {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   vertical-align: top;
   margin-left: 9px;
@@ -439,7 +439,7 @@ img {
   position: absolute;
   left: 0;
   bottom: -32px;
-  font-size: 9px;
+  font-size: 12px;
   color: #72746d;
 }
 .selected-one {
@@ -459,13 +459,13 @@ img {
   margin-top: 110px;
 }
 .selected-note .eyebrow {
-  font-size: 9px;
+  font-size: 12px;
   color: var(--muted);
 }
 .selected-note p {
   font-size: clamp(28px, 3vw, 47px);
   line-height: 1.16;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.025em;
   margin-top: 29px;
   margin-bottom: 27px;
 }
@@ -490,7 +490,7 @@ img {
 .home-about h2 {
   font-size: clamp(32px, 4.3vw, 62px);
   line-height: 1.16;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.025em;
 }
 .home-about p {
   font-size: 13px;
@@ -512,7 +512,7 @@ img {
   display: flex;
   align-items: center;
   gap: 40px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .footer-name {
@@ -525,7 +525,7 @@ img {
   color: var(--ink);
 }
 .footer-name > span {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--muted);
   letter-spacing: 0;
@@ -567,7 +567,7 @@ img {
 .page-heading h1 {
   font-size: clamp(58px, 8vw, 118px);
   line-height: 1.04;
-  letter-spacing: -0.065em;
+  letter-spacing: -0.03em;
   font-weight: 450;
 }
 .page-heading > p {
@@ -609,7 +609,7 @@ img {
   white-space: nowrap;
 }
 .filters button span {
-  font-size: 9px;
+  font-size: 12px;
   vertical-align: super;
   margin-left: 5px;
 }
@@ -662,7 +662,7 @@ img {
   margin-top: 100px;
 }
 .sample-note {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.7;
   color: var(--muted);
   display: block;
@@ -698,10 +698,10 @@ img {
 .project-heading h1 {
   font-size: clamp(46px, 6.5vw, 95px);
   line-height: 1.1;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.03em;
 }
 .project-index {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   padding-bottom: 10px;
   white-space: nowrap;
@@ -727,7 +727,7 @@ img {
   align-items: baseline;
   justify-content: space-between;
   gap: 20px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 13px;
 }
@@ -800,7 +800,7 @@ img {
 }
 .next-title {
   font-size: clamp(28px, 4vw, 56px);
-  letter-spacing: -0.045em;
+  letter-spacing: -0.025em;
   line-height: 1.2;
 }
 .next-project > .arrow {
@@ -895,7 +895,7 @@ img {
 .about-lead h2 {
   font-size: clamp(32px, 4.5vw, 63px);
   line-height: 1.2;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.025em;
 }
 .about-lead > div > p {
   font-size: 16px;
@@ -913,7 +913,7 @@ img {
   object-position: center 50%;
 }
 .about-image figcaption {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 13px;
 }
@@ -929,7 +929,7 @@ img {
 .statement {
   font-size: clamp(22px, 2.2vw, 32px);
   line-height: 1.55;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.015em;
   max-width: 750px;
 }
 .statement-row .sample-note {
@@ -1041,7 +1041,7 @@ img {
   align-items: center;
   justify-content: space-between;
   font-size: clamp(18px, 2.4vw, 32px);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   gap: 20px;
 }
 .contact-row > a > .arrow {
@@ -1065,7 +1065,7 @@ img {
   gap: 30px;
   border-top: 1px solid var(--line);
   padding-top: 20px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .contact-signoff > span:last-child {
@@ -1078,7 +1078,7 @@ img {
 }
 .not-found h1 {
   font-size: clamp(38px, 6vw, 80px);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.025em;
   margin-top: 25px;
   line-height: 1.2;
 }
@@ -1107,7 +1107,7 @@ img {
 @media (min-width: 701px) and (max-width: 1050px) {
   .header-location {
     padding-left: 0;
-    font-size: 10px;
+    font-size: 12px;
   }
   .main-navigation {
     gap: 23px;
@@ -1123,7 +1123,7 @@ img {
     font-size: 11.5vw;
   }
   .selected-note .eyebrow {
-    font-size: 8px;
+    font-size: 12px;
   }
   .selected-grid {
     gap: 0 24px;
@@ -1207,14 +1207,14 @@ img {
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
-    box-shadow: 0 20px 25px #00000005;
+    box-shadow: none;
   }
   .main-navigation.is-open {
     display: flex;
   }
   .main-navigation > a {
     font-size: 25px;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     min-height: 55px;
     justify-content: space-between;
   }
@@ -1234,7 +1234,7 @@ img {
   }
   .home-heading h1 {
     font-size: 14.3vw;
-    letter-spacing: -0.067em;
+    letter-spacing: -0.025em;
     line-height: 1;
   }
   .home-location {
@@ -1269,7 +1269,7 @@ img {
   .hero-caption {
     padding-top: 13px;
     gap: 15px;
-    font-size: 10px;
+    font-size: 12px;
     align-items: flex-start;
   }
   .hero-caption > div {
@@ -1277,12 +1277,12 @@ img {
     flex-wrap: wrap;
   }
   .caption-index {
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.8;
   }
   .hero-material {
     margin-left: auto;
-    font-size: 9px;
+    font-size: 12px;
     text-align: right;
     white-space: nowrap;
   }
@@ -1303,14 +1303,14 @@ img {
     font-size: 11px;
   }
   .count {
-    font-size: 9px;
+    font-size: 12px;
     margin-left: 5px;
   }
   .section-heading > .section-years {
     display: none;
   }
   .section-heading > .text-link {
-    font-size: 10px;
+    font-size: 12px;
     gap: 14px;
   }
   .section-heading > .text-link > .arrow {
@@ -1350,7 +1350,7 @@ img {
     font-size: 11px;
   }
   .work-number {
-    font-size: 8px;
+    font-size: 12px;
     bottom: -23px;
   }
   .work-open {
@@ -1368,13 +1368,13 @@ img {
   }
   .home-about > .eyebrow {
     padding: 0;
-    font-size: 10px;
+    font-size: 12px;
     display: block;
     margin-bottom: 30px;
   }
   .home-about h2 {
     font-size: 36px;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.025em;
   }
   .home-about p {
     font-size: 12px;
@@ -1401,15 +1401,15 @@ img {
     gap: 2px;
   }
   .footer-name > span {
-    font-size: 10px;
+    font-size: 12px;
   }
   .copyright {
-    font-size: 9px;
+    font-size: 12px;
     grid-row: 2;
     margin: 0;
   }
   .footer-instagram {
-    font-size: 10px;
+    font-size: 12px;
     grid-column: 2;
     grid-row: 1;
   }
@@ -1430,12 +1430,12 @@ img {
     padding-bottom: 44px;
   }
   .page-heading > .eyebrow {
-    font-size: 9px;
+    font-size: 12px;
     margin-bottom: 25px;
   }
   .page-heading h1 {
     font-size: 62px;
-    letter-spacing: -0.065em;
+    letter-spacing: -0.03em;
     line-height: 1.06;
   }
   .page-heading > p {
@@ -1471,7 +1471,7 @@ img {
     min-height: 44px;
   }
   .filters button span {
-    font-size: 8px;
+    font-size: 12px;
   }
   .archive-grid {
     display: flex;
@@ -1498,29 +1498,29 @@ img {
   }
   .archive .sample-note {
     margin-top: 65px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .project {
     padding-top: 24px;
     padding-bottom: 46px;
   }
   .back-link {
-    font-size: 10px;
+    font-size: 12px;
   }
   .project-heading {
     margin-block: 35px 30px;
     align-items: flex-start;
   }
   .project-heading .eyebrow {
-    font-size: 9px;
+    font-size: 12px;
     margin-bottom: 13px;
   }
   .project-heading h1 {
     font-size: 43px;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.03em;
   }
   .project-index {
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 4px;
   }
   .primary-figure {
@@ -1533,7 +1533,7 @@ img {
     padding-inline: var(--gutter);
   }
   .project-figure figcaption {
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 12px;
   }
   .enlarge-icon {
@@ -1562,7 +1562,7 @@ img {
     line-height: 1.9;
   }
   .project-description > .sample-note {
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 20px;
   }
   .detail-figure {
@@ -1576,7 +1576,7 @@ img {
     padding-top: 25px;
   }
   .next-project > .eyebrow {
-    font-size: 9px;
+    font-size: 12px;
     margin-bottom: 14px;
   }
   .next-title {
@@ -1591,7 +1591,7 @@ img {
   }
   .lightbox-top,
   .lightbox-bottom {
-    font-size: 10px;
+    font-size: 12px;
   }
   .lightbox-stage {
     position: relative;
@@ -1643,7 +1643,7 @@ img {
   }
   .about-lead > div > .eyebrow {
     margin-top: 22px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .about-image {
     margin-inline: calc(-1 * var(--gutter));
@@ -1654,24 +1654,24 @@ img {
   }
   .about-image figcaption {
     padding-inline: var(--gutter);
-    font-size: 9px;
+    font-size: 12px;
   }
   .statement-row {
     display: block;
     padding-top: 45px;
   }
   .statement-row > h2 {
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 24px;
     padding: 0;
   }
   .statement {
     font-size: 24px;
     line-height: 1.6;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.015em;
   }
   .statement-row .sample-note {
-    font-size: 9px;
+    font-size: 12px;
     margin-top: 18px;
   }
   .statement-row .text-link {
@@ -1692,7 +1692,7 @@ img {
     gap: 20px;
   }
   .cv-intro > .eyebrow {
-    font-size: 10px;
+    font-size: 12px;
   }
   .cv-intro p {
     font-size: 13px;
@@ -1754,7 +1754,7 @@ img {
     padding-block: 20px 25px;
   }
   .contact-row > .eyebrow {
-    font-size: 9px;
+    font-size: 12px;
   }
   .contact-row > a {
     font-size: 24px;
@@ -1768,12 +1768,12 @@ img {
     font-size: 18px;
   }
   .email-pending > p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.8;
     max-width: 230px;
   }
   .contact-signoff {
-    font-size: 9px;
+    font-size: 12px;
   }
   .not-found {
     padding-block: 70px 100px;
@@ -2065,5 +2065,202 @@ html[lang="zh-CN"] .main-navigation a {
 @media (max-width: 380px) {
   .artist-logo.header-logo {
     display: none;
+  }
+}
+
+/* Quiet hierarchy: readable labels, open text measures, and fewer interface effects. */
+.site-header {
+  height: 88px;
+  gap: 28px;
+}
+.wordmark {
+  font-weight: 500;
+}
+.header-location {
+  padding-left: 0;
+  font-size: 12px;
+}
+.main-navigation {
+  gap: 24px;
+  font-size: 13px;
+}
+.page-heading h1 {
+  font-size: clamp(50px, 7vw, 96px);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.project-heading h1 {
+  font-size: clamp(40px, 5.5vw, 76px);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.about-lead h2 {
+  font-size: clamp(30px, 3.2vw, 46px);
+  letter-spacing: -0.02em;
+}
+.about-lead > div > p,
+.project-description > p {
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: normal;
+}
+.project-description {
+  max-width: 60ch;
+}
+.project-details {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 88px);
+  padding-block: 56px 64px;
+  margin-bottom: 64px;
+}
+.project-details dl > div {
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 20px;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+.project-details.metadata-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+.project-details.metadata-only dl {
+  max-width: 740px;
+}
+.project-index,
+.project-figure figcaption,
+.work-year {
+  font-size: 12px;
+}
+.work-title-row h3 {
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.work-caption p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.work-number,
+.work-open {
+  display: none;
+}
+.work-image img,
+.text-link .arrow {
+  transition: none;
+}
+.work-link:hover .work-image img,
+.text-link:hover .arrow {
+  transform: none;
+}
+.location-point {
+  background: var(--muted);
+}
+.filters > button {
+  font-size: 13px;
+}
+.archive-grid {
+  row-gap: 96px;
+}
+.archive-work-1 {
+  grid-column: 1 / 7;
+}
+.archive-work-2 {
+  grid-column: 8 / 13;
+  margin-top: 88px;
+}
+.archive-work-3 {
+  grid-column: 2 / 7;
+  margin-top: 32px;
+}
+.archive-work-4 {
+  grid-column: 7 / 13;
+  margin-top: 96px;
+}
+.archive-grid.is-filtered .work-item {
+  grid-column: 1 / 7;
+}
+.cv-page .page-heading h1 {
+  font-size: clamp(38px, 5vw, 64px);
+}
+.cv-entry {
+  line-height: 1.75;
+}
+.cv-entry h3 {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.cv-entry p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.cv-section > h2 {
+  font-size: 13px;
+  letter-spacing: 0.025em;
+}
+.contact-row > a {
+  font-size: clamp(18px, 2vw, 26px);
+  letter-spacing: -0.015em;
+}
+html[lang="zh-CN"] .about-lead > div > p,
+html[lang="zh-CN"] .project-description > p {
+  line-height: 1.9;
+  letter-spacing: normal;
+}
+@media (max-width: 700px) {
+  .site-header {
+    height: 78px;
+    gap: 10px;
+  }
+  .main-navigation {
+    gap: 2px;
+  }
+  .page-heading h1 {
+    font-size: clamp(40px, 11vw, 62px);
+  }
+  .project-heading h1 {
+    font-size: clamp(34px, 9.5vw, 50px);
+  }
+  .cv-page .page-heading h1 {
+    font-size: 38px;
+  }
+  .contact-page .page-heading h1 {
+    font-size: 44px;
+  }
+  .about-lead h2 {
+    font-size: 34px;
+  }
+  .project-details {
+    gap: 28px;
+    padding-block: 32px;
+    margin-bottom: 36px;
+  }
+  .project-details dl > div {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    font-size: 14px;
+  }
+  .project-description > p {
+    font-size: 16px;
+  }
+  .archive-grid {
+    gap: 48px;
+  }
+  .archive-grid > .work-item {
+    margin-top: 0;
+  }
+  .filters > button {
+    font-size: 14px;
+  }
+  .cv-section > h2 {
+    font-size: 14px;
+  }
+  .contact-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .contact-row > a {
+    font-size: clamp(18px, 5.2vw, 24px);
+    min-height: 44px;
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }

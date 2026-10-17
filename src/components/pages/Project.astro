@@ -77,7 +77,7 @@ const cover = project.images[0];
           <ArtworkPlaceholder title={project.title} />
         </div>
       )}
-      <div class="project-details">
+      <div class:list={["project-details", { "metadata-only": !project.description }]}>
         <dl>
           <div>
             <dt>{t("Year")}</dt>

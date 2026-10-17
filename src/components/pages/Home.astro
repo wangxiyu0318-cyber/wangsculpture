@@ -14,6 +14,7 @@ const projects = getProjects(language);
 const representativeSlugs = [
   "somira", "four-gates-pagoda", "nezhas-bike", "cave", "minira", "stonesomira",
 ];
+const positions = ["left", "right", "inset", "center", "right", "left"];
 const representativeWorks = representativeSlugs.map((slug) => {
   const project = projects.find((project) => project.slug === slug);
   if (!project?.images[0]) throw new Error(`Missing representative work or cover: ${slug}`);
@@ -37,22 +38,21 @@ const representativeWorks = representativeSlugs.map((slug) => {
       {representativeWorks.map((project, index) => (
         <>
         <article
-          class="curated-work"
-          style={`--work-width: ${Math.round(420 * Math.sqrt(project.images[0].width / project.images[0].height))}px`}
+          class:list={["curated-work", `curated-work-${positions[index]}`]}
+          style={`--work-width: ${project.images[0].width / project.images[0].height < 0.9 ? 38 : project.images[0].width / project.images[0].height > 1.2 ? 48 : 43}vw`}
         >
           <a href={href(`works/${project.slug}/`)}>
             <figure>
               <Artwork
                 image={project.images[0]}
                 eager={index === 0}
-                sizes="(max-width: 700px) calc(100vw - 64px), (max-width: 1200px) 42vw, 515px"
+                sizes="(max-width: 700px) 86vw, (max-width: 1500px) 48vw, 720px"
               />
               <figcaption>
                 <div class="curated-title">
                   <h2>{project.title}</h2>
-                  <span>{project.year}</span>
                 </div>
-                <p>{project.materials}</p>
+                <p>{project.year} · {project.materials}</p>
               </figcaption>
             </figure>
           </a>
@@ -79,7 +79,14 @@ const representativeWorks = representativeSlugs.map((slug) => {
     padding-bottom: 80px;
   }
   .home-heading {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
+    align-items: flex-end;
+  }
+  .home-heading h1 {
+    font-size: clamp(58px, 9vw, 136px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin-left: 0;
   }
   .home-signature {
     display: flex;
@@ -87,79 +94,82 @@ const representativeWorks = representativeSlugs.map((slug) => {
     padding-inline: 4%;
     margin-block: 16px 40px;
   }
-  .material-entrance {
-    align-self: center;
-    padding-block: 8px;
+  .curated-sequence {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(100px, 9vw, 160px);
+    padding-block: 16px 80px;
   }
-  .material-entrance-wood {
+  .curated-work {
+    width: min(var(--work-width), 720px);
+    max-width: 92%;
+    min-width: 0;
+  }
+  .curated-work-left {
+    align-self: flex-start;
+    margin-left: 4%;
+  }
+  .curated-work-right {
+    align-self: flex-end;
+    margin-right: 4%;
+  }
+  .curated-work-inset {
+    align-self: flex-start;
     margin-left: 12%;
   }
+  .curated-work-center {
+    align-self: center;
+  }
+  .curated-work a {
+    display: block;
+  }
+  .curated-work :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  .curated-work figcaption {
+    padding-top: 14px;
+  }
+  .curated-title h2 {
+    overflow-wrap: anywhere;
+    font-size: 15px;
+    font-weight: 450;
+    letter-spacing: -0.01em;
+  }
+  .curated-work figcaption p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .material-entrance {
+    align-self: center;
+    margin-block: -36px;
+  }
+  .material-entrance-wood {
+    margin-left: 24%;
+  }
   .material-entrance-metal {
-    margin-right: 12%;
+    margin-right: 24%;
   }
   .material-entrance a {
     display: inline-flex;
     align-items: center;
     gap: 18px;
     min-height: 44px;
-    font-size: 13px;
-    letter-spacing: 0.06em;
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 400;
+    letter-spacing: 0.025em;
   }
-  .curated-sequence {
-    display: flex;
-    flex-direction: column;
-    gap: 64px;
-    padding-block: 16px 72px;
-  }
-  .curated-work {
-    width: min(var(--work-width), 45%);
-    min-width: 0;
-    margin-left: 4%;
-  }
-  .curated-work:nth-of-type(even) {
-    align-self: flex-end;
-    margin-left: 0;
-    margin-right: 4%;
-    margin-top: -104px;
-  }
-  .curated-work a {
-    display: block;
-  }
-  .curated-work img {
-    width: 100%;
-    height: auto;
-  }
-  .curated-work figcaption {
-    padding-top: 15px;
-  }
-  .curated-title {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  .curated-title h2 {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font-size: 16px;
-    letter-spacing: -0.025em;
-    font-weight: 450;
-  }
-  .curated-title span {
-    flex-shrink: 0;
-    color: var(--muted);
-    font-size: 12px;
-  }
-  .curated-work figcaption p {
-    margin-top: 4px;
-    font-size: 13px;
-    color: var(--muted);
+  .material-entrance :global(.arrow) {
+    width: 20px;
+    height: 20px;
   }
   .archive-entrance {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 16px 40px;
+    gap: 20px 48px;
   }
   .archive-entrance .text-link {
     min-height: 44px;
@@ -169,45 +179,40 @@ const representativeWorks = representativeSlugs.map((slug) => {
       padding-bottom: 48px;
     }
     .home-heading {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
+    }
+    .home-heading h1 {
+      font-size: clamp(38px, 11.8vw, 76px);
     }
     .home-signature {
       margin-block: 8px 28px;
       padding-inline: 0;
     }
-    .material-entrance {
-      margin: 0;
-      padding-block: 0;
-    }
-    .material-entrance a {
-      font-size: 12px;
-      gap: 10px;
-    }
-    .material-entrance :global(.arrow) {
-      width: 16px;
-      height: 16px;
-    }
     .curated-sequence {
-      gap: 40px;
-      padding-block: 8px 40px;
+      gap: 48px;
+      padding-block: 8px 48px;
     }
     .curated-work {
-      width: min(var(--work-width), 94%);
-      margin-left: 0;
-    }
-    .curated-work:nth-of-type(even) {
-      margin-right: 0;
-      margin-top: 0;
-    }
-    .curated-title {
-      gap: 12px;
+      width: 86vw;
+      max-width: 100%;
+      margin-inline: 0;
     }
     .curated-title h2 {
-      font-size: 16px;
+      font-size: 15px;
     }
-    .curated-title span,
     .curated-work figcaption p {
-      font-size: 14px;
+      font-size: 13px;
+    }
+    .material-entrance {
+      margin: -8px 0;
+    }
+    .material-entrance a {
+      font-size: 24px;
+      gap: 12px;
+    }
+    .material-entrance :global(.arrow) {
+      width: 18px;
+      height: 18px;
     }
   }
 </style>
