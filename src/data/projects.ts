@@ -148,6 +148,25 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "cave",
+    title: "CAVE",
+    year: "2025",
+    materials: "Camphor wood",
+    category: "Wood",
+    dimensions: "H 2450 × W 600 × D 150 mm",
+    description:
+      "CAVE is formed from the shadows of many handprints, which come together to create the shape of a cave.\n\nFor me, the work reflects the idea that my consciousness has been shaped by what surrounds and precedes me. The cave becomes a space in which I look back at this process and reflect on the formation of the self.",
+    images: [
+      {
+        src: "cave-01",
+        alt: "CAVE, a tall dark sculpture with hand-shaped impressions in a narrow space between walls",
+        caption: "",
+        width: 2400,
+        height: 3600,
+      },
+    ],
+  },
 ];
 
 const projectYears = [
