@@ -1,5 +1,15 @@
 ---
 import "../styles/global.css";
+import { getLanguage, translator, localizedHref, routePath } from "../i18n";
+import { projects } from "../data/projects";
+const language = getLanguage(Astro.url);
+const t = translator(language);
+const href = (path: string = "") => localizedHref(language, path);
+const path = routePath(Astro.url);
+const equivalentPages = new Set(["", "works", "about", "cv", "contact", ...projects.map((project) => `works/${project.slug}`)]);
+const equivalentPath = equivalentPages.has(path) ? path : "";
+const englishHref = localizedHref("en", equivalentPath);
+const chineseHref = localizedHref("zh", equivalentPath);
 import { site } from "../data/site";
 import Arrow from "../components/Arrow.astro";
 interface Props {
@@ -23,10 +33,10 @@ const canonical = Astro.site
 const socialImage =
   image && Astro.site ? new URL(image, Astro.site).href : image;
 const nav = [
-  { label: "Works", href: `${import.meta.env.BASE_URL}works/` },
-  { label: "About", href: `${import.meta.env.BASE_URL}about/` },
-  { label: "CV", href: `${import.meta.env.BASE_URL}cv/` },
-  { label: "Contact", href: `${import.meta.env.BASE_URL}contact/` },
+  { label: "Works", href: href("works/") },
+  { label: "About", href: href("about/") },
+  { label: "CV", href: href("cv/") },
+  { label: "Contact", href: href("contact/") },
 ];
 const structuredData = {
   "@context": "https://schema.org",
@@ -40,7 +50,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language === "zh" ? "zh-CN" : "en"}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -52,6 +62,13 @@ const structuredData = {
     {socialImage && <meta property="og:image" content={socialImage} />}
     {canonical && <link rel="canonical" href={canonical} />}
     {canonical && <meta property="og:url" content={canonical} />}
+    {Astro.site && equivalentPages.has(path) && (
+      <>
+        <link rel="alternate" hreflang="en" href={new URL(englishHref, Astro.site)} />
+        <link rel="alternate" hreflang="zh-CN" href={new URL(chineseHref, Astro.site)} />
+        <link rel="alternate" hreflang="x-default" href={new URL(englishHref, Astro.site)} />
+      </>
+    )}
     <meta
       name="twitter:card"
       content={socialImage ? "summary_large_image" : "summary"}
@@ -65,19 +82,26 @@ const structuredData = {
   </head>
   <body>
     <a href="#main" class="skip-link">
-      Skip to content
+      {t("Skip to content")}
     </a>
     <header class="site-header page-gutter">
-      <a href={import.meta.env.BASE_URL + ""} class="wordmark" aria-label="Xiyu Wang home">
+      <a href={href()} class="wordmark" aria-label={t("Xiyu Wang home")}>
         XIYU WANG
       </a>
-      <span class="header-location">Sculptor · Tokyo, JP</span>
+      <span class="header-location">{t("Sculptor")} · Tokyo, JP</span>
+      <div class="language-switcher" role="group" aria-label={t("Language")}>
+        <a href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
+        <span aria-hidden="true">/</span>
+        <a href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
+      </div>
       <button
         class="menu-toggle"
+        data-menu-label={t("Menu")}
+        data-close-label={t("Close")}
         aria-expanded="false"
         aria-controls="main-navigation"
       >
-        <span class="menu-label">Menu</span>
+        <span class="menu-label">{t("Menu")}</span>
         <span class="menu-icon" aria-hidden="true">
           <i></i>
           <i></i>
@@ -86,14 +110,14 @@ const structuredData = {
       <nav
         id="main-navigation"
         class="main-navigation"
-        aria-label="Main navigation"
+        aria-label={t("Main navigation")}
       >
         {nav.map((item) => (
           <a
             href={item.href}
             aria-current={active === item.label ? "page" : undefined}
           >
-            {item.label}
+            {t(item.label)}
             <span class="nav-dot" aria-hidden="true"></span>
           </a>
         ))}
@@ -103,8 +127,8 @@ const structuredData = {
       <slot />
     </main>
     <footer class="site-footer page-gutter">
-      <a class="footer-name" href={import.meta.env.BASE_URL + ""}>
-        XIYU WANG<span>Sculptor, Tokyo</span>
+      <a class="footer-name" href={href()}>
+        XIYU WANG<span>{t("Sculptor")}, Tokyo</span>
       </a>
       <span class="copyright">© {new Date().getFullYear()} Xiyu Wang</span>
       <a
@@ -114,9 +138,9 @@ const structuredData = {
         rel="noopener noreferrer"
       >
         Instagram <Arrow direction="diagonal" />
-        <span class="sr-only"> (opens in a new tab)</span>
+        <span class="sr-only"> {t("(opens in a new tab)")}</span>
       </a>
-      <a class="back-top" href="#top" aria-label="Back to top">
+      <a class="back-top" href="#top" aria-label={t("Back to top")}>
         <Arrow direction="down" />
       </a>
     </footer>
@@ -129,14 +153,14 @@ const structuredData = {
         menuButton?.setAttribute("aria-expanded", "false");
         navigation?.classList.remove("is-open");
         const label = menuButton?.querySelector(".menu-label");
-        if (label) label.textContent = "Menu";
+        if (label) label.textContent = menuButton?.dataset.menuLabel ?? "Menu";
       }
       menuButton?.addEventListener("click", () => {
         const open = menuButton.getAttribute("aria-expanded") !== "true";
         menuButton.setAttribute("aria-expanded", String(open));
         navigation?.classList.toggle("is-open", open);
         const label = menuButton.querySelector(".menu-label");
-        if (label) label.textContent = open ? "Close" : "Menu";
+        if (label) label.textContent = open ? menuButton.dataset.closeLabel ?? "Close" : menuButton.dataset.menuLabel ?? "Menu";
       });
       document.addEventListener("keydown", (event) => {
         if (

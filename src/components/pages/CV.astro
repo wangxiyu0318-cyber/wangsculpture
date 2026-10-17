@@ -1,0 +1,67 @@
+---
+import { getLanguage, translator, localizedHref } from "../../i18n";
+import Layout from "../../layouts/Layout.astro";
+import Arrow from "../Arrow.astro";
+import { cv as englishCV } from "../../data/site";
+import { artistText } from "../../data/text/site.zh";
+const language = getLanguage(Astro.url);
+const t = translator(language);
+const cv = language === "zh" ? artistText.cv ?? englishCV : englishCV;
+const recordsLanguage = language === "zh" && artistText.cv ? "zh-CN" : "en";
+const href = (path: string = "") => localizedHref(language, path);
+
+---
+
+<Layout title={t("CV & Exhibitions")} active="CV">
+  <section class="cv-page page-gutter" id="top">
+    <div class="page-heading">
+      <span class="eyebrow">Xiyu Wang / {t("Curriculum vitae")}</span>
+      <h1>{t("CV & Exhibitions")}</h1>
+    </div>
+    <div class="cv-intro">
+      <span class="eyebrow">{t("Sculptor")}</span>
+      <p>
+        Based in Tokyo, Japan
+        <br />
+        <span class="muted">Wood, metal, enamel, paper & mixed materials</span>
+      </p>
+    </div>
+    {cv.map((section) => (
+      <section class="cv-section">
+        <h2>{t(section.heading)}</h2>
+        <div>
+          {[...new Set(section.entries.map((entry) => entry.year))].map((year) => (
+            <div class="cv-entry">
+              <span>{year}</span>
+              <div class="cv-year-entries">
+                {section.entries.filter((entry) => entry.year === year).map((entry) => (
+                  <div>
+                    {entry.upcoming && <span class="eyebrow cv-upcoming">{t("Upcoming")}</span>}
+                    <h3 lang={recordsLanguage}>{entry.title}</h3>
+                    <p lang={recordsLanguage}>{entry.place}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+    <div class="cv-contact">
+      <a class="text-link" href={href("contact/")}>
+        {t("Get in touch")} <Arrow />
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cv-year-entries {
+    display: grid;
+    gap: 24px;
+  }
+  .cv-upcoming {
+    display: block;
+    margin-bottom: 6px;
+  }
+</style>

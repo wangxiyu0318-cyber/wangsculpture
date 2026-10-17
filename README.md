@@ -66,3 +66,18 @@ This activates canonical URLs and absolute social-sharing image URLs. The site i
 Keyboard users can skip to the main content, use material filters, open images, move between images with arrow keys, and close the viewer with Escape. The native modal dialog manages focus and restores it to the originating image. Mobile navigation supports Escape. Motion respects `prefers-reduced-motion`.
 
 Once added, images have explicit dimensions and responsive sources. Below-the-fold artwork is lazy-loaded; the first main image loads eagerly. Fonts are served locally, with the license in `public/fonts/LICENSE.txt`.
+
+## English and Chinese content
+
+English keeps its existing routes. Simplified Chinese uses `/zh/`; both render the same components in `src/components/pages/`. The header switcher preserves the equivalent page. Asset URLs remain shared and all page links use the configured Astro base.
+
+- `src/i18n/index.ts`: interface labels, language detection, and page URL helpers.
+- `src/data/projects.ts`: shared project facts and image metadata; `getProjects(language)` combines them with localized copy.
+- `src/data/text/projects.en.ts`: original verified English titles, materials, descriptions, and image alt text.
+- `src/data/text/projects.zh.ts`: verified Chinese project copy, keyed by slug. Add only supplied translations; image alt text is keyed by the existing image `src`.
+- `src/data/site.ts`: original English biography, statement, CV records, and shared contact details.
+- `src/data/text/site.zh.ts`: optional verified Chinese biography, statement, and CV copy.
+
+Until verified Chinese copy is supplied, Chinese project pages retain English titles, materials, and alt text, and omit descriptions. The Chinese About page omits the untranslated biography and statement. CV records remain in their original English, marked `lang="en"`; only interface headings are localized. Do not machine-translate artist text or duplicate artwork image files to add a language.
+
+Run `npm run check` and `npm run build` after changes. The current build produces 12 English routes, 12 equivalent Chinese routes, and the existing English 404 page. Canonical URLs and reciprocal `en`, `zh-CN`, and `x-default` links include the configured GitHub Pages base path.

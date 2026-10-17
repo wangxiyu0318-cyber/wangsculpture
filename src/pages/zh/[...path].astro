@@ -1,0 +1,21 @@
+---
+import Home from "../../components/pages/Home.astro";
+import Works from "../../components/pages/Works.astro";
+import Project from "../../components/pages/Project.astro";
+import About from "../../components/pages/About.astro";
+import CV from "../../components/pages/CV.astro";
+import Contact from "../../components/pages/Contact.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return [
+    { params: { path: undefined }, props: { page: "home", slug: "" } },
+    ...["works", "about", "cv", "contact"].map((page) => ({ params: { path: page }, props: { page, slug: "" } })),
+    ...projects.map(({ slug }) => ({ params: { path: `works/${slug}` }, props: { page: "project", slug } })),
+  ];
+}
+const pages = { home: Home, works: Works, project: Project, about: About, cv: CV, contact: Contact };
+const { page, slug } = Astro.props;
+const Page = pages[page as keyof typeof pages];
+---
+<Page slug={slug} />

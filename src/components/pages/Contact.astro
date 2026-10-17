@@ -1,0 +1,56 @@
+---
+import { getLanguage, translator } from "../../i18n";
+import Layout from "../../layouts/Layout.astro";
+import Arrow from "../Arrow.astro";
+import { site } from "../../data/site";
+const language = getLanguage(Astro.url);
+const t = translator(language);
+
+---
+
+<Layout title={t("Contact")} active="Contact">
+  <section class="contact-page page-gutter" id="top">
+    <div class="page-heading">
+      <span class="eyebrow">Xiyu Wang</span>
+      <h1>{t("Contact")}</h1>
+    </div>
+    <div class="contact-content">
+      <div class="contact-location">
+        <span class="location-point" aria-hidden="true"></span>
+        <p>Tokyo, Japan</p>
+      </div>
+      <div class="contact-links">
+        <div class="contact-row">
+          <span class="eyebrow">{t("Email")}</span>
+          {site.email ? (
+            <a href={`mailto:${site.email}`}>
+              {site.email}
+              <Arrow direction="diagonal" />
+            </a>
+          ) : (
+            <div class="email-pending">
+              <span>Email to be added</span>
+              <p>In the meantime, please get in touch via Instagram.</p>
+            </div>
+          )}
+        </div>
+        <div class="contact-row">
+          <span class="eyebrow">{t("Instagram")}</span>
+          <a
+            href={`https://www.instagram.com/${site.instagram}/`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @{site.instagram}
+            <Arrow direction="diagonal" />
+            <span class="sr-only"> {t("(opens in a new tab)")}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-signoff">
+      <span>Tokyo, Japan</span>
+      <span>XIYU WANG</span>
+    </div>
+  </section>
+</Layout>
