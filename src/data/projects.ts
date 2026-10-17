@@ -87,11 +87,12 @@ export const projects: Project[] = [
   {
     slug: "nezhas-bike",
     title: "Nezha’s Bike",
-    year: "",
-    materials: "",
-    category: "",
-    dimensions: "",
-    description: "",
+    year: "2024",
+    materials: "Iron, camphor wood",
+    category: "Mixed materials",
+    dimensions: "H 120 × W 150 × D 300 cm",
+    description:
+      "Nezha’s Bike comes from the myth of Nezha. In the story, even after experiencing death and rebirth, Nezha never seems to gain real freedom under the power of patriarchy.\n\nI imagined him using the body of the dragon he killed, together with his own dead body, to build a motorcycle that could carry him away at full speed. I wanted the work to become a wish for escape — from expectation, duty and limitation.\n\nThe sculpture also brings together two opposite ways of making. Wood carving is created through subtraction, while metalwork is built through addition. Working between these two processes has also helped me find my own position as a sculptor.",
     images: [
       {
         src: "nezhas-bike-01",
