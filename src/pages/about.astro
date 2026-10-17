@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Arrow from "../components/Arrow.astro";
-import ArtworkPlaceholder from "../components/ArtworkPlaceholder.astro";
+import Artwork from "../components/Artwork.astro";
 import { biography, statement } from "../data/site";
 ---
 
@@ -21,7 +21,16 @@ import { biography, statement } from "../data/site";
       </div>
     </div>
     <figure class="about-image">
-      <ArtworkPlaceholder />
+      <Artwork
+        image={{
+          src: "about-xiyu-wang",
+          alt: "Xiyu Wang",
+          caption: "",
+          width: 2400,
+          height: 3200,
+        }}
+        sizes="(max-width: 700px) 100vw, calc(100vw - 96px)"
+      />
     </figure>
     <div class="statement-row">
       <h2 class="eyebrow">Artist statement</h2>
@@ -36,3 +45,9 @@ import { biography, statement } from "../data/site";
     </div>
   </section>
 </Layout>
+
+<style>
+  .about-image :global(img) {
+    object-position: center 25%;
+  }
+</style>
