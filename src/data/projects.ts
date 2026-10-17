@@ -68,11 +68,12 @@ export const projects: Project[] = [
   {
     slug: "niou",
     title: "NIOU",
-    year: "",
-    materials: "",
-    category: "",
-    dimensions: "",
-    description: "",
+    year: "2022",
+    materials: "Camphor wood",
+    category: "Wood",
+    dimensions: "Each figure: H 260 × W 150 × D 120 cm",
+    description:
+      "NIOU was created for Miyaji Shrine in Kumamoto, Japan, a shrine with a history of around 1,400 years.\n\nFor the figures, I combined characteristics of Buddhist sculpture from Shuanglin Temple in China with a local tradition of the shrine. During the New Year period, sumo wrestlers are invited to perform and pray for the wellbeing of the local community.\n\nBecause of this connection, I gave the Nio figures fuller, heavier bodies based on sumo wrestlers rather than the more muscular and defined bodies often seen in traditional Japanese Buddhist sculpture.\n\nThrough the work, I wanted to bring together different sculptural traditions and the living customs of the local community, allowing a traditional religious image to take on a form that belongs specifically to this place.",
     images: [
       {
         src: "niou-01",
