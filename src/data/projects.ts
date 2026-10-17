@@ -122,6 +122,32 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "minira",
+    title: "MINIRA",
+    year: "2025",
+    materials: "Camphor wood",
+    category: "Wood",
+    dimensions: "H 1100 × W 650 × D 680 mm",
+    description:
+      "MINIRA combines my own process of growing up with the imagined experience of Minira, the child of Godzilla. Through this figure, I think about the confusion that can appear during growth, the questioning of decisions made by one’s parents, and the uncertainty of becoming.\n\nAt the same time, Minira gradually grows scales and becomes closer to the parents’ form. The work reflects both distance and resemblance: the desire to question what is given, and the inevitability of being shaped by where one comes from.",
+    images: [
+      {
+        src: "minira-01",
+        alt: "MINIRA, front view of a carved wooden figure with outstretched arms and scales",
+        caption: "",
+        width: 2400,
+        height: 2400,
+      },
+      {
+        src: "minira-02",
+        alt: "MINIRA, rear view showing carved scales along the back and legs",
+        caption: "",
+        width: 2400,
+        height: 2400,
+      },
+    ],
+  },
 ];
 
 const projectYears = [
