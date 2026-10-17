@@ -4,7 +4,7 @@ export const site = {
   location: "Tokyo, Japan",
   instagram: "wxy_wonka",
   // Add your public email here to enable the email link on the Contact page.
-  email: "",
+  email: "wangxiyu0318@gmail.com",
   description:
     "Xiyu Wang is a sculptor based in Tokyo, working with wood, metal, enamel, paper and mixed materials.",
 };
