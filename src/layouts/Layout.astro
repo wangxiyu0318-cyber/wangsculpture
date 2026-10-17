@@ -90,11 +90,6 @@ const structuredData = {
         <ArtistLogo class="header-logo" />
         XIYU WANG
       </a>
-      <div class="language-switcher" role="group" aria-label={t("Language")}>
-        <a href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
-        <span aria-hidden="true">/</span>
-        <a href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
-      </div>
       <button
         class="menu-toggle"
         data-menu-label={t("Menu")}
@@ -123,6 +118,11 @@ const structuredData = {
           </a>
         ))}
       </nav>
+      <div class="language-switcher" role="group" aria-label={t("Language")}>
+        <a href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
+        <span aria-hidden="true">/</span>
+        <a href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
+      </div>
     </header>
     <main id="main">
       <slot />
