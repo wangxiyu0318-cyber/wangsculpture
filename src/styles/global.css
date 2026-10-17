@@ -1985,6 +1985,7 @@ img {
 
 /* Language controls stay separate from the primary navigation. */
 .language-switcher {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 6px;

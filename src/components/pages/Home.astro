@@ -25,10 +25,6 @@ const representativeWorks = representativeSlugs.map((slug) => {
   <section class="home-intro page-gutter curated-home" id="top" aria-labelledby="artist-name">
     <div class="home-heading">
       <h1 id="artist-name">XIYU WANG</h1>
-      <div class="home-location">
-        <span>{t("Sculptor")}</span>
-        <span>Tokyo, Japan <span class="location-point" aria-hidden="true"></span></span>
-      </div>
     </div>
     <div class="curated-sequence" role="group" aria-label={t("Selected works")}>
       {representativeWorks.map((project, index) => (
@@ -74,8 +70,8 @@ const representativeWorks = representativeSlugs.map((slug) => {
     padding-bottom: 80px;
   }
   .home-heading {
-    margin-bottom: 80px;
-    align-items: flex-end;
+    display: block;
+    margin-bottom: 64px;
   }
   .home-heading h1 {
     font-size: clamp(48px, 7.4vw, 112px);
@@ -170,7 +166,7 @@ const representativeWorks = representativeSlugs.map((slug) => {
       padding-bottom: 48px;
     }
     .home-heading {
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
     .home-heading h1 {
       font-size: clamp(32px, 9.7vw, 62px);
