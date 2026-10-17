@@ -103,6 +103,25 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "stonesomira",
+    title: "StoneSomira",
+    year: "2025",
+    materials: "Glass, copper, copper mesh",
+    category: "Mixed materials",
+    dimensions: "H 270 × W 170 × D 140 mm",
+    description:
+      "StoneSomira continues my Somira series through an experiment with materials. In this work, I used glass, copper, and copper mesh to create a surface texture that feels weathered, stony, and ancient, as if the figure had existed for a very long time.\n\nI am interested in how sculpture surfaces change through time, and in how material can suggest age, fragility, and distance. This work develops the Somira image in a different direction, focusing more on material transformation and the sense of something that feels unearthed or long-existing.",
+    images: [
+      {
+        src: "stonesomira-01",
+        alt: "StoneSomira, a textured double-faced figure against a light background",
+        caption: "",
+        width: 2400,
+        height: 3600,
+      },
+    ],
+  },
 ];
 
 const projectYears = [
