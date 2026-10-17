@@ -3,6 +3,7 @@ import { getLanguage, translator, localizedHref } from "../../i18n";
 import Layout from "../../layouts/Layout.astro";
 import Artwork from "../Artwork.astro";
 import Arrow from "../Arrow.astro";
+import ArtistLogo from "../ArtistLogo.astro";
 import { getProjects } from "../../data/projects";
 import { materials } from "../../data/materials";
 
@@ -29,15 +30,12 @@ const representativeWorks = representativeSlugs.map((slug) => {
         <span>Tokyo, Japan <span class="location-point" aria-hidden="true"></span></span>
       </div>
     </div>
-    <nav class="material-entrances" aria-label={t("Browse by material")}>
-      {materials.map((material) => (
-        <a href={`${href("works/")}?material=${material.id}`}>
-          {t(material.entrance)} <Arrow />
-        </a>
-      ))}
-    </nav>
-    <div class="curated-sequence">
+    <div class="home-signature">
+      <ArtistLogo class="signature-logo" />
+    </div>
+    <div class="curated-sequence" role="group" aria-label={t("Selected works")}>
       {representativeWorks.map((project, index) => (
+        <>
         <article
           class="curated-work"
           style={`--work-width: ${Math.round(420 * Math.sqrt(project.images[0].width / project.images[0].height))}px`}
@@ -59,10 +57,19 @@ const representativeWorks = representativeSlugs.map((slug) => {
             </figure>
           </a>
         </article>
+        {index % 2 === 1 && (
+          <div class:list={["material-entrance", `material-entrance-${materials[Math.floor(index / 2)].id}`]}>
+            <a href={`${href("works/")}?material=${materials[Math.floor(index / 2)].id}`}>
+              {t(materials[Math.floor(index / 2)].entrance)} <Arrow />
+            </a>
+          </div>
+        )}
+        </>
       ))}
     </div>
     <div class="archive-entrance">
       <a class="text-link" href={href("works/")}>{t("View all works")} <Arrow /></a>
+      <a class="text-link" href={href("about/")}>{t("About the artist")} <Arrow /></a>
     </div>
   </section>
 </Layout>
@@ -74,16 +81,23 @@ const representativeWorks = representativeSlugs.map((slug) => {
   .home-heading {
     margin-bottom: 48px;
   }
-  .material-entrances {
+  .home-signature {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px 32px;
-    max-width: 650px;
-    margin: 0 auto 56px;
+    justify-content: flex-end;
+    padding-inline: 4%;
+    margin-block: 16px 40px;
   }
-  .material-entrances a {
+  .material-entrance {
+    align-self: center;
+    padding-block: 8px;
+  }
+  .material-entrance-wood {
+    margin-left: 12%;
+  }
+  .material-entrance-metal {
+    margin-right: 12%;
+  }
+  .material-entrance a {
     display: inline-flex;
     align-items: center;
     gap: 18px;
@@ -144,6 +158,8 @@ const representativeWorks = representativeSlugs.map((slug) => {
   .archive-entrance {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px 40px;
   }
   .archive-entrance .text-link {
     min-height: 44px;
@@ -155,15 +171,19 @@ const representativeWorks = representativeSlugs.map((slug) => {
     .home-heading {
       margin-bottom: 28px;
     }
-    .material-entrances {
-      gap: 8px 16px;
-      margin-bottom: 28px;
+    .home-signature {
+      margin-block: 8px 28px;
+      padding-inline: 0;
     }
-    .material-entrances a {
+    .material-entrance {
+      margin: 0;
+      padding-block: 0;
+    }
+    .material-entrance a {
       font-size: 12px;
-      gap: 8px;
+      gap: 10px;
     }
-    .material-entrances :global(.arrow) {
+    .material-entrance :global(.arrow) {
       width: 16px;
       height: 16px;
     }

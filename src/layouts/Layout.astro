@@ -12,6 +12,7 @@ const englishHref = localizedHref("en", equivalentPath);
 const chineseHref = localizedHref("zh", equivalentPath);
 import { site } from "../data/site";
 import Arrow from "../components/Arrow.astro";
+import ArtistLogo from "../components/ArtistLogo.astro";
 interface Props {
   title?: string;
   description?: string;
@@ -86,6 +87,7 @@ const structuredData = {
     </a>
     <header class="site-header page-gutter">
       <a href={href()} class="wordmark" aria-label={t("Xiyu Wang home")}>
+        <ArtistLogo class="header-logo" />
         XIYU WANG
       </a>
       <span class="header-location">{t("Sculptor")} · Tokyo, JP</span>
@@ -128,6 +130,7 @@ const structuredData = {
     </main>
     <footer class="site-footer page-gutter">
       <a class="footer-name" href={href()}>
+        <ArtistLogo class="footer-logo" loading="lazy" />
         XIYU WANG<span>{t("Sculptor")}, Tokyo</span>
       </a>
       <span class="copyright">© {new Date().getFullYear()} Xiyu Wang</span>

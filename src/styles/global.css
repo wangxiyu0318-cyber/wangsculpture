@@ -2031,3 +2031,39 @@ html[lang="zh-CN"] .main-navigation a {
     flex-shrink: 0;
   }
 }
+
+/* The transparent signature stays secondary to the artist name and artwork. */
+.artist-logo {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.artist-logo.header-logo {
+  width: 34px;
+}
+.artist-logo.signature-logo {
+  width: 104px;
+}
+.artist-logo.footer-logo {
+  width: 48px;
+}
+@media (max-width: 700px) {
+  .footer-name {
+    align-items: flex-start;
+  }
+  .artist-logo.signature-logo {
+    width: 88px;
+  }
+}
+@media (max-width: 380px) {
+  .artist-logo.header-logo {
+    display: none;
+  }
+}
