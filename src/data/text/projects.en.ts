@@ -59,5 +59,21 @@ export const projectText: Record<string, ProjectText> = {
     "imageAlt": {
       "cave-01": "CAVE, a tall dark sculpture with hand-shaped impressions in a narrow space between walls"
     }
+  },
+  "lay-and-ray": {
+    "title": "Lay and Ray",
+    "materials": "Camphor wood, oil colors, mineral pigments",
+    "description": "",
+    "imageAlt": {
+      "lay-and-ray-01": "Lay and Ray, two painted figures with green hair and white clothing standing side by side"
+    }
+  },
+  "welove": {
+    "title": "welove",
+    "materials": "Camphor wood, oil colors, mineral pigments",
+    "description": "",
+    "imageAlt": {
+      "welove-01": "welove, two painted figures with long trunks in orange and blue clothing standing together"
+    }
   }
 };

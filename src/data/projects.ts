@@ -152,6 +152,40 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "lay-and-ray",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2026",
+    "category": "Wood",
+    "dimensions": "H 16 × W 10 × D 10 cm and H 17 × W 10 × D 10 cm",
+    "images": [
+      {
+        "src": "lay-and-ray-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3200
+      }
+    ]
+  },
+  {
+    "slug": "welove",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2026",
+    "category": "Wood",
+    "dimensions": "H 25 × W 20 × D 10 cm",
+    "images": [
+      {
+        "src": "welove-01",
+        "caption": "",
+        "width": 2400,
+        "height": 1800
+      }
+    ]
   }
 ];
 
