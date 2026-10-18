@@ -167,6 +167,30 @@ export const sharedProjects: SharedProject[] = [
         "caption": "",
         "width": 2400,
         "height": 3200
+      },
+      {
+        "src": "lay-and-ray-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "lay-and-ray-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "lay-and-ray-04",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "lay-and-ray-05",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
       }
     ]
   },

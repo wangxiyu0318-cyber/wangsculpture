@@ -65,7 +65,11 @@ export const projectText: Record<string, ProjectText> = {
     "materials": "Camphor wood, oil colors, mineral pigments",
     "description": "",
     "imageAlt": {
-      "lay-and-ray-01": "Lay and Ray, two painted figures with green hair and white clothing standing side by side"
+      "lay-and-ray-01": "Lay and Ray, two painted figures with green hair and white clothing standing side by side",
+      "lay-and-ray-02": "Lay and Ray, side view of the figure with short green hair and white clothing",
+      "lay-and-ray-03": "Lay and Ray, rear view of the figure with short green hair and a green shell",
+      "lay-and-ray-04": "Lay and Ray, front view of the figure with two green hair tufts and white clothing",
+      "lay-and-ray-05": "Lay and Ray, rear view of the figure with two green hair tufts and a green shell"
     }
   },
   "welove": {
