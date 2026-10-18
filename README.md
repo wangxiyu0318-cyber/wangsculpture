@@ -63,7 +63,9 @@ This activates canonical URLs and absolute social-sharing image URLs. The site i
 
 ## Accessibility and interaction
 
-Keyboard users can skip to the main content, use material filters, open images, move between images with arrow keys, and close the viewer with Escape. The native modal dialog manages focus and restores it to the originating image. Mobile navigation supports Escape. Motion respects `prefers-reduced-motion`.
+Keyboard users can skip to the main content and use material filters. Multi-image projects have an inline gallery with previous/next buttons and arrow-key navigation while the gallery is focused. Touch users can swipe horizontally; vertical scrolling remains available. Galleries stop at the first and last image, and single-image projects have no gallery controls. Mobile navigation supports Escape. Motion respects `prefers-reduced-motion`.
+
+Run `node --test scripts/test-project-gallery.mjs` to verify gallery boundaries, responsive image and alt updates, keyboard scope, swipe thresholds, and single-image behavior.
 
 Once added, images have explicit dimensions and responsive sources. Below-the-fold artwork is lazy-loaded; the first main image loads eagerly. Fonts are served locally, with the license in `public/fonts/LICENSE.txt`.
 
