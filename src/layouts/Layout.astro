@@ -85,7 +85,7 @@ const structuredData = {
     <a href="#main" class="skip-link">
       {t("Skip to content")}
     </a>
-    <header class="site-header page-gutter">
+    <header class="site-header signature-header page-gutter">
       <a href={href()} class="wordmark" aria-label={t("Xiyu Wang home")}>
         <ArtistLogo class="header-logo" />
         XIYU WANG
@@ -95,14 +95,17 @@ const structuredData = {
         data-menu-label={t("Menu")}
         data-close-label={t("Close")}
         aria-expanded="false"
-        aria-controls="main-navigation"
+        aria-controls="site-menu"
+        aria-label={t("Menu")}
+        type="button"
       >
-        <span class="menu-label">{t("Menu")}</span>
         <span class="menu-icon" aria-hidden="true">
+          <i></i>
           <i></i>
           <i></i>
         </span>
       </button>
+      <div id="site-menu" class="navigation-panel" hidden>
       <nav
         id="main-navigation"
         class="main-navigation"
@@ -114,7 +117,6 @@ const structuredData = {
             aria-current={active === item.label ? "page" : undefined}
           >
             {t(item.label)}
-            <span class="nav-dot" aria-hidden="true"></span>
           </a>
         ))}
       </nav>
@@ -122,6 +124,7 @@ const structuredData = {
         <a href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
         <span aria-hidden="true">/</span>
         <a href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
+      </div>
       </div>
     </header>
     <main id="main">
@@ -147,35 +150,8 @@ const structuredData = {
       </a>
     </footer>
     <script>
-      const menuButton =
-        document.querySelector<HTMLButtonElement>(".menu-toggle");
-      const navigation =
-        document.querySelector<HTMLElement>(".main-navigation");
-      function closeMenu() {
-        menuButton?.setAttribute("aria-expanded", "false");
-        navigation?.classList.remove("is-open");
-        const label = menuButton?.querySelector(".menu-label");
-        if (label) label.textContent = menuButton?.dataset.menuLabel ?? "Menu";
-      }
-      menuButton?.addEventListener("click", () => {
-        const open = menuButton.getAttribute("aria-expanded") !== "true";
-        menuButton.setAttribute("aria-expanded", String(open));
-        navigation?.classList.toggle("is-open", open);
-        const label = menuButton.querySelector(".menu-label");
-        if (label) label.textContent = open ? menuButton.dataset.closeLabel ?? "Close" : menuButton.dataset.menuLabel ?? "Menu";
-      });
-      document.addEventListener("keydown", (event) => {
-        if (
-          event.key === "Escape" &&
-          menuButton?.getAttribute("aria-expanded") === "true"
-        ) {
-          closeMenu();
-          menuButton.focus();
-        }
-      });
-      window
-        .matchMedia("(min-width: 701px)")
-        .addEventListener("change", closeMenu);
+      import { initializeSiteMenu } from "../scripts/site-menu";
+      initializeSiteMenu();
       document
         .querySelector(".back-top")
         ?.addEventListener("click", (event) => {
@@ -191,3 +167,148 @@ const structuredData = {
     </script>
   </body>
 </html>
+
+
+<style>
+  .signature-header {
+    --signature-height: 120px;
+    height: var(--signature-height);
+    display: block;
+    position: relative;
+    z-index: 20;
+    background: #fff;
+    border: 0;
+    box-shadow: none;
+  }
+  .signature-header.is-menu-open {
+    position: sticky;
+    top: 0;
+  }
+  .signature-header .wordmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .signature-header :global(.artist-logo.header-logo) {
+    width: 72px;
+    height: 42px;
+    object-fit: contain;
+  }
+  .signature-header .menu-toggle {
+    position: absolute;
+    top: 50%;
+    right: var(--gutter);
+    transform: translateY(-50%);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .signature-header .menu-icon {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 16px;
+  }
+  .signature-header .menu-icon i {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    transition: none;
+    transform: none;
+  }
+  .signature-header .menu-icon i:nth-child(1) { top: 0; }
+  .signature-header .menu-icon i:nth-child(2) { top: 7px; }
+  .signature-header .menu-icon i:nth-child(3) { top: 14px; }
+  .signature-header .menu-toggle[aria-expanded="true"] .menu-icon i:nth-child(1) {
+    top: 7px;
+    transform: rotate(45deg);
+  }
+  .signature-header .menu-toggle[aria-expanded="true"] .menu-icon i:nth-child(2) {
+    visibility: hidden;
+  }
+  .signature-header .menu-toggle[aria-expanded="true"] .menu-icon i:nth-child(3) {
+    top: 7px;
+    transform: rotate(-45deg);
+  }
+  .signature-header .navigation-panel {
+    position: fixed;
+    inset: var(--signature-height) 0 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: clamp(28px, 5vh, 56px) var(--gutter) 40px;
+    background: #fff;
+  }
+  .signature-header .navigation-panel[hidden] { display: none; }
+  .signature-header .main-navigation {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .signature-header .main-navigation > a {
+    min-height: 48px;
+    justify-content: center;
+    font-size: clamp(22px, 2.1vw, 28px);
+    font-weight: 400;
+    letter-spacing: normal;
+  }
+  .signature-header .main-navigation a::after { display: none; }
+  .signature-header .main-navigation a:hover,
+  .signature-header .main-navigation a[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+  }
+  .signature-header .language-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 40px 0 0;
+    font-size: 12px;
+  }
+  .signature-header .language-switcher a { min-width: 44px; justify-content: center; }
+  .signature-header .menu-toggle:focus-visible,
+  .signature-header a:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
+  }
+  @media (max-width: 700px) {
+    .signature-header { --signature-height: 84px; }
+    .signature-header .wordmark { font-size: 18px; gap: 10px; }
+    .signature-header :global(.artist-logo.header-logo) { width: 48px; height: 28px; }
+    .signature-header .menu-toggle { width: 44px; height: 44px; min-height: 44px; }
+    .signature-header .main-navigation { gap: 14px; }
+    .signature-header .language-switcher { margin-top: 32px; }
+  }
+  @media (max-width: 360px) {
+    .signature-header .wordmark { font-size: 17px; gap: 8px; }
+    .signature-header :global(.artist-logo.header-logo) { width: auto; height: 26px; }
+  }
+</style>

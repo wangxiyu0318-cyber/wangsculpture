@@ -22,10 +22,7 @@ const representativeWorks = representativeSlugs.map((slug) => {
 ---
 
 <Layout>
-  <section class="home-intro page-gutter curated-home" id="top" aria-labelledby="artist-name">
-    <div class="home-heading">
-      <h1 id="artist-name">XIYU WANG</h1>
-    </div>
+  <section class="home-intro page-gutter curated-home" id="top" aria-label={t("Selected works")}>
     <div class="curated-sequence" role="group" aria-label={t("Selected works")}>
       {representativeWorks.map((project, index) => (
         <article
@@ -67,25 +64,15 @@ const representativeWorks = representativeSlugs.map((slug) => {
 
 <style>
   .curated-home {
+    padding-top: 32px;
     padding-bottom: 80px;
-  }
-  .home-heading {
-    display: block;
-    margin-bottom: 64px;
-  }
-  .home-heading h1 {
-    font-size: clamp(48px, 7.4vw, 112px);
-    font-weight: 325;
-    line-height: 1.08;
-    letter-spacing: 0.005em;
-    margin-left: 0;
   }
   .curated-sequence {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: 24px;
     row-gap: clamp(88px, 8vw, 120px);
-    padding-block: 8px 80px;
+    padding-block: 0 80px;
   }
   .curated-work {
     width: 100%;
@@ -163,13 +150,8 @@ const representativeWorks = representativeSlugs.map((slug) => {
   }
   @media (max-width: 700px) {
     .curated-home {
+      padding-top: 20px;
       padding-bottom: 48px;
-    }
-    .home-heading {
-      margin-bottom: 32px;
-    }
-    .home-heading h1 {
-      font-size: clamp(32px, 9.7vw, 62px);
     }
     .curated-sequence {
       grid-template-columns: minmax(0, 1fr);
