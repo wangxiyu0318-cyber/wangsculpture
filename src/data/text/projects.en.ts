@@ -125,7 +125,7 @@ export const projectText: Record<string, ProjectText> = {
   },
   "redsomira": {
     "title": "RedSomira",
-    "materials": "Cloisonné glass, stainless steel mesh",
+    "materials": "Enamel, stainless steel mesh",
     "description": "",
     "imageAlt": {
       "redsomira-01": "RedSomira, red sculpture with circular forms against a light background",
@@ -134,7 +134,7 @@ export const projectText: Record<string, ProjectText> = {
   },
   "bluesomira": {
     "title": "BlueSomira",
-    "materials": "Cloisonné glass, copper",
+    "materials": "Enamel, copper",
     "description": "",
     "imageAlt": {
       "bluesomira-01": "BlueSomira, dark blue double-faced figure against a light background",
@@ -143,11 +143,20 @@ export const projectText: Record<string, ProjectText> = {
   },
   "whitesomira": {
     "title": "WhiteSomira",
-    "materials": "Cloisonné glass, stainless steel mesh",
+    "materials": "Enamel, stainless steel mesh",
     "description": "",
     "imageAlt": {
       "whitesomira-01": "WhiteSomira, front view of a white figure with dark speckled texture against a light background",
       "whitesomira-02": "WhiteSomira, side view showing the figure's extended form and speckled surface"
+    }
+  },
+  "gold-somira": {
+    "title": "Gold Somira",
+    "materials": "Enamel, copper, gold leaf",
+    "description": "",
+    "imageAlt": {
+      "gold-somira-01": "Gold Somira, gold-colored double-faced figure on a wide base against a light background",
+      "gold-somira-02": "Gold Somira, side view of the gold-colored figure and its textured surface"
     }
   }
 };

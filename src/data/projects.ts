@@ -413,6 +413,29 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "gold-somira",
+    "materialTags": [
+      "metal"
+    ],
+    "year": "2025",
+    "category": "Metal",
+    "dimensions": "H 60 × W 65 × D 45 cm",
+    "images": [
+      {
+        "src": "gold-somira-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "gold-somira-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 
