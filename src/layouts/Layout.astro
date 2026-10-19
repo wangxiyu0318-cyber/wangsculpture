@@ -105,15 +105,16 @@ const structuredData = {
           <i></i>
         </span>
       </button>
-      <div id="site-menu" class="navigation-panel" hidden>
+      <div id="site-menu" class="navigation-panel" style={`--menu-last-index: ${nav.length + 1}`} aria-hidden="true" inert hidden>
       <nav
         id="main-navigation"
         class="main-navigation"
         aria-label={t("Main navigation")}
       >
-        {nav.map((item) => (
+        {nav.map((item, index) => (
           <a
             href={item.href}
+            style={`--menu-index: ${index}`}
             aria-current={active === item.label ? "page" : undefined}
           >
             {t(item.label)}
@@ -121,9 +122,9 @@ const structuredData = {
         ))}
       </nav>
       <div class="language-switcher" role="group" aria-label={t("Language")}>
-        <a href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
+        <a style={`--menu-index: ${nav.length}`} href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
         <span aria-hidden="true">/</span>
-        <a href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
+        <a style={`--menu-index: ${nav.length + 1}`} href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
       </div>
       </div>
     </header>
@@ -180,10 +181,6 @@ const structuredData = {
     border: 0;
     box-shadow: none;
   }
-  .signature-header.is-menu-open {
-    position: sticky;
-    top: 0;
-  }
   .signature-header .wordmark {
     position: absolute;
     top: 50%;
@@ -207,7 +204,8 @@ const structuredData = {
   .signature-header .menu-toggle {
     position: absolute;
     top: 50%;
-    right: var(--gutter);
+    left: var(--gutter);
+    right: auto;
     transform: translateY(-50%);
     z-index: 2;
     display: grid;
@@ -234,7 +232,7 @@ const structuredData = {
     width: 24px;
     height: 1px;
     background: currentColor;
-    transition: none;
+    transition: transform 0.25s var(--ease), top 0.25s var(--ease), opacity 0.2s ease-out;
     transform: none;
   }
   .signature-header .menu-icon i:nth-child(1) { top: 0; }
@@ -245,25 +243,34 @@ const structuredData = {
     transform: rotate(45deg);
   }
   .signature-header .menu-toggle[aria-expanded="true"] .menu-icon i:nth-child(2) {
-    visibility: hidden;
+    opacity: 0;
   }
   .signature-header .menu-toggle[aria-expanded="true"] .menu-icon i:nth-child(3) {
     top: 7px;
     transform: rotate(-45deg);
   }
   .signature-header .navigation-panel {
-    position: fixed;
-    inset: var(--signature-height) 0 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: clamp(28px, 5vh, 56px) var(--gutter) 40px;
-    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: calc(var(--gutter) + 60px);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: max-content;
+    max-width: calc(100vw - 2 * var(--gutter) - 60px);
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    pointer-events: none;
   }
   .signature-header .navigation-panel[hidden] { display: none; }
   .signature-header .main-navigation {
     position: static;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 18px;
     margin: 0;
@@ -273,11 +280,12 @@ const structuredData = {
     background: transparent;
   }
   .signature-header .main-navigation > a {
-    min-height: 48px;
-    justify-content: center;
-    font-size: clamp(22px, 2.1vw, 28px);
+    min-height: 44px;
+    justify-content: flex-start;
+    font-size: 14px;
     font-weight: 400;
     letter-spacing: normal;
+    white-space: nowrap;
   }
   .signature-header .main-navigation a::after { display: none; }
   .signature-header .main-navigation a:hover,
@@ -288,12 +296,48 @@ const structuredData = {
   }
   .signature-header .language-switcher {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 40px 0 0;
+    justify-content: flex-start;
+    gap: 6px;
+    margin: 0;
     font-size: 12px;
   }
-  .signature-header .language-switcher a { min-width: 44px; justify-content: center; }
+  .signature-header .language-switcher a { min-width: 32px; justify-content: center; }
+  .signature-header .navigation-panel a,
+  .signature-header .language-switcher > span {
+    opacity: 0;
+    transform: translateX(-18px);
+    transition: opacity 0.4s cubic-bezier(0.2, 0.7, 0.3, 1),
+      transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+    transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.05s);
+  }
+  .signature-header.is-menu-open .navigation-panel a,
+  .signature-header.is-menu-open .language-switcher > span {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: calc(var(--menu-index, 4) * 0.05s);
+  }
+  .signature-header.is-menu-open .navigation-panel a { pointer-events: auto; }
+  @media (max-width: 1199px) {
+    .signature-header .navigation-panel {
+      top: calc(50% + 28px);
+      left: var(--gutter);
+      transform: none;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      max-width: calc(100vw - 2 * var(--gutter));
+    }
+    .signature-header .main-navigation {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .signature-header .main-navigation > a { font-size: 22px; }
+    .signature-header .navigation-panel a,
+    .signature-header .language-switcher > span { transform: translateY(-18px); }
+    .signature-header.is-menu-open .navigation-panel a,
+    .signature-header.is-menu-open .language-switcher > span { transform: translateY(0); }
+  }
   .signature-header .menu-toggle:focus-visible,
   .signature-header a:focus-visible {
     outline: 2px solid var(--ink);
@@ -304,8 +348,13 @@ const structuredData = {
     .signature-header .wordmark { font-size: 18px; gap: 10px; }
     .signature-header :global(.artist-logo.header-logo) { width: 48px; height: 28px; }
     .signature-header .menu-toggle { width: 44px; height: 44px; min-height: 44px; }
-    .signature-header .main-navigation { gap: 14px; }
-    .signature-header .language-switcher { margin-top: 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .signature-header .navigation-panel a,
+    .signature-header .language-switcher > span,
+    .signature-header .menu-icon i {
+      transition: none;
+    }
   }
   @media (max-width: 360px) {
     .signature-header .wordmark { font-size: 17px; gap: 8px; }
