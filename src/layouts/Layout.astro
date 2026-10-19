@@ -400,11 +400,13 @@ const structuredData = {
     }
   }
   @media (max-width: 700px) {
-    .signature-header { --signature-height: 84px; }
+    .signature-header { --signature-height: 84px; z-index: 1000; }
     .signature-header .wordmark { font-size: 18px; gap: 10px; }
     .signature-header :global(.artist-logo.header-logo) { width: 48px; height: 28px; }
     .signature-header .menu-toggle {
       position: fixed;
+      z-index: 101;
+      color: #111;
       top: 20px;
       left: auto;
       right: var(--gutter);
@@ -415,35 +417,62 @@ const structuredData = {
     }
     .signature-header .navigation-panel {
       position: fixed;
-      top: 70px;
-      right: var(--gutter);
-      max-height: calc(100dvh - 82px);
+      top: 0;
+      right: 0;
+      z-index: 100;
+      width: 72vw;
+      max-width: 320px;
+      max-height: 100dvh;
+      padding: 70px 24px 28px 28px;
+      background: #ffffff;
+      color: #111;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
       overflow-y: auto;
       overflow-x: hidden;
-      gap: 6px;
+      gap: 20px;
+      /* Keep the white surface opaque while moving; only the links fade. */
+      opacity: 1;
+      transform: translateX(calc(100% + 1px));
+      transition: transform 0.35s var(--ease);
+    }
+    .signature-header.is-menu-open .navigation-panel {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
     }
     .signature-header .main-navigation {
       flex-direction: column;
       align-items: flex-end;
-      gap: 0;
+      gap: 18px;
     }
     .signature-header .main-navigation > a {
-      font-size: 17px;
+      font-size: 28px;
+      line-height: 1.3;
       min-height: 36px;
     }
+    .signature-header .language-switcher,
+    .signature-header .language-switcher [aria-current],
+    .signature-header .navigation-panel a {
+      color: #111;
+    }
+    .signature-header .language-switcher { font-size: 14px; }
     .signature-header .language-switcher a { min-height: 36px; }
     .signature-header .navigation-panel a,
     .signature-header .language-switcher > span {
-      transform: translate(12px, -10px);
+      transform: translate(8px, -4px);
       transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.04s);
     }
     .signature-header.is-menu-open .navigation-panel a,
     .signature-header.is-menu-open .language-switcher > span {
+      opacity: 1;
       transform: translate(0, 0);
       transition-delay: calc(var(--menu-index, 4) * 0.04s);
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .signature-header .navigation-panel,
     .signature-header .navigation-panel a,
     .signature-header .language-switcher > span,
     .signature-header .menu-icon i {
