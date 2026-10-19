@@ -398,10 +398,10 @@ const structuredData = {
   .header-navigation-group { display: contents; }
   @media (min-width: 701px) {
     .signature-header {
-      --signature-height: 100px;
+      --signature-height: 120px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) max-content minmax(max-content, 1fr);
-      grid-template-rows: 1fr;
+      grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+      grid-template-rows: 76px 44px;
       align-items: center;
       gap: 0;
     }
@@ -416,70 +416,52 @@ const structuredData = {
       font-size: clamp(36px, 3vw, 42px);
       font-weight: 350;
     }
-    .signature-header .header-navigation-group {
-      display: grid;
-      grid-column: 3;
-      grid-row: 1;
-      grid-template-columns: max-content 48px;
-      grid-template-rows: 48px;
-      align-items: center;
-      column-gap: clamp(16px, 2.5vw, 32px);
-      justify-self: end;
-      width: max-content;
-      margin-left: 70px;
-    }
     .signature-header .menu-toggle {
       position: static;
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1;
+      justify-self: end;
       top: auto;
       right: auto;
       transform: none;
     }
     .signature-header .navigation-panel {
-      position: relative;
-      grid-column: 1;
-      grid-row: 1;
+      position: static;
+      grid-column: 1 / -1;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr);
+      align-items: center;
       top: auto;
       right: auto;
+      width: 100%;
       max-width: none;
-      flex-direction: row;
-      align-items: center;
-      text-align: right;
-      gap: clamp(12px, 1.6vw, 24px);
-    }
-    /* Reserve the same space while closed, so disclosure never moves the brand.
-       The existing inert and aria-hidden states keep these links inaccessible. */
-    .signature-header .navigation-panel[hidden] {
-      display: flex !important;
-      visibility: hidden;
+      gap: 0;
+      text-align: center;
     }
     .signature-header .main-navigation {
-      justify-content: flex-end;
-      gap: clamp(12px, calc(4.2vw - 18px), 40px);
+      grid-column: 2;
+      grid-row: 1;
+      justify-content: center;
+      gap: clamp(32px, 4.2vw, 64px);
     }
     .signature-header .main-navigation > a {
-      min-height: 44px;
-      font-size: clamp(17px, 1.4vw, 19px);
+      min-height: 36px;
+      font-size: 19px;
       font-weight: 575;
       line-height: 1.4;
     }
     .signature-header .language-switcher {
       position: static;
+      grid-column: 3;
+      grid-row: 1;
+      justify-self: end;
       flex-shrink: 0;
       width: max-content;
-      font-size: 13px;
+      font-size: 15px;
+      font-weight: 350;
     }
-    .signature-header .language-switcher a { min-height: 44px; }
-  }
-  @media (min-width: 701px) and (max-width: 800px) {
-    .signature-header .wordmark { gap: 8px; }
-    .signature-header .header-navigation-group {
-      margin-left: 20px;
-      column-gap: 12px;
-    }
-    .signature-header .main-navigation { gap: 8px; }
-    .signature-header .navigation-panel { gap: 12px; }
+    .signature-header .language-switcher a { min-height: 36px; }
   }
   @media (max-width: 700px) {
     .signature-header { --signature-height: 84px; z-index: 1000; }
