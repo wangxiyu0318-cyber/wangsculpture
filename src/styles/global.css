@@ -183,13 +183,12 @@ img {
 .main-navigation a::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   bottom: 8px;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
-  transform-origin: left;
+  transform-origin: right;
   transition: transform 0.2s;
 }
 .main-navigation a:hover::after {
@@ -1091,15 +1090,16 @@ img {
   .main-navigation {
     position: absolute;
     top: 78px;
-    left: 0;
-    right: 0;
-    background: white;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 20px var(--gutter) 30px;
+    left: auto;
+    right: var(--gutter);
+    background: transparent;
+    border: 0;
+    padding: 0;
+    text-align: right;
+    transform-origin: top right;
     display: none;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-end;
     gap: 2px;
     box-shadow: none;
   }
@@ -1110,7 +1110,7 @@ img {
     font-size: 25px;
     letter-spacing: -0.02em;
     min-height: 55px;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .main-navigation a::after {
     display: none;

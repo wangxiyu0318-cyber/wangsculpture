@@ -7,7 +7,7 @@ export function initializeSiteMenu(root: Document = document) {
   let open = false;
   let closeTimer: ReturnType<typeof setTimeout> | undefined;
   const items = Array.from(panel.querySelectorAll<HTMLAnchorElement>("a[href]"));
-  const closingDuration = 400 + Math.max(0, items.length - 1) * 50;
+  const closingDuration = 400 + Math.max(0, items.length - 1) * 40;
 
   function setOpen(value: boolean, restoreFocus = false) {
     if (value === open) return;

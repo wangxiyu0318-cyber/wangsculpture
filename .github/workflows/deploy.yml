@@ -24,7 +24,7 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: 24
-          build-cmd: npm run check && npm run build
+          build-cmd: npm run check && npm run build && node scripts/verify-sitemap.mjs
 
   deploy:
     needs: build

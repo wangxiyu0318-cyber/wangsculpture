@@ -1,7 +1,8 @@
 ---
 import "../styles/global.css";
 import { getLanguage, translator, localizedHref, routePath } from "../i18n";
-import { projects } from "../data/projects";
+import { projects, getProjects } from "../data/projects";
+import { homeDescription } from "../lib/seo";
 const language = getLanguage(Astro.url);
 const t = translator(language);
 const href = (path: string = "") => localizedHref(language, path);
@@ -18,21 +19,27 @@ interface Props {
   description?: string;
   active?: string;
   image?: string;
+  noindex?: boolean;
 }
 const {
   title,
-  description = site.description,
+  description = homeDescription,
   active = "",
   image,
+  noindex = false,
 } = Astro.props;
 const pageTitle = title
-  ? `${title} — Xiyu Wang`
-  : "Xiyu Wang — Sculptor, Tokyo";
+  ? `${title} | Xiyu Wang`
+  : "Xiyu Wang | Sculptor & Artist";
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : undefined;
-const socialImage =
-  image && Astro.site ? new URL(image, Astro.site).href : image;
+const artwork = getProjects(language).find((project) => path === `works/${project.slug}`);
+const sharingImage = image ?? `${import.meta.env.BASE_URL}images/${projects[0].images[0].src}.webp`;
+const socialImage = Astro.site ? new URL(sharingImage, Astro.site).href : undefined;
+const socialImageAlt = artwork?.images[0]?.alt ?? projects[0].images[0].alt;
+const artistId = new URL("/#artist", Astro.site).href;
+const websiteId = new URL("/#website", Astro.site).href;
 const nav = [
   { label: "Works", href: href("works/") },
   { label: "About", href: href("about/") },
@@ -41,12 +48,46 @@ const nav = [
 ];
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  jobTitle: site.role,
-  description: site.description,
-  sameAs: [`https://www.instagram.com/${site.instagram}/`],
-  workLocation: { "@type": "Place", name: "Tokyo, Japan" },
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": artistId,
+      name: site.name,
+      url: Astro.site?.href,
+      jobTitle: ["Sculptor", "Artist"],
+      description: site.description,
+      sameAs: [`https://www.instagram.com/${site.instagram}/`],
+      workLocation: { "@type": "Place", name: site.location },
+    },
+    {
+      "@type": "WebSite", "@id": websiteId,
+      url: Astro.site?.href, name: "Xiyu Wang",
+      publisher: { "@id": artistId },
+    },
+    ...(!noindex ? [{
+      "@type": path === "about" ? "AboutPage" : path === "contact" ? "ContactPage" : path === "works" ? "CollectionPage" : "WebPage",
+      "@id": `${canonical}#webpage`, url: canonical?.href,
+      name: pageTitle, description,
+      inLanguage: language === "zh" ? "zh-CN" : "en",
+      isPartOf: { "@id": websiteId },
+      about: { "@id": artistId },
+      ...(artwork ? { mainEntity: { "@id": `${canonical}#artwork` } } : {}),
+    }] : []),
+    ...(artwork ? [{
+      "@type": "VisualArtwork", "@id": `${canonical}#artwork`,
+      name: artwork.title, url: canonical?.href,
+      creator: { "@id": artistId },
+      artform: "Sculpture", artMedium: artwork.materials,
+      dateCreated: artwork.year, description,
+      image: artwork.images.map((image) => ({
+        "@type": "ImageObject",
+        contentUrl: new URL(`${import.meta.env.BASE_URL}images/${image.src}.webp`, Astro.site).href,
+        caption: image.alt, creator: { "@id": artistId },
+        width: image.width, height: image.height,
+      })),
+      mainEntityOfPage: { "@id": `${canonical}#webpage` },
+    }] : []),
+  ],
 };
 ---
 
@@ -56,12 +97,20 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Xiyu Wang" />
+    <meta property="og:locale" content={language === "zh" ? "zh_CN" : "en_US"} />
+    {socialImage && <meta property="og:image:alt" content={socialImageAlt} />}
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    {socialImage && <meta name="twitter:image:alt" content={socialImageAlt} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
-    {canonical && <link rel="canonical" href={canonical} />}
+    {!noindex && canonical && <link rel="canonical" href={canonical} />}
     {canonical && <meta property="og:url" content={canonical} />}
     {Astro.site && equivalentPages.has(path) && (
       <>
@@ -78,7 +127,7 @@ const structuredData = {
     <title>{pageTitle}</title>
     <script
       type="application/ld+json"
-      set:html={JSON.stringify(structuredData)}
+      set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")}
     />
   </head>
   <body>
@@ -227,7 +276,8 @@ const structuredData = {
   }
   .signature-header .menu-icon i {
     position: absolute;
-    left: 0;
+    left: auto;
+    right: 0;
     display: block;
     width: 24px;
     height: 1px;
@@ -251,15 +301,18 @@ const structuredData = {
   }
   .signature-header .navigation-panel {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 22px);
     left: auto;
-    right: calc(var(--gutter) + 60px);
+    right: calc(var(--gutter) + 64px);
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    transform-origin: top right;
+    gap: 2px;
     width: max-content;
-    max-width: calc(100vw - 2 * var(--gutter) - 60px);
-    transform: translateY(-50%);
+    max-width: calc(100vw - 2 * var(--gutter));
+    transform: none;
     margin: 0;
     padding: 0;
     border: 0;
@@ -271,9 +324,16 @@ const structuredData = {
   .signature-header .main-navigation {
     position: static;
     display: flex;
+    left: auto;
+    right: 0;
+    top: auto;
     flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 18px;
+    justify-content: flex-end;
+    text-align: right;
+    transform-origin: top right;
+    gap: clamp(28px, 2vw, 36px);
     margin: 0;
     padding: 0;
     border: 0;
@@ -282,8 +342,9 @@ const structuredData = {
   }
   .signature-header .main-navigation > a {
     min-height: 44px;
-    justify-content: flex-start;
-    font-size: 14px;
+    justify-content: flex-end;
+    font-size: 18px;
+    text-transform: none;
     font-weight: 400;
     letter-spacing: normal;
     white-space: nowrap;
@@ -292,71 +353,95 @@ const structuredData = {
   .signature-header .main-navigation a:hover,
   .signature-header .main-navigation a[aria-current="page"] {
     text-decoration: underline;
-    text-underline-offset: 6px;
+    text-underline-offset: 4px;
     text-decoration-thickness: 1px;
   }
   .signature-header .language-switcher {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 6px;
     margin: 0;
-    font-size: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
   }
-  .signature-header .language-switcher a { min-width: 32px; justify-content: center; }
+  .signature-header .language-switcher [aria-current] {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .signature-header .language-switcher a:hover {
+    color: var(--ink);
+  }
+  .signature-header .language-switcher a { min-width: 0; min-height: 28px; justify-content: center; }
   .signature-header .navigation-panel a,
   .signature-header .language-switcher > span {
     opacity: 0;
     transform: translateX(18px);
     transition: opacity 0.4s cubic-bezier(0.2, 0.7, 0.3, 1),
       transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
-    transition-delay: calc(var(--menu-index, 4) * 0.05s);
+    transition-delay: calc(var(--menu-index, 4) * 0.04s);
   }
   .signature-header.is-menu-open .navigation-panel a,
   .signature-header.is-menu-open .language-switcher > span {
     opacity: 1;
     transform: translateX(0);
-    transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.05s);
+    transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.04s);
   }
   .signature-header.is-menu-open .navigation-panel a { pointer-events: auto; }
-  @media (max-width: 1199px) {
-    .signature-header .navigation-panel {
-      top: calc(50% + 28px);
-      left: auto;
-      right: var(--gutter);
-      transform: none;
-      flex-direction: column;
-      align-items: flex-end;
-      text-align: right;
-      gap: 22px;
-      max-width: calc(100vw - 2 * var(--gutter));
-    }
-    .signature-header .main-navigation {
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-    .signature-header .main-navigation > a { font-size: 22px; justify-content: flex-end; }
-    .signature-header .navigation-panel a,
-    .signature-header .language-switcher > span {
-      transform: translateY(-18px);
-      transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.05s);
-    }
-    .signature-header.is-menu-open .navigation-panel a,
-    .signature-header.is-menu-open .language-switcher > span {
-      transform: translateY(0);
-      transition-delay: calc(var(--menu-index, 4) * 0.05s);
-    }
-  }
   .signature-header .menu-toggle:focus-visible,
   .signature-header a:focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 4px;
   }
+  /* Keep the compact row below the logo only on narrow tablets. */
+  @media (min-width: 701px) and (max-width: 1023px) {
+    .signature-header .navigation-panel {
+      top: calc(50% + 24px);
+    }
+  }
   @media (max-width: 700px) {
     .signature-header { --signature-height: 84px; }
     .signature-header .wordmark { font-size: 18px; gap: 10px; }
     .signature-header :global(.artist-logo.header-logo) { width: 48px; height: 28px; }
-    .signature-header .menu-toggle { width: 44px; height: 44px; min-height: 44px; }
+    .signature-header .menu-toggle {
+      position: fixed;
+      top: 20px;
+      left: auto;
+      right: var(--gutter);
+      transform: none;
+      width: 44px;
+      height: 44px;
+      min-height: 44px;
+    }
+    .signature-header .navigation-panel {
+      position: fixed;
+      top: 70px;
+      right: var(--gutter);
+      max-height: calc(100dvh - 82px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      gap: 6px;
+    }
+    .signature-header .main-navigation {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+    }
+    .signature-header .main-navigation > a {
+      font-size: 17px;
+      min-height: 36px;
+    }
+    .signature-header .language-switcher a { min-height: 36px; }
+    .signature-header .navigation-panel a,
+    .signature-header .language-switcher > span {
+      transform: translate(12px, -10px);
+      transition-delay: calc((var(--menu-last-index) - var(--menu-index, 4)) * 0.04s);
+    }
+    .signature-header.is-menu-open .navigation-panel a,
+    .signature-header.is-menu-open .language-switcher > span {
+      transform: translate(0, 0);
+      transition-delay: calc(var(--menu-index, 4) * 0.04s);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .signature-header .navigation-panel a,

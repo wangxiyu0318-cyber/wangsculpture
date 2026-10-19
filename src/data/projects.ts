@@ -517,9 +517,11 @@ export function getProjects(language: Language): Project[] {
       materials: translated?.materials ?? english.materials,
       // Chinese descriptions stay absent until verified translations are supplied.
       description: language === "zh" ? translated?.description ?? "" : english.description,
-      images: project.images.map((image) => ({
+      images: project.images.map((image, index) => ({
         ...image,
-        alt: translated?.imageAlt?.[image.src] ?? english.imageAlt[image.src],
+        alt: translated?.imageAlt?.[image.src] ?? (index === 0
+          ? `${english.title}, ${english.materials.toLowerCase()} sculpture by Xiyu Wang`
+          : `${english.imageAlt[image.src]}. Sculpture by Xiyu Wang`),
       })),
     };
   });

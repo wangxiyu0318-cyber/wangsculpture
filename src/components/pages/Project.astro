@@ -1,5 +1,6 @@
 ---
 import { getLanguage, translator, localizedHref } from "../../i18n";
+import { projectDescription } from "../../lib/seo";
 import Layout from "../../layouts/Layout.astro";
 import ProjectGallery from "../ProjectGallery.astro";
 import ArtworkPlaceholder from "../ArtworkPlaceholder.astro";
@@ -23,15 +24,7 @@ const cover = project.images[0];
 <Layout
   title={project.title}
   active="Works"
-  description={[
-    project.title,
-    "Xiyu Wang",
-    project.year,
-    project.materials,
-    project.description,
-  ]
-    .filter(Boolean)
-    .join(". ")}
+  description={projectDescription(project, language)}
   image={cover ? `${import.meta.env.BASE_URL}images/${cover.src}.webp` : undefined}
 >
   <article class="project page-gutter" id="top">

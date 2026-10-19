@@ -74,7 +74,7 @@ test("opening and closing preserve page interaction and scrollbars in both langu
     assert.equal(f.button.attributes["aria-label"], language === "zh" ? "菜单" : "Menu");
     assert.equal(f.root.activeElement, f.button);
     assert(!f.classes.has("is-menu-open"));
-    t.mock.timers.tick(649);
+    t.mock.timers.tick(599);
     assert.equal(f.panel.hidden, false);
     t.mock.timers.tick(1);
     assert.equal(f.panel.hidden, true);
@@ -92,7 +92,7 @@ test("Escape retracts the menu and restores focus; Tab remains normal page navig
   assert.equal(f.key("Escape"), true);
   assert.equal(f.root.activeElement, f.button);
   assert.equal(f.panel.inert, true);
-  t.mock.timers.tick(650);
+  t.mock.timers.tick(600);
   assert.equal(f.panel.hidden, true);
   assert.equal(f.key("Escape"), false);
 });
@@ -109,7 +109,7 @@ test("reopening during retraction cancels the old hiding timer", t => {
   assert.equal(f.button.attributes["aria-expanded"], "true");
   assert(f.classes.has("is-menu-open"));
   f.key("Escape");
-  t.mock.timers.tick(650);
+  t.mock.timers.tick(600);
   assert.equal(f.panel.hidden, true);
 });
 
@@ -121,7 +121,7 @@ test("page/language links close without blocking navigation; whitespace leaves m
   assert(f.classes.has("is-menu-open"));
   f.panel.emit("click", { target: { closest: () => f.links[0] } });
   assert.equal(f.panel.inert, true);
-  t.mock.timers.tick(650);
+  t.mock.timers.tick(600);
   assert.equal(f.panel.hidden, true);
 });
 
@@ -138,7 +138,7 @@ test("outside clicks or focus dismiss the disclosure without trapping the page",
   assert(f.classes.has("is-menu-open"));
   f.root.emit("focusin", { target: {} });
   assert(!f.classes.has("is-menu-open"));
-  t.mock.timers.tick(650);
+  t.mock.timers.tick(600);
   assert.equal(f.panel.hidden, true);
 });
 
