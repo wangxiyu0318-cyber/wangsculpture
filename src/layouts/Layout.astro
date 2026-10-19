@@ -139,6 +139,7 @@ const structuredData = {
         <ArtistLogo class="header-logo" />
         XIYU WANG
       </a>
+      <div class="header-navigation-group">
       <button
         class="menu-toggle"
         data-menu-label={t("Menu")}
@@ -174,6 +175,7 @@ const structuredData = {
         <a style={`--menu-index: ${nav.length}`} href={englishHref} lang="en" hreflang="en" aria-current={language === "en" ? "true" : undefined}>EN</a>
         <span aria-hidden="true">/</span>
         <a style={`--menu-index: ${nav.length + 1}`} href={chineseHref} lang="zh-CN" hreflang="zh-CN" aria-current={language === "zh" ? "true" : undefined}>中文</a>
+      </div>
       </div>
       </div>
     </header>
@@ -393,10 +395,56 @@ const structuredData = {
     outline: 2px solid var(--ink);
     outline-offset: 4px;
   }
-  /* Keep the compact row below the logo only on narrow tablets. */
-  @media (min-width: 701px) and (max-width: 1023px) {
+  .header-navigation-group { display: contents; }
+  @media (min-width: 701px) {
+    .signature-header {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-items: center;
+      column-gap: clamp(24px, 8vw, 120px);
+      row-gap: 0;
+    }
+    .signature-header .wordmark {
+      position: static;
+      top: auto;
+      left: auto;
+      transform: none;
+      justify-self: start;
+    }
+    .signature-header .header-navigation-group {
+      display: grid;
+      grid-template-columns: max-content 48px;
+      grid-template-rows: 48px;
+      align-items: center;
+      column-gap: clamp(20px, 4vw, 44px);
+      justify-self: end;
+      width: max-content;
+      min-width: 0;
+    }
+    .signature-header .menu-toggle {
+      position: static;
+      grid-column: 2;
+      grid-row: 1;
+      top: auto;
+      right: auto;
+      transform: none;
+    }
     .signature-header .navigation-panel {
-      top: calc(50% + 24px);
+      position: relative;
+      grid-column: 1;
+      grid-row: 1;
+      top: auto;
+      right: auto;
+      max-width: none;
+    }
+    .signature-header .main-navigation {
+      gap: clamp(16px, calc(6vw - 28px), 44px);
+    }
+    .signature-header .language-switcher {
+      position: absolute;
+      top: calc(100% + 2px);
+      right: 0;
+      width: max-content;
     }
   }
   @media (max-width: 700px) {
