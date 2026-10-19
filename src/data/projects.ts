@@ -64,6 +64,22 @@ export const sharedProjects: SharedProject[] = [
         "width": 2400,
         "height": 3600
       }
+    ],
+    "media": [
+      {
+        "src": "somira-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3600,
+        "alt": "Somira, a large carved wooden sculpture with two guardian faces, displayed in an atrium"
+      },
+      {
+        "type": "video",
+        "src": "/Somira-02.mp4",
+        "caption": "",
+        "width": 3840,
+        "height": 2160
+      }
     ]
   },
   {
