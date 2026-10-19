@@ -344,6 +344,29 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "redsomira",
+    "materialTags": [
+      "metal"
+    ],
+    "year": "2025",
+    "category": "Metal",
+    "dimensions": "H 12 × W 13 × D 13 cm",
+    "images": [
+      {
+        "src": "redsomira-01",
+        "caption": "",
+        "width": 2400,
+        "height": 2400
+      },
+      {
+        "src": "redsomira-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 

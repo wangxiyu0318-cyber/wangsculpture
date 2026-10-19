@@ -122,5 +122,14 @@ export const projectText: Record<string, ProjectText> = {
       "gap-01": "gap, wooden figure with raised hands and visible wood grain on a white shelf",
       "gap-02": "gap, alternate view showing the green-painted surface of the figure on a white shelf"
     }
+  },
+  "redsomira": {
+    "title": "RedSomira",
+    "materials": "Cloisonné glass, stainless steel mesh",
+    "description": "",
+    "imageAlt": {
+      "redsomira-01": "RedSomira, red sculpture with circular forms against a light background",
+      "redsomira-02": "RedSomira, alternate view showing textured red circular forms and openings"
+    }
   }
 };
