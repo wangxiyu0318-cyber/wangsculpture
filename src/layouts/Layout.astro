@@ -420,13 +420,16 @@ const structuredData = {
       top: 0;
       right: 0;
       z-index: 100;
-      width: 72vw;
-      max-width: 320px;
-      max-height: 100dvh;
-      padding: 70px 28px 28px;
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      height: 100dvh;
+      max-height: none;
+      padding: 70px 28px;
+      justify-content: safe center;
       align-items: center;
       text-align: center;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0);
       color: #111;
       border: 0;
       border-radius: 0;
@@ -434,18 +437,20 @@ const structuredData = {
       overflow-y: auto;
       overflow-x: hidden;
       gap: 20px;
-      /* Move the opaque panel as one unit; its contents stay centered. */
+      /* Fade only the white backdrop; keep link opacity independent. */
       opacity: 1;
-      transform: translateX(calc(100% + 1px));
-      transition: transform 0.35s var(--ease);
+      transform: none;
+      transition: background-color 0.3s ease;
     }
     .signature-header.is-menu-open .navigation-panel {
       opacity: 1;
-      transform: translateX(0);
+      background: rgba(255, 255, 255, 0.70);
+      transform: none;
       pointer-events: auto;
     }
     .signature-header .main-navigation {
       flex-direction: column;
+      flex-shrink: 0;
       align-items: center;
       text-align: center;
       gap: 18px;
@@ -463,6 +468,7 @@ const structuredData = {
     }
     .signature-header .language-switcher {
       font-size: 14px;
+      flex-shrink: 0;
       justify-content: center;
     }
     .signature-header .language-switcher a { min-height: 36px; }
@@ -470,9 +476,14 @@ const structuredData = {
     .signature-header .language-switcher > span,
     .signature-header.is-menu-open .navigation-panel a,
     .signature-header.is-menu-open .language-switcher > span {
-      opacity: 1;
+      opacity: 0;
       transform: none;
-      transition: none;
+      transition: opacity 0.25s ease;
+      transition-delay: 0s;
+    }
+    .signature-header.is-menu-open .navigation-panel a,
+    .signature-header.is-menu-open .language-switcher > span {
+      opacity: 1;
     }
   }
   @media (prefers-reduced-motion: reduce) {
