@@ -24,7 +24,15 @@ function element() {
 }
 function fixture(items = images, base = "/") {
   const gallery = element();
-  const stage = Object.assign(element(), { clientWidth: 500, setPointerCapture() {} });
+  const stage = Object.assign(element(), { clientWidth: 500, style: {}, setPointerCapture() {} });
+  const video = Object.assign(element(), {
+    hidden: true, attributes: {}, paused: true, pauseCalls: 0, loadCalls: 0,
+    pause() { this.paused = true; this.pauseCalls++; },
+    load() { this.loadCalls++; this.paused = true; },
+    getAttribute(name) { return name === "src" ? this.src : this.attributes[name]; },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    getBoundingClientRect() { return { left: 56, right: 444, top: 0, bottom: 500 }; },
+  });
   const photo = Object.assign(element(), { ...items[0] });
   const previous = Object.assign(element(), { disabled: true });
   const next = Object.assign(element(), { disabled: false });
@@ -32,15 +40,16 @@ function fixture(items = images, base = "/") {
   const count = { textContent: `01 / ${String(items.length).padStart(2, "0")}` };
   gallery.ownerDocument = { activeElement: null };
   gallery.focus = (options) => { gallery.ownerDocument.activeElement = gallery; gallery.focusOptions = options; };
-  gallery.dataset = { base };
+  gallery.dataset = { base, title: "Test artwork", videoLabel: "Video" };
   const selectors = {
     "[data-gallery-images]": items.length > 1 ? { textContent: JSON.stringify(items) } : null,
     img: photo, "[data-gallery-stage]": stage,
+    "[data-gallery-video]": video,
     "[data-gallery-previous]": previous, "[data-gallery-next]": next,
     "[data-gallery-caption]": caption, "[data-gallery-count]": count,
   };
   gallery.querySelector = (selector) => selectors[selector];
-  return { gallery, stage, photo, previous, next, caption, count };
+  return { gallery, stage, video, photo, previous, next, caption, count };
 }
 const initialize = (...fixtures) => initializeProjectGalleries({ querySelectorAll: () => fixtures.map(f => f.gallery) });
 function key(f, name, target = f.gallery) {
@@ -112,4 +121,60 @@ test("asset paths remain base-aware", () => {
   f.next.emit("click");
   assert.equal(f.photo.src, "/wangsculpture/images/back.webp");
   assert(f.photo.srcset.startsWith("/wangsculpture/images/back-640.webp"));
+});
+
+
+test("mixed media updates counts and labels, pauses outgoing video and never plays on return", () => {
+  const clip = { type: "video", src: "/videos/clip.mp4", width: 1920, height: 1080 };
+  const secondClip = { ...clip, src: "/videos/second.mp4", alt: "Second clip", caption: "Video caption" };
+  const f = fixture([images[0], clip, images[1], secondClip], "/portfolio/");
+  initialize(f);
+  f.next.emit("click");
+  assert.equal(f.count.textContent, "02 / 04");
+  assert.equal(f.photo.hidden, true); assert.equal(f.video.hidden, false);
+  assert.equal(f.video.src, "/portfolio/videos/clip.mp4");
+  assert.equal(f.video.attributes["aria-label"], "Test artwork — Video 2 / 4");
+  assert.equal(f.stage.style.aspectRatio, "1920 / 1080");
+  assert.equal(f.caption.textContent, "");
+  assert.equal(f.video.paused, true);
+  f.video.paused = false;
+  f.gallery.ownerDocument.activeElement = f.video;
+  f.next.emit("click");
+  assert.equal(f.video.pauseCalls, 1); assert.equal(f.video.paused, true);
+  assert.equal(f.gallery.ownerDocument.activeElement, f.gallery);
+  assert.equal(f.photo.hidden, false); assert.equal(f.video.hidden, true);
+  assert.equal(f.stage.style.aspectRatio, "2400 / 3600");
+  assert.equal(f.count.textContent, "03 / 04");
+  f.previous.emit("click");
+  assert.equal(f.video.paused, true); assert.equal(f.video.loadCalls, 1);
+  f.next.emit("click"); f.next.emit("click");
+  assert.equal(f.video.src, "/portfolio/videos/second.mp4");
+  assert.equal(f.video.attributes["aria-label"], "Test artwork — Video 4 / 4: Second clip");
+  assert.equal(f.caption.textContent, "Video caption");
+  assert.equal(f.count.textContent, "04 / 04"); assert.equal(f.next.disabled, true);
+  f.next.emit("click"); assert.equal(f.count.textContent, "04 / 04");
+});
+
+test("video keeps native keyboard and control-strip gestures; swipes elsewhere still navigate", () => {
+  const f = fixture([images[0], { type: "video", src: "clip.mp4", width: 640, height: 360 }, images[1]]);
+  initialize(f); f.next.emit("click");
+  assert.equal(key(f, "ArrowRight", { closest: () => f.video }), false);
+  assert.equal(f.count.textContent, "02 / 03");
+  swipe(f, -120, 0, { target: f.video, clientY: 450 });
+  assert.equal(f.count.textContent, "02 / 03");
+  swipe(f, -120, 10, { target: f.video });
+  assert.equal(f.count.textContent, "03 / 03");
+  assert.equal(f.video.paused, true);
+  swipe(f, 120); assert.equal(f.count.textContent, "02 / 03");
+  swipe(f, 120); assert.equal(f.count.textContent, "01 / 03");
+});
+
+test("moving directly between videos pauses the old source", () => {
+  const f = fixture([images[0],
+    { type: "video", src: "first.mp4", width: 640, height: 360 },
+    { type: "video", src: "second.mp4", width: 640, height: 360 }]);
+  initialize(f); f.next.emit("click"); f.video.paused = false;
+  f.next.emit("click");
+  assert.equal(f.video.pauseCalls, 1);
+  assert.equal(f.video.src, "/second.mp4"); assert.equal(f.video.paused, true);
 });

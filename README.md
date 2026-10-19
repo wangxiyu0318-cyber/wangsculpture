@@ -83,3 +83,40 @@ English keeps its existing routes. Simplified Chinese uses `/zh/`; both render t
 Until verified Chinese copy is supplied, Chinese project pages retain English titles, materials, and alt text, and omit descriptions. The Chinese About page omits the untranslated biography and statement. CV records remain in their original English, marked `lang="en"`; only interface headings are localized. Do not machine-translate artist text or duplicate artwork image files to add a language.
 
 Run `npm run check` and `npm run build` after changes. The current build produces 12 English routes, 12 equivalent Chinese routes, and the existing English 404 page. Canonical URLs and reciprocal `en`, `zh-CN`, and `x-default` links include the configured GitHub Pages base path.
+
+
+### Mixed image / MP4 project galleries
+
+Existing image-only projects need no changes. Keep the normal still images in
+`images`: `images[0]` is always the homepage/archive/social cover. To interleave
+local videos, add an optional ordered `media` array to the same shared project.
+It replaces only the detail gallery sequence and must begin with that still cover.
+Reuse image objects in both arrays where practical:
+
+```ts
+images: [coverImage, detailImage],
+media: [
+  coverImage,
+  {
+    type: "video",
+    src: "/videos/artwork-01.mp4", // public/videos/artwork-01.mp4
+    width: 1920,
+    height: 1080,
+    alt: "Optional accessible description",
+    caption: "", // optional
+  },
+  detailImage,
+],
+```
+
+Image items retain their existing WebP source names and may optionally specify
+`type: "image"`. Video items require `type: "video"`, a local MP4 public path,
+and the video's natural width and height. The path is resolved against Astro's
+base automatically; do not include a deployment subpath. No build-time video
+processing or third-party player is used.
+
+Video sources are attached only when selected, with native controls,
+`preload="metadata"`, and `playsinline`; they never autoplay or loop. Navigating
+away pauses playback. Gallery arrows sit outside the video area, and native video
+keyboard controls and the bottom control strip take priority over gallery gestures.
+The normal image-only arrow, keyboard, swipe, caption, and counter behavior remains.

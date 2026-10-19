@@ -51,7 +51,7 @@ const cover = project.images[0];
     </header>
     <div class="project-gallery">
       {cover ? (
-        <ProjectGallery images={project.images} title={project.title} />
+        <ProjectGallery images={project.images} media={project.media} title={project.title} />
       ) : (
         <div class="primary-figure">
           <ArtworkPlaceholder title={project.title} />

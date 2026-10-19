@@ -4,12 +4,25 @@ import { projectText as chineseText } from "./text/projects.zh";
 import type { Language } from "../i18n";
 
 export type ArtworkImage = {
+  type?: "image";
   src: string;
   alt: string;
-  caption: string;
+  caption?: string;
   width: number;
   height: number;
 };
+
+export type ArtworkVideo = {
+  type: "video";
+  // Local public path, e.g. /videos/project-01.mp4 (resolved against BASE_URL).
+  src: string;
+  alt?: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
+
+export type ArtworkMedia = ArtworkImage | ArtworkVideo;
 
 export type Project = {
   slug: string;
@@ -21,6 +34,8 @@ export type Project = {
   dimensions: string;
   description: string;
   images: ArtworkImage[];
+  // Optional ordered gallery; images[0] always remains the static archive/home cover.
+  media?: ArtworkMedia[];
 };
 
 export type ProjectText = {

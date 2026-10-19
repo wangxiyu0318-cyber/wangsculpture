@@ -24,7 +24,10 @@ const chinese: Record<string, string> = {
   "PROFESSIONAL EXPERIENCE": "工作经历",
   "Enlarge": "放大图片", "image viewer": "图片查看器",
   "Close image viewer": "关闭图片查看器", "Previous image": "上一张图片",
-  "Next image": "下一张图片", "Image to be added": "",
+  "Next image": "下一张图片",
+  "media viewer": "媒体查看器", "Previous media": "上一个媒体",
+  "Next media": "下一个媒体", "Video": "视频",
+  "Your browser does not support HTML5 video.": "您的浏览器不支持 HTML5 视频。", "Image to be added": "",
 };
 
 // Only interface labels are translated here, never artist copy or project facts.

@@ -1,35 +1,47 @@
 ---
 import Artwork from "./Artwork.astro";
 import Arrow from "./Arrow.astro";
-import type { ArtworkImage } from "../data/projects";
+import type { ArtworkImage, ArtworkMedia } from "../data/projects";
 import { getLanguage, translator } from "../i18n";
-interface Props { images: ArtworkImage[]; title: string; }
-const { images, title } = Astro.props;
+interface Props { images: ArtworkImage[]; media?: ArtworkMedia[]; title: string; }
+const { images, media, title } = Astro.props;
+const items = media ?? images;
 const cover = images[0];
-const multiple = images.length > 1;
+if (!cover || !items.length || items[0].type === "video" || items[0].src !== cover.src) {
+  throw new Error("Project galleries must start with the still cover image.");
+}
+const multiple = items.length > 1;
+const hasVideo = items.some((item) => item.type === "video");
 const t = translator(getLanguage(Astro.url));
-const imageData = JSON.stringify(images).replace(/</g, "\\u003c");
+const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
 ---
 <figure
   class="project-figure primary-figure inline-gallery"
   data-inline-gallery
+  data-title={title}
+  data-video-label={t("Video")}
   data-base={import.meta.env.BASE_URL}
   tabindex={multiple ? 0 : undefined}
   role="group"
-  aria-label={`${title} ${t("image viewer")}`}
+  aria-label={`${title} ${t(hasVideo ? "media viewer" : "image viewer")}`}
 >
   <div class="inline-gallery-stage" style={`aspect-ratio: ${cover.width} / ${cover.height}`} data-gallery-stage>
     <Artwork image={cover} eager sizes="(max-width: 700px) 100vw, 90vw" />
+    {hasVideo && (
+      <video data-gallery-video hidden controls preload="metadata" playsinline>
+        {t("Your browser does not support HTML5 video.")}
+      </video>
+    )}
     {multiple && (
       <>
-        <button type="button" class="gallery-control gallery-previous" data-gallery-previous aria-label={t("Previous image")} disabled><Arrow /></button>
-        <button type="button" class="gallery-control gallery-next" data-gallery-next aria-label={t("Next image")}><Arrow /></button>
+        <button type="button" class="gallery-control gallery-previous" data-gallery-previous aria-label={t(hasVideo ? "Previous media" : "Previous image")} disabled><Arrow /></button>
+        <button type="button" class="gallery-control gallery-next" data-gallery-next aria-label={t(hasVideo ? "Next media" : "Next image")}><Arrow /></button>
       </>
     )}
   </div>
   <figcaption aria-live="polite" aria-atomic="true">
-    <span data-gallery-caption>{cover.caption}</span>
-    <span data-gallery-count>01 / {String(images.length).padStart(2, "0")}</span>
+    <span data-gallery-caption>{items[0].caption ?? ""}</span>
+    <span data-gallery-count>01 / {String(items.length).padStart(2, "0")}</span>
   </figcaption>
   {multiple && <script type="application/json" data-gallery-images set:html={imageData} />}
 </figure>
@@ -55,6 +67,19 @@ const imageData = JSON.stringify(images).replace(/</g, "\\u003c");
     max-height: none;
     object-fit: contain;
   }
+  .inline-gallery-stage :global([hidden]) { display: none; }
+  .inline-gallery-stage video {
+    position: absolute;
+    top: 0;
+    left: 56px;
+    width: calc(100% - 112px);
+    height: 100%;
+    object-fit: contain;
+  }
+  .gallery-control:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
   .inline-gallery-stage:has(.gallery-control) {
     touch-action: pan-y pinch-zoom;
     user-select: none;
@@ -79,6 +104,7 @@ const imageData = JSON.stringify(images).replace(/</g, "\\u003c");
   .gallery-control:disabled { visibility: hidden; }
   @media (max-width: 700px) {
     .inline-gallery-stage { max-height: none; }
+    .inline-gallery-stage video { left: 46px; width: calc(100% - 92px); }
     .gallery-previous { left: 2px; }
     .gallery-next { right: 2px; }
     .gallery-control :global(.arrow) { width: 16px; height: 16px; }
