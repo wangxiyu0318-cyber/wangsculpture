@@ -114,6 +114,18 @@ export const sharedProjects: SharedProject[] = [
         "caption": "",
         "width": 2400,
         "height": 3600
+      },
+      {
+        "src": "stonesomira-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "stonesomira-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
       }
     ]
   },
