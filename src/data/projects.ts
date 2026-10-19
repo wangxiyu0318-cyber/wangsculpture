@@ -451,6 +451,58 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "one-body-with-the-void",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2024",
+    "category": "Wood",
+    "dimensions": "H 2000 × W 1600 × D 1600 mm",
+    "images": [
+      {
+        "src": "one-body-with-the-void-01",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      },
+      {
+        "src": "one-body-with-the-void-02",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      },
+      {
+        "src": "one-body-with-the-void-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "one-body-with-the-void-04",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
+  },
+  {
+    "slug": "bakabaka",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2024",
+    "category": "Wood",
+    "dimensions": "H 20 × W 15 × D 60 cm",
+    "images": [
+      {
+        "src": "bakabaka-01",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      }
+    ]
   }
 ];
 

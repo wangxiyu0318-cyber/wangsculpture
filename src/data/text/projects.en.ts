@@ -158,5 +158,24 @@ export const projectText: Record<string, ProjectText> = {
       "gold-somira-01": "Gold Somira, gold-colored double-faced figure on a wide base against a light background",
       "gold-somira-02": "Gold Somira, side view of the gold-colored figure and its textured surface"
     }
+  },
+  "one-body-with-the-void": {
+    "title": "One Body with the Void",
+    "materials": "Camphor wood, iron",
+    "description": "",
+    "imageAlt": {
+      "one-body-with-the-void-01": "One Body with the Void, overall gallery view of the carved wooden sculpture on a platform",
+      "one-body-with-the-void-02": "One Body with the Void, angled gallery view showing red and green painted details",
+      "one-body-with-the-void-03": "One Body with the Void, front detail of the carved faces and raised arms",
+      "one-body-with-the-void-04": "One Body with the Void, side detail showing the red interior and carved wooden forms"
+    }
+  },
+  "bakabaka": {
+    "title": "BAKABAKA",
+    "materials": "Camphor wood, oil colors, acrylic color",
+    "description": "",
+    "imageAlt": {
+      "bakabaka-01": "BAKABAKA, two carved and painted forms displayed on a white shelf"
+    }
   }
 };
