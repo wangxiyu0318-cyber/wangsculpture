@@ -390,6 +390,29 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "whitesomira",
+    "materialTags": [
+      "metal"
+    ],
+    "year": "2025",
+    "category": "Metal",
+    "dimensions": "H 18 × W 14 × D 19 cm",
+    "images": [
+      {
+        "src": "whitesomira-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "whitesomira-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 
