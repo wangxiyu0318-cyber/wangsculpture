@@ -131,5 +131,14 @@ export const projectText: Record<string, ProjectText> = {
       "redsomira-01": "RedSomira, red sculpture with circular forms against a light background",
       "redsomira-02": "RedSomira, alternate view showing textured red circular forms and openings"
     }
+  },
+  "bluesomira": {
+    "title": "BlueSomira",
+    "materials": "Cloisonné glass, copper",
+    "description": "",
+    "imageAlt": {
+      "bluesomira-01": "BlueSomira, dark blue double-faced figure against a light background",
+      "bluesomira-02": "BlueSomira, alternate view of the textured dark blue figure"
+    }
   }
 };

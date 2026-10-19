@@ -367,6 +367,29 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "bluesomira",
+    "materialTags": [
+      "metal"
+    ],
+    "year": "2025",
+    "category": "Metal",
+    "dimensions": "H 50 × W 65 × D 45 cm",
+    "images": [
+      {
+        "src": "bluesomira-01",
+        "caption": "",
+        "width": 2400,
+        "height": 2400
+      },
+      {
+        "src": "bluesomira-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 
