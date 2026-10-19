@@ -274,6 +274,35 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "shukongojin-vajrapani",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2023",
+    "category": "Wood",
+    "dimensions": "H 1800 × W 1200 × D 1000 mm",
+    "images": [
+      {
+        "src": "shukongojin-vajrapani-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "shukongojin-vajrapani-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "shukongojin-vajrapani-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 

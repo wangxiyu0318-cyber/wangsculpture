@@ -100,5 +100,15 @@ export const projectText: Record<string, ProjectText> = {
       "me-02": "Me, rear view of a dark carved figure with an opening in its gold-colored head",
       "me-03": "Me, angled view of the dark figure on a white plinth"
     }
+  },
+  "shukongojin-vajrapani": {
+    "title": "Shukongojin (Vajrapani)",
+    "materials": "Camphor wood, silver",
+    "description": "",
+    "imageAlt": {
+      "shukongojin-vajrapani-01": "Shukongojin (Vajrapani), overall view of the carved wooden figure on a dark cylindrical base",
+      "shukongojin-vajrapani-02": "Shukongojin (Vajrapani), rear detail showing a carved spine and pink surface patterns",
+      "shukongojin-vajrapani-03": "Shukongojin (Vajrapani), rear gallery view of the figure and its base"
+    }
   }
 };
