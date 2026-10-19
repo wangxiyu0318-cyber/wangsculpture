@@ -309,6 +309,29 @@ export const sharedProjects: SharedProject[] = [
         "height": 3600
       }
     ]
+  },
+  {
+    "slug": "gap",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2024",
+    "category": "Wood",
+    "dimensions": "H 45 × W 20 × D 5 cm",
+    "images": [
+      {
+        "src": "gap-01",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "gap-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 

@@ -111,5 +111,14 @@ export const projectText: Record<string, ProjectText> = {
       "shukongojin-vajrapani-02": "Shukongojin (Vajrapani), rear detail showing a carved spine and pink surface patterns",
       "shukongojin-vajrapani-03": "Shukongojin (Vajrapani), rear gallery view of the figure and its base"
     }
+  },
+  "gap": {
+    "title": "gap",
+    "materials": "Camphor wood, oil colors, brass",
+    "description": "",
+    "imageAlt": {
+      "gap-01": "gap, wooden figure with raised hands and visible wood grain on a white shelf",
+      "gap-02": "gap, alternate view showing the green-painted surface of the figure on a white shelf"
+    }
   }
 };
