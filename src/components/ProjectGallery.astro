@@ -25,7 +25,7 @@ const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
   role="group"
   aria-label={`${title} ${t(hasVideo ? "media viewer" : "image viewer")}`}
 >
-  <div class="inline-gallery-stage" style={`aspect-ratio: ${cover.width} / ${cover.height}`} data-gallery-stage>
+  <div class="inline-gallery-stage" data-gallery-stage>
     <Artwork image={cover} eager sizes="(max-width: 700px) 100vw, 90vw" />
     {hasVideo && (
       <video data-gallery-video hidden controls preload="metadata" playsinline>
@@ -50,6 +50,10 @@ const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
   initializeProjectGalleries();
 </script>
 <style>
+  .inline-gallery {
+    width: 100%;
+    margin-inline: 0;
+  }
   .inline-gallery:focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 5px;
@@ -57,7 +61,7 @@ const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
   .inline-gallery-stage {
     position: relative;
     width: 100%;
-    max-height: 900px;
+    height: clamp(360px, 70vh, 880px);
   }
   .inline-gallery-stage :global(img) {
     position: absolute;
@@ -75,6 +79,27 @@ const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
     width: calc(100% - 112px);
     height: 100%;
     object-fit: contain;
+  }
+  .inline-gallery > figcaption {
+    display: flex;
+    align-items: baseline;
+    gap: 12px 24px;
+    margin-top: 14px;
+    padding-inline: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  [data-gallery-caption] {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  [data-gallery-caption]:empty { display: none; }
+  [data-gallery-count] {
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
   .gallery-control:focus-visible {
     outline: 2px solid var(--ink);
@@ -103,7 +128,10 @@ const imageData = JSON.stringify(items).replace(/</g, "\\u003c");
   .gallery-control :global(.arrow) { width: 18px; height: 18px; }
   .gallery-control:disabled { visibility: hidden; }
   @media (max-width: 700px) {
-    .inline-gallery-stage { max-height: none; }
+    .inline-gallery-stage {
+      height: clamp(280px, 63vh, 620px);
+      height: clamp(280px, 63svh, 620px);
+    }
     .inline-gallery-stage video { left: 46px; width: calc(100% - 92px); }
     .gallery-previous { left: 2px; }
     .gallery-next { right: 2px; }

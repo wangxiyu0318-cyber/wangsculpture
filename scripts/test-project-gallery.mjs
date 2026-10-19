@@ -134,7 +134,7 @@ test("mixed media updates counts and labels, pauses outgoing video and never pla
   assert.equal(f.photo.hidden, true); assert.equal(f.video.hidden, false);
   assert.equal(f.video.src, "/portfolio/videos/clip.mp4");
   assert.equal(f.video.attributes["aria-label"], "Test artwork — Video 2 / 4");
-  assert.equal(f.stage.style.aspectRatio, "1920 / 1080");
+  assert.equal(f.stage.style.aspectRatio, undefined);
   assert.equal(f.caption.textContent, "");
   assert.equal(f.video.paused, true);
   f.video.paused = false;
@@ -143,7 +143,7 @@ test("mixed media updates counts and labels, pauses outgoing video and never pla
   assert.equal(f.video.pauseCalls, 1); assert.equal(f.video.paused, true);
   assert.equal(f.gallery.ownerDocument.activeElement, f.gallery);
   assert.equal(f.photo.hidden, false); assert.equal(f.video.hidden, true);
-  assert.equal(f.stage.style.aspectRatio, "2400 / 3600");
+  assert.equal(f.stage.style.aspectRatio, undefined);
   assert.equal(f.count.textContent, "03 / 04");
   f.previous.emit("click");
   assert.equal(f.video.paused, true); assert.equal(f.video.loadCalls, 1);
@@ -177,4 +177,12 @@ test("moving directly between videos pauses the old source", () => {
   f.next.emit("click");
   assert.equal(f.video.pauseCalls, 1);
   assert.equal(f.video.src, "/second.mp4"); assert.equal(f.video.paused, true);
+});
+
+test("portrait, landscape, square and video navigation never changes the gallery frame", () => {
+  const f = fixture([...images, { type: "video", src: "/clip.mp4", width: 1920, height: 1080 }]);
+  initialize(f);
+  for (let i = 0; i < 4; i++) f.next.emit("click");
+  for (let i = 0; i < 4; i++) f.previous.emit("click");
+  assert.deepEqual(f.stage.style, {});
 });

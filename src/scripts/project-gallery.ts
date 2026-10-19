@@ -40,9 +40,7 @@ export function initializeProjectGalleries(root: Document = document) {
           video.setAttribute("aria-label", `${gallery.dataset.title} — ${gallery.dataset.videoLabel ?? "Video"} ${current + 1} / ${images.length}${image.alt ? `: ${image.alt}` : ""}`);
           video.width = image.width;
           video.height = image.height;
-          stage!.style.aspectRatio = `${image.width} / ${image.height}`;
-        } else if (leavingVideo) {
-          stage!.style.aspectRatio = `${images[0].width} / ${images[0].height}`;
+
         }
       }
       if (image.type !== "video") {

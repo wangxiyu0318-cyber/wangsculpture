@@ -89,3 +89,74 @@ const cover = project.images[0];
     </a>
   </article>
 </Layout>
+
+<style>
+  .project .project-heading {
+    margin-block: clamp(30px, 3.5vw, 45px) clamp(35px, 4vw, 50px);
+    gap: 24px;
+  }
+  .project .project-heading > div { min-width: 0; }
+  .project .project-heading h1 {
+    max-width: 24ch;
+    font-size: clamp(40px, 4.8vw, 70px);
+    line-height: 1.15;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+  .project .project-index {
+    flex-shrink: 0;
+    padding-bottom: 4px;
+  }
+  .project .project-details {
+    display: grid;
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.55fr);
+    gap: clamp(32px, 5vw, 72px);
+    padding-block: 0;
+    margin-top: clamp(45px, 5vw, 65px);
+    margin-bottom: clamp(70px, 8vw, 100px);
+    border-bottom: 0;
+  }
+  .project .project-details > * { min-width: 0; }
+  .project .project-details dl {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+  }
+  .project .project-details dl > div {
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .project .project-details dt { color: var(--muted); }
+  .project .project-details dd {
+    color: var(--ink);
+    overflow-wrap: break-word;
+  }
+  .project .project-description { max-width: 60ch; }
+  .project .project-description > p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .project .project-details.metadata-only {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project .project-details.metadata-only dl { max-width: 740px; }
+  .project .next-project {
+    margin-top: 0;
+    padding-top: clamp(24px, 3vw, 35px);
+  }
+  @media (max-width: 700px) {
+    .project .project-heading { gap: 12px; align-items: flex-start; }
+    .project .project-heading h1 { font-size: clamp(32px, 7vw, 44px); }
+    .project .project-details {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+    .project .project-details dl > div {
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 12px;
+    }
+  }
+</style>
