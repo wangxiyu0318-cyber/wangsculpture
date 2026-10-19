@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const output = new URL("../dist/", import.meta.url);
 const outputRoot = fileURLToPath(output);
-const origin = "https://wxysculpture.com";
+const origin = "https://wangsculpture.com";
 const xml = readFileSync(new URL("sitemap.xml", output), "utf8");
 assert.match(xml, /^<\?xml version="1\.0" encoding="UTF-8"\?>\s*<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
 assert.match(xml, /<\/urlset>\s*$/);
@@ -44,5 +44,5 @@ for (const path of ["/", "/works/", "/about/", "/cv/", "/contact/", "/works/somi
 const robots = readFileSync(new URL("robots.txt", output), "utf8");
 assert.match(robots, /^User-agent: \*\r?\nAllow: \/$/m);
 assert(!/^Disallow:\s*\S/m.test(robots), "Unexpected crawl block");
-assert.match(robots, /^Sitemap: https:\/\/wxysculpture\.com\/sitemap\.xml$/m);
+assert.match(robots, /^Sitemap: https:\/\/wangsculpture\.com\/sitemap\.xml$/m);
 console.log(`Verified production artifacts: sitemap.xml (${urls.length} public URLs) and robots.txt.`);

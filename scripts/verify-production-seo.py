@@ -4,7 +4,7 @@ import time
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
-ORIGIN = "https://wxysculpture.com"
+ORIGIN = "https://wangsculpture.com"
 
 
 class RobotsMeta(HTMLParser):

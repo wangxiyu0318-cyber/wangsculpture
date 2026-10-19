@@ -53,7 +53,7 @@ Add entries to the relevant section in `cv`, newest first:
 
 Deploy `dist/` to any static host. Configure the host to serve `404.html` for missing routes. No server process is required in production.
 
-The production origin is `https://wxysculpture.com`, configured in `astro.config.mjs`.
+The production origin is `https://wangsculpture.com`, configured in `astro.config.mjs`.
 The build generates `sitemap.xml` and `robots.txt` from the public routes. English
 and Chinese pages have self-canonical URLs and reciprocal language alternatives;
 material query filters canonicalize to the main Work archive. The 404 page is
@@ -68,7 +68,7 @@ in the existing project data. Keep metadata consistent with verified artist copy
 After deployment, configure the custom domain and HTTPS in the hosting settings,
 redirect any old domain and `www` variant to the preferred origin, and verify that
 production responses do not inject `X-Robots-Tag: noindex`. Verify the Domain
-property in Google Search Console, submit `https://wxysculpture.com/sitemap.xml`,
+property in Google Search Console, submit `https://wangsculpture.com/sitemap.xml`,
 and inspect the homepage and key artwork URLs using the live test. Local build
 validation does not establish Google indexing or production DNS/header readiness.
 
