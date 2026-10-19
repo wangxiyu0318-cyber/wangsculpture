@@ -135,6 +135,24 @@ export const sharedProjects: SharedProject[] = [
         "caption": "",
         "width": 2400,
         "height": 2400
+      },
+      {
+        "src": "minira-02-installation",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "minira-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      },
+      {
+        "src": "minira-04",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
       }
     ]
   },

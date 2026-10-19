@@ -49,7 +49,10 @@ export const projectText: Record<string, ProjectText> = {
     "description": "MINIRA combines my own process of growing up with the imagined experience of Minira, the child of Godzilla. Through this figure, I think about the confusion that can appear during growth, the questioning of decisions made by one’s parents, and the uncertainty of becoming.\n\nAt the same time, Minira gradually grows scales and becomes closer to the parents’ form. The work reflects both distance and resemblance: the desire to question what is given, and the inevitability of being shaped by where one comes from.",
     "imageAlt": {
       "minira-01": "MINIRA, front view of a carved wooden figure with outstretched arms and scales",
-      "minira-02": "MINIRA, rear view showing carved scales along the back and legs"
+      "minira-02": "MINIRA, rear view showing carved scales along the back and legs",
+      "minira-02-installation": "MINIRA, side view of the wooden figure displayed on a low wooden platform",
+      "minira-03": "MINIRA, detail of the carved scales and spikes along the back and legs",
+      "minira-04": "MINIRA, detail of the back of the head and shoulder"
     }
   },
   "cave": {
