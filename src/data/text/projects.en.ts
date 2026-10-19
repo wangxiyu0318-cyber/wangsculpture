@@ -87,5 +87,15 @@ export const projectText: Record<string, ProjectText> = {
     "imageAlt": {
       "the-four-heavenly-kings-01": "The Four Heavenly Kings, four brightly painted figures standing side by side"
     }
+  },
+  "me": {
+    "title": "Me",
+    "materials": "Camphor wood, oil colors, brass",
+    "description": "",
+    "imageAlt": {
+      "me-01": "Me, front view of a dark carved figure with a small gold-colored head",
+      "me-02": "Me, rear view of a dark carved figure with an opening in its gold-colored head",
+      "me-03": "Me, angled view of the dark figure on a white plinth"
+    }
   }
 };

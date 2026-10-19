@@ -227,6 +227,35 @@ export const sharedProjects: SharedProject[] = [
         "height": 1600
       }
     ]
+  },
+  {
+    "slug": "me",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2023",
+    "category": "Wood",
+    "dimensions": "H 21 × W 15 × D 10 cm",
+    "images": [
+      {
+        "src": "me-01",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      },
+      {
+        "src": "me-02",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      },
+      {
+        "src": "me-03",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
+      }
+    ]
   }
 ];
 
