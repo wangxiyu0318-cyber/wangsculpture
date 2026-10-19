@@ -443,9 +443,10 @@ const structuredData = {
       top: auto;
       right: auto;
       max-width: none;
-      align-items: flex-end;
+      flex-direction: row;
+      align-items: center;
       text-align: right;
-      gap: 2px;
+      gap: clamp(12px, 1.6vw, 24px);
     }
     /* Reserve the same space while closed, so disclosure never moves the brand.
        The existing inert and aria-hidden states keep these links inaccessible. */
@@ -464,13 +465,21 @@ const structuredData = {
       line-height: 1.4;
     }
     .signature-header .language-switcher {
-      position: absolute;
-      top: calc(100% + 2px);
-      right: 0;
+      position: static;
+      flex-shrink: 0;
       width: max-content;
       font-size: 13px;
     }
-    .signature-header .language-switcher a { min-height: 24px; }
+    .signature-header .language-switcher a { min-height: 44px; }
+  }
+  @media (min-width: 701px) and (max-width: 800px) {
+    .signature-header .wordmark { gap: 8px; }
+    .signature-header .header-navigation-group {
+      margin-left: 20px;
+      column-gap: 12px;
+    }
+    .signature-header .main-navigation { gap: 8px; }
+    .signature-header .navigation-panel { gap: 12px; }
   }
   @media (max-width: 700px) {
     .signature-header { --signature-height: 84px; z-index: 1000; }
