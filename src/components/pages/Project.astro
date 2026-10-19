@@ -69,7 +69,7 @@ const cover = project.images[0];
           </div>
           <div>
             <dt>{t("Dimensions")}</dt>
-            <dd>{project.dimensions || "To be added"}</dd>
+            <dd style={project.dimensions.includes("\n") ? "white-space: pre-line;" : undefined}>{project.dimensions || "To be added"}</dd>
           </div>
         </dl>
         {project.description && (

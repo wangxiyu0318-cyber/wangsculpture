@@ -210,6 +210,23 @@ export const sharedProjects: SharedProject[] = [
         "height": 1800
       }
     ]
+  },
+  {
+    "slug": "the-four-heavenly-kings",
+    "materialTags": [
+      "wood"
+    ],
+    "year": "2026",
+    "category": "Wood",
+    "dimensions": "H 35 × W 25 × D 10 cm\nH 30 × W 25 × D 10 cm\nH 35 × W 25 × D 10 cm\nH 30 × W 25 × D 10 cm",
+    "images": [
+      {
+        "src": "the-four-heavenly-kings-01",
+        "caption": "",
+        "width": 2400,
+        "height": 1600
+      }
+    ]
   }
 ];
 

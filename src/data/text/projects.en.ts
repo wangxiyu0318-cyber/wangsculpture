@@ -79,5 +79,13 @@ export const projectText: Record<string, ProjectText> = {
     "imageAlt": {
       "welove-01": "welove, two painted figures with long trunks in orange and blue clothing standing together"
     }
+  },
+  "the-four-heavenly-kings": {
+    "title": "The Four Heavenly Kings",
+    "materials": "Camphor wood, oil colors",
+    "description": "",
+    "imageAlt": {
+      "the-four-heavenly-kings-01": "The Four Heavenly Kings, four brightly painted figures standing side by side"
+    }
   }
 };
