@@ -60,7 +60,8 @@ export const projectText: Record<string, ProjectText> = {
     "materials": "Camphor wood",
     "description": "CAVE is formed from the shadows of many handprints, which come together to create the shape of a cave.\n\nFor me, the work reflects the idea that my consciousness has been shaped by what surrounds and precedes me. The cave becomes a space in which I look back at this process and reflect on the formation of the self.",
     "imageAlt": {
-      "cave-01": "CAVE, a tall dark sculpture with hand-shaped impressions in a narrow space between walls"
+      "cave-01": "CAVE, a tall dark sculpture with hand-shaped impressions in a narrow space between walls",
+      "cave-02": "CAVE, close-up view of carved hand-shaped impressions on the dark surface"
     }
   },
   "lay-and-ray": {

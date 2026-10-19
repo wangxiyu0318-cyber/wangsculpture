@@ -168,6 +168,12 @@ export const sharedProjects: SharedProject[] = [
         "caption": "",
         "width": 2400,
         "height": 3600
+      },
+      {
+        "src": "cave-02",
+        "caption": "",
+        "width": 2400,
+        "height": 3600
       }
     ]
   },
